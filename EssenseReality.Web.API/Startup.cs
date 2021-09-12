@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 
 namespace EssenseReality.Web.API
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
