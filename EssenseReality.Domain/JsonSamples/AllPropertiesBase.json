@@ -1,0 +1,1191 @@
+{
+  "items": [
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 10071132,
+      "photos": [],
+      "corelogicId": 16342611,
+      "geolocation": {
+        "longitude": 144.9795127,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.8522389
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 0.0
+      },
+      "address": {
+        "street": "Queens Road",
+        "unitNumber": "503",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5594,
+          "name": "MELBOURNE",
+          "postcode": "3000"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "5",
+        "streetNumber": "74"
+      },
+      "building": {
+        "name": "Monarc",
+        "id": 21456
+      },
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": null,
+      "leaseLifeId": 1875127,
+      "rpdp": "641029",
+      "displayAddress": "Level 5, 503/74 Queens Road, Melbourne VIC",
+      "frontage": null,
+      "legalDescription": null,
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": null,
+      "inserted": "2021-07-19T01:03:20+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 2013,
+      "lotNumber": "503",
+      "modified": "2021-07-19T01:03:20+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 10071143,
+      "photos": [],
+      "corelogicId": 43300984,
+      "geolocation": {
+        "longitude": 144.6899032,
+        "accuracy": "GEOMETRIC_CENTER",
+        "latitude": -37.820002
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 448.0
+      },
+      "address": {
+        "street": "Sapling Boulevard",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5656,
+          "name": "TARNEIT",
+          "postcode": "3029"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "52"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": "",
+      "leaseLifeId": 1875129,
+      "rpdp": "804278",
+      "displayAddress": "52 Sapling Boulevard, Tarneit VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-07-19T01:05:36+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 2020,
+      "lotNumber": "1612",
+      "modified": "2021-08-02T08:38:40+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 10496527,
+      "photos": [],
+      "corelogicId": 9661008,
+      "geolocation": {
+        "longitude": 145.2493201,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.8531918
+      },
+      "saleLifeId": 12149931,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 1014.0
+      },
+      "address": {
+        "street": "Verona Court",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5937,
+          "name": "BAYSWATER",
+          "postcode": "3153"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "7"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "commercialListingType": "sale",
+      "referenceID": null,
+      "leaseLifeId": 2258549,
+      "rpdp": "84659",
+      "displayAddress": "7 Verona Court, Bayswater VIC",
+      "frontage": null,
+      "legalDescription": null,
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": null,
+      "inserted": "2021-07-26T03:01:55+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 1970,
+      "lotNumber": "16",
+      "modified": "2021-09-04T06:27:59+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 11813947,
+      "photos": [],
+      "corelogicId": 9944547,
+      "geolocation": {
+        "longitude": 145.2794937,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.8568555
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 361.0
+      },
+      "address": {
+        "street": "Sandpiper Court",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5940,
+          "name": "BORONIA",
+          "postcode": "3155"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "8"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": "",
+      "leaseLifeId": 2165325,
+      "rpdp": "428525",
+      "displayAddress": "8 Sandpiper Court, Boronia VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-08-19T04:09:12+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 2000,
+      "lotNumber": "2",
+      "modified": "2021-08-26T07:01:15+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 10066081,
+      "photos": [
+        {
+          "filename": "1626414875-1-reaimport-1625451013-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-1-reaimport-1625451013-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525954,
+          "published": true,
+          "filesize": 125842,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-1-reaimport-1625451013-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-1-reaimport-1625451013-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451013-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-2-reaimport-1625451014-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-2-reaimport-1625451014-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525955,
+          "published": true,
+          "filesize": 126205,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-2-reaimport-1625451014-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-2-reaimport-1625451014-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451014-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-3-reaimport-1625451014-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-3-reaimport-1625451014-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525956,
+          "published": true,
+          "filesize": 120604,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-3-reaimport-1625451014-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-3-reaimport-1625451014-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451014-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-4-reaimport-1625451014-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-4-reaimport-1625451014-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525957,
+          "published": true,
+          "filesize": 65493,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-4-reaimport-1625451014-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-4-reaimport-1625451014-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451014-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-5-reaimport-1625451015-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-5-reaimport-1625451015-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525958,
+          "published": true,
+          "filesize": 55244,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-5-reaimport-1625451015-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-5-reaimport-1625451015-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451015-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-6-reaimport-1625451015-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-6-reaimport-1625451015-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525959,
+          "published": true,
+          "filesize": 75902,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-6-reaimport-1625451015-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-6-reaimport-1625451015-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451015-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-7-reaimport-1625451015-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-7-reaimport-1625451015-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525960,
+          "published": true,
+          "filesize": 85351,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-7-reaimport-1625451015-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-7-reaimport-1625451015-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451015-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-8-reaimport-1625451016-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-8-reaimport-1625451016-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525961,
+          "published": true,
+          "filesize": 78610,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-8-reaimport-1625451016-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-8-reaimport-1625451016-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451016-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-9-reaimport-1625451016-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-9-reaimport-1625451016-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525962,
+          "published": true,
+          "filesize": 63075,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-9-reaimport-1625451016-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-9-reaimport-1625451016-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451016-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-10-reaimport-1625451016-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-10-reaimport-1625451016-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525963,
+          "published": true,
+          "filesize": 59203,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-10-reaimport-1625451016-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-10-reaimport-1625451016-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451016-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-11-reaimport-1625451017-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-11-reaimport-1625451017-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525964,
+          "published": true,
+          "filesize": 44969,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-11-reaimport-1625451017-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-11-reaimport-1625451017-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451017-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-12-reaimport-1625451017-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-12-reaimport-1625451017-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525965,
+          "published": true,
+          "filesize": 49596,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-12-reaimport-1625451017-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-12-reaimport-1625451017-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451017-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-13-reaimport-1625451017-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-13-reaimport-1625451017-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525966,
+          "published": true,
+          "filesize": 44379,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-13-reaimport-1625451017-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-13-reaimport-1625451017-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451017-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-14-reaimport-1625451018-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-14-reaimport-1625451018-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525967,
+          "published": true,
+          "filesize": 39440,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-14-reaimport-1625451018-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-14-reaimport-1625451018-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451018-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-15-reaimport-1625451018-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-15-reaimport-1625451018-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525968,
+          "published": true,
+          "filesize": 70964,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-15-reaimport-1625451018-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-15-reaimport-1625451018-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451018-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        },
+        {
+          "filename": "1626414875-16-reaimport-1625451018-9702676-1789750.jpg",
+          "height": 600,
+          "type": "Floorplan",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1626414875-16-reaimport-1625451018-9702676-1789750.jpg",
+          "inserted": "2021-07-16T05:54:35+00:00",
+          "id": 35525969,
+          "published": true,
+          "filesize": 106795,
+          "width": 800,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.1626414875-16-reaimport-1625451018-9702676-1789750.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.1626414875-16-reaimport-1625451018-9702676-1789750.jpg"
+          },
+          "userFilename": "reaimport-1625451018-9702676-1789750.jpg",
+          "caption": null,
+          "modified": "2021-07-16T05:54:35+00:00"
+        }
+      ],
+      "corelogicId": null,
+      "geolocation": {
+        "longitude": 145.116677,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.5881625
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 540.0
+      },
+      "address": {
+        "street": "Hazel Glen Drive",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 8040,
+          "name": "DOREEN",
+          "postcode": "3754"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "196"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": "",
+      "leaseLifeId": 1873205,
+      "rpdp": "",
+      "displayAddress": "196 Hazel Glen Drive, Doreen VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-07-16T05:54:35+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": null,
+      "lotNumber": "",
+      "modified": "2021-07-30T08:17:27+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 10271885,
+      "photos": [
+        {
+          "filename": "38083542__1628119234-30292-24IllawaraCrescentBAYSWATERNORTHVIC1.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083542__1628119234-30292-24IllawaraCrescentBAYSWATERNORTHVIC1.jpg",
+          "inserted": "2021-08-04T23:20:34+00:00",
+          "id": 38083542,
+          "published": true,
+          "filesize": 130090,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083542__1628119234-30292-24IllawaraCrescentBAYSWATERNORTHVIC1.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083542__1628119234-30292-24IllawaraCrescentBAYSWATERNORTHVIC1.jpg"
+          },
+          "userFilename": "24IllawaraCrescentBAYSWATERNORTHVIC1.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083545__1628119235-13737-image3.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083545__1628119235-13737-image3.jpg",
+          "inserted": "2021-08-04T23:20:35+00:00",
+          "id": 38083545,
+          "published": true,
+          "filesize": 60133,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083545__1628119235-13737-image3.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083545__1628119235-13737-image3.jpg"
+          },
+          "userFilename": "image3.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083547__1628119236-2750-image4.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083547__1628119236-2750-image4.jpg",
+          "inserted": "2021-08-04T23:20:36+00:00",
+          "id": 38083547,
+          "published": true,
+          "filesize": 56845,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083547__1628119236-2750-image4.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083547__1628119236-2750-image4.jpg"
+          },
+          "userFilename": "image4.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083550__1628119236-30376-image5.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083550__1628119236-30376-image5.jpg",
+          "inserted": "2021-08-04T23:20:36+00:00",
+          "id": 38083550,
+          "published": true,
+          "filesize": 60968,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083550__1628119236-30376-image5.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083550__1628119236-30376-image5.jpg"
+          },
+          "userFilename": "image5.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083553__1628119237-30300-image6.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083553__1628119237-30300-image6.jpg",
+          "inserted": "2021-08-04T23:20:37+00:00",
+          "id": 38083553,
+          "published": true,
+          "filesize": 58973,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083553__1628119237-30300-image6.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083553__1628119237-30300-image6.jpg"
+          },
+          "userFilename": "image6.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083555__1628119238-30166-image7.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083555__1628119238-30166-image7.jpg",
+          "inserted": "2021-08-04T23:20:38+00:00",
+          "id": 38083555,
+          "published": true,
+          "filesize": 57275,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083555__1628119238-30166-image7.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083555__1628119238-30166-image7.jpg"
+          },
+          "userFilename": "image7.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083556__1628119239-13624-image9.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083556__1628119239-13624-image9.jpg",
+          "inserted": "2021-08-04T23:20:39+00:00",
+          "id": 38083556,
+          "published": true,
+          "filesize": 67663,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083556__1628119239-13624-image9.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083556__1628119239-13624-image9.jpg"
+          },
+          "userFilename": "image9.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083558__1628119240-13680-image10.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083558__1628119240-13680-image10.jpg",
+          "inserted": "2021-08-04T23:20:40+00:00",
+          "id": 38083558,
+          "published": true,
+          "filesize": 222020,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083558__1628119240-13680-image10.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083558__1628119240-13680-image10.jpg"
+          },
+          "userFilename": "image10.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        },
+        {
+          "filename": "38083560__1628119241-6585-image11.jpg",
+          "height": 776,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/38083560__1628119241-6585-image11.jpg",
+          "inserted": "2021-08-04T23:20:41+00:00",
+          "id": 38083560,
+          "published": true,
+          "filesize": 188099,
+          "width": 1240,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.38083560__1628119241-6585-image11.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.38083560__1628119241-6585-image11.jpg"
+          },
+          "userFilename": "image11.jpg",
+          "caption": "",
+          "modified": "2021-08-04T23:20:58+00:00"
+        }
+      ],
+      "corelogicId": 9673760,
+      "geolocation": {
+        "longitude": 145.277667,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.820833
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 871.0
+      },
+      "address": {
+        "street": "Illawara Crescent",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5938,
+          "name": "BAYSWATER NORTH",
+          "postcode": "3153"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "24"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": "",
+      "leaseLifeId": 1891798,
+      "rpdp": "",
+      "displayAddress": "24 Illawara Crescent, Bayswater North VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-07-19T09:34:57+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 1987,
+      "lotNumber": "",
+      "modified": "2021-08-04T23:20:58+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 11826110,
+      "photos": [
+        {
+          "filename": "40518677__1630038351-22447-main.jpg",
+          "height": 464,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/40518677__1630038351-22447-main.jpg",
+          "inserted": "2021-08-27T04:25:51+00:00",
+          "id": 40518677,
+          "published": true,
+          "filesize": 78648,
+          "width": 795,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.40518677__1630038351-22447-main.jpg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.40518677__1630038351-22447-main.jpg"
+          },
+          "userFilename": "main.jpg",
+          "caption": null,
+          "modified": "2021-08-27T04:25:51+00:00"
+        }
+      ],
+      "corelogicId": 12846591,
+      "geolocation": {
+        "longitude": 145.256761,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.916219
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 665.0
+      },
+      "address": {
+        "street": "Dandelion Drive",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 5991,
+          "name": "ROWVILLE",
+          "postcode": "3178"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "113"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": "",
+      "leaseLifeId": 2167609,
+      "rpdp": "148302",
+      "displayAddress": "113 Dandelion Drive, Rowville VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-08-21T03:51:03+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 1985,
+      "lotNumber": "1111",
+      "modified": "2021-09-03T02:38:02+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 12192574,
+      "photos": [
+        {
+          "filename": "41051610__1630467730-4033-resizemfitw968h712.jpeg",
+          "height": 558,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/41051610__1630467730-4033-resizemfitw968h712.jpeg",
+          "inserted": "2021-09-01T03:42:10+00:00",
+          "id": 41051610,
+          "published": true,
+          "filesize": 138011,
+          "width": 963,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.41051610__1630467730-4033-resizemfitw968h712.jpeg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.41051610__1630467730-4033-resizemfitw968h712.jpeg"
+          },
+          "userFilename": "resizemfitw968h712.jpeg",
+          "caption": null,
+          "modified": "2021-09-01T03:42:10+00:00"
+        }
+      ],
+      "corelogicId": 15492863,
+      "geolocation": {
+        "longitude": 145.067212,
+        "accuracy": "ROOFTOP",
+        "latitude": -37.6195413
+      },
+      "saleLifeId": null,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 581.0
+      },
+      "address": {
+        "street": "Vanderbilt Avenue",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 8038,
+          "name": "SOUTH MORANG",
+          "postcode": "3752"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "14"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "referenceID": null,
+      "leaseLifeId": 2251775,
+      "rpdp": "611358",
+      "displayAddress": "14 Vanderbilt Avenue, South Morang VIC",
+      "frontage": null,
+      "legalDescription": null,
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": null,
+      "inserted": "2021-09-01T02:36:56+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 2012,
+      "lotNumber": "408",
+      "modified": "2021-09-01T03:42:10+00:00"
+    },
+    {
+      "epcGraphUrl": null,
+      "folioNumber": "",
+      "id": 12253934,
+      "photos": [
+        {
+          "filename": "41226945__1630736252-7391-resizemexactw768h512.jpeg",
+          "height": 428,
+          "type": "Photograph",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/41226945__1630736252-7391-resizemexactw768h512.jpeg",
+          "inserted": "2021-09-04T06:17:32+00:00",
+          "id": 41226945,
+          "published": true,
+          "filesize": 61811,
+          "width": 768,
+          "thumbnails": {
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.41226945__1630736252-7391-resizemexactw768h512.jpeg",
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.41226945__1630736252-7391-resizemexactw768h512.jpeg"
+          },
+          "userFilename": "resizemexactw768h512.jpeg",
+          "caption": null,
+          "modified": "2021-09-04T06:17:32+00:00"
+        }
+      ],
+      "corelogicId": 16117050,
+      "geolocation": {
+        "longitude": 145.282493,
+        "accuracy": "ROOFTOP",
+        "latitude": -38.0909956
+      },
+      "saleLifeId": 14125466,
+      "royalMailId": null,
+      "volumeNumber": "",
+      "landArea": {
+        "units": "sqm",
+        "value": 379.0
+      },
+      "address": {
+        "street": "Braestar Street",
+        "unitNumber": "",
+        "suburb": {
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "nzDistrict": null,
+          "id": 8691,
+          "name": "CRANBOURNE",
+          "postcode": "3977"
+        },
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "country": {
+          "id": 1,
+          "name": "Australia",
+          "isocode": "AU",
+          "gstRate": 10.0
+        },
+        "level": "",
+        "streetNumber": "7"
+      },
+      "building": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "commercialListingType": "sale",
+      "referenceID": "",
+      "leaseLifeId": 2258550,
+      "rpdp": "646662",
+      "displayAddress": "7 Braestar Street, Cranbourne VIC",
+      "frontage": 0.0,
+      "legalDescription": "",
+      "addressVisibility": "fullAddress",
+      "certificateOfTitle": "",
+      "inserted": "2021-09-04T06:15:42+00:00",
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "yearBuilt": 2013,
+      "lotNumber": "94",
+      "modified": "2021-09-04T06:29:47+00:00"
+    }
+  ],
+  "totalItems": 9,
+  "totalPages": 1,
+  "urls": {
+    "previous": null,
+    "next": null,
+    "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/properties?page=1"
+  }
+}

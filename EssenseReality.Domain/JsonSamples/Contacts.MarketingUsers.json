@@ -1,0 +1,725 @@
+{
+  "items": [
+    {
+      "contact": {
+        "id": 50930474
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Madhu@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0413466909",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Singh",
+          "id": 112610,
+          "name": "Madhu Singh",
+          "role": "residentialSales",
+          "firstName": "Madhu",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623116683-112610-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623116683-112610-image.jpg"
+          },
+          "position": ""
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 53955750
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": null
+      }
+    },
+    {
+      "contact": {
+        "id": 53955929
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": null
+      }
+    },
+    {
+      "contact": {
+        "id": 53972082
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54187328
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54187338
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54987826
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54988218
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54988269
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 54988380
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 53713416
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 56390017
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 56390131
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 56961780
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 58368827
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 58904144
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 59824948
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 60857390
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 59823896
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 64378049
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 64378386
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 64516620
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 66792742
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 67087591
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 67178630
+      },
+      "marketingUser": {
+        "id": 1,
+        "user": {
+          "email": "Vik@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "id": 118996,
+          "name": "Vik Sahota",
+          "role": "residentialSales",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "position": "Business Development Manager"
+        }
+      }
+    },
+    {
+      "contact": {
+        "id": 53713416
+      },
+      "marketingUser": {
+        "id": 2,
+        "user": {
+          "email": "Madhu@essencerealty.com.au",
+          "phoneNumbers": [
+            {
+              "number": "0413466909",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Singh",
+          "id": 112610,
+          "name": "Madhu Singh",
+          "role": "residentialSales",
+          "firstName": "Madhu",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623116683-112610-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623116683-112610-image.jpg"
+          },
+          "position": ""
+        }
+      }
+    }
+  ],
+  "totalItems": 26,
+  "totalPages": 1,
+  "urls": {
+    "previous": null,
+    "next": null,
+    "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/contacts/marketingUsers?page=1"
+  }
+}

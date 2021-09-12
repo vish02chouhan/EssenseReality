@@ -1,0 +1,432 @@
+{
+  "items": [
+    {
+      "brochureDescription": null,
+      "tenantName": null,
+      "authorityType": {
+        "name": "Exclusive",
+        "id": 1
+      },
+      "searchPrice": null,
+      "referenceID": null,
+      "rates": {
+        "strata": {
+          "value": null,
+          "period": "pa"
+        },
+        "water": {
+          "value": null,
+          "period": "pa"
+        },
+        "council": {
+          "value": null,
+          "period": "pa"
+        }
+      },
+      "agentPriceOpinion": null,
+      "tenureOrTitleType": null,
+      "lotNumber": "16",
+      "externalLinks": [],
+      "receptionRooms": null,
+      "epcGraphUrl": null,
+      "displayAddress": "7 Verona Court, Bayswater VIC",
+      "tenantPhone": null,
+      "tenancyStop": null,
+      "webId": null,
+      "openSpaces": 0,
+      "modified": "2021-07-26T03:01:55+00:00",
+      "photos": [],
+      "description": null,
+      "landValue": null,
+      "volumeNumber": "",
+      "floorArea": {
+        "value": null,
+        "units": "sqm"
+      },
+      "ensuites": null,
+      "rateableValue": null,
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "tenantEmail": null,
+      "priceQualifier": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "geolocation": {
+        "latitude": -37.8531918,
+        "accuracy": "ROOFTOP",
+        "longitude": 145.2493201
+      },
+      "methodOfSale": {
+        "name": "Private Treaty",
+        "id": 1
+      },
+      "garages": 0,
+      "royalMailId": null,
+      "improvementValue": null,
+      "yearBuilt": 1970,
+      "building": null,
+      "displayPrice": null,
+      "tenderDetails": {
+        "dateTime": null
+      },
+      "sellingFeePercent": null,
+      "mobileMarketingDescription": null,
+      "heading": null,
+      "bath": 1,
+      "status": "appraisal",
+      "tenancyDetails": null,
+      "authorityEnd": null,
+      "corelogicId": 9661008,
+      "addressVisibility": "fullAddress",
+      "publishedToWeb": null,
+      "legalDescription": null,
+      "toilets": null,
+      "tenancyStart": null,
+      "authorityStart": null,
+      "setSaleDateDetails": {
+        "dateTime": null
+      },
+      "bed": 4,
+      "eTableUrl": null,
+      "rpdp": "84659",
+      "energyRating": null,
+      "folioNumber": "",
+      "inserted": "2021-07-26T03:01:55+00:00",
+      "tenanted": false,
+      "branch": null,
+      "vpa": null,
+      "sellingFeeFixed": null,
+      "auctionDetails": {
+        "dateTime": null,
+        "auctioneer": null,
+        "venue": null
+      },
+      "priceOnApplication": false,
+      "frontage": null,
+      "landArea": {
+        "value": 1014.0,
+        "units": "sqm"
+      },
+      "leaseLifeId": 2258549,
+      "portalStatus": "appraisal",
+      "address": {
+        "country": {
+          "name": "Australia",
+          "gstRate": 10.0,
+          "isocode": "AU",
+          "id": 1
+        },
+        "level": "",
+        "unitNumber": "",
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "streetNumber": "7",
+        "street": "Verona Court",
+        "suburb": {
+          "name": "BAYSWATER",
+          "nzDistrict": null,
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "postcode": "3153",
+          "id": 5937
+        }
+      },
+      "certificateOfTitle": null,
+      "carports": 0,
+      "saleLifeId": 12149931,
+      "commercialListingType": "sale",
+      "soiUrl": null,
+      "contactStaff": [
+        {
+          "username": "Vik.Sahota",
+          "lastLogin": "2021-09-10T00:22:57+00:00",
+          "email": "Vik@essencerealty.com.au",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "profile": null,
+          "paAccess": [],
+          "position": "Business Development Manager",
+          "staffTypeId": 4,
+          "adminAccess": true,
+          "role": "residentialSales",
+          "permissions": {
+            "globalPropertiesReadWrite": true,
+            "globalNotesRead": false,
+            "globalTasksReadWrite": true,
+            "globalPropertiesRead": false,
+            "globalContactsReadWrite": true,
+            "globalNotesReadWrite": true,
+            "deleteProperties": true,
+            "globalActionListsReadWrite": true,
+            "accessSales": true,
+            "accessAlarmDetails": true,
+            "canLogin": true,
+            "sendSMS": true,
+            "accessPropertyManagement": true,
+            "settings": true,
+            "accessPropertyFinancials": true,
+            "deleteContacts": true
+          },
+          "websiteUrl": "",
+          "id": 118996
+        }
+      ],
+      "id": 10496527
+    },
+    {
+      "brochureDescription": "",
+      "tenantName": "",
+      "authorityType": {
+        "name": "Exclusive",
+        "id": 1
+      },
+      "searchPrice": 0.0,
+      "referenceID": "",
+      "rates": {
+        "strata": {
+          "value": 0.0,
+          "period": "pa"
+        },
+        "water": {
+          "value": 0.0,
+          "period": "pa"
+        },
+        "council": {
+          "value": 0.0,
+          "period": "pa"
+        }
+      },
+      "agentPriceOpinion": null,
+      "tenureOrTitleType": null,
+      "lotNumber": "94",
+      "externalLinks": [],
+      "receptionRooms": 0,
+      "epcGraphUrl": null,
+      "displayAddress": "7 Braestar Street, Cranbourne VIC",
+      "tenantPhone": "",
+      "tenancyStop": null,
+      "webId": null,
+      "openSpaces": 0,
+      "modified": "2021-09-04T06:17:33+00:00",
+      "photos": [
+        {
+          "published": true,
+          "filesize": 61811,
+          "thumbnails": {
+            "thumb_180": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/small.41226945__1630736252-7391-resizemexactw768h512.jpeg",
+            "thumb_1024": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/1024px.41226945__1630736252-7391-resizemexactw768h512.jpeg"
+          },
+          "type": "Photograph",
+          "inserted": "2021-09-04T06:17:32+00:00",
+          "url": "https://s3-ap-southeast-2.amazonaws.com/photos-clientvault-com/3221/41226945__1630736252-7391-resizemexactw768h512.jpeg",
+          "filename": "41226945__1630736252-7391-resizemexactw768h512.jpeg",
+          "modified": "2021-09-04T06:17:32+00:00",
+          "caption": null,
+          "height": 428,
+          "userFilename": "resizemexactw768h512.jpeg",
+          "width": 768,
+          "id": 41226945
+        }
+      ],
+      "description": "",
+      "landValue": null,
+      "volumeNumber": "",
+      "floorArea": {
+        "value": 0.0,
+        "units": "sqm"
+      },
+      "ensuites": 0,
+      "rateableValue": null,
+      "class": {
+        "name": "Residential",
+        "internalName": "residential",
+        "id": 1
+      },
+      "tenantEmail": "",
+      "priceQualifier": null,
+      "type": {
+        "name": "House",
+        "propertyClass": {
+          "name": "Residential",
+          "internalName": "residential",
+          "id": 1
+        },
+        "id": 1
+      },
+      "geolocation": {
+        "latitude": -38.0909956,
+        "accuracy": "ROOFTOP",
+        "longitude": 145.282493
+      },
+      "methodOfSale": {
+        "name": "Private Treaty",
+        "id": 1
+      },
+      "garages": 0,
+      "royalMailId": null,
+      "improvementValue": null,
+      "yearBuilt": 2013,
+      "building": null,
+      "displayPrice": "",
+      "tenderDetails": {
+        "dateTime": null
+      },
+      "sellingFeePercent": null,
+      "mobileMarketingDescription": "",
+      "heading": "",
+      "bath": 2,
+      "status": "appraisal",
+      "tenancyDetails": "",
+      "authorityEnd": null,
+      "corelogicId": 16117050,
+      "addressVisibility": "fullAddress",
+      "publishedToWeb": null,
+      "legalDescription": "",
+      "toilets": 0,
+      "tenancyStart": null,
+      "authorityStart": null,
+      "setSaleDateDetails": {
+        "dateTime": null
+      },
+      "bed": 3,
+      "eTableUrl": null,
+      "rpdp": "646662",
+      "energyRating": null,
+      "folioNumber": "",
+      "inserted": "2021-09-04T06:15:42+00:00",
+      "tenanted": false,
+      "branch": null,
+      "vpa": 0.0,
+      "sellingFeeFixed": null,
+      "auctionDetails": {
+        "dateTime": null,
+        "auctioneer": "",
+        "venue": null
+      },
+      "priceOnApplication": false,
+      "frontage": 0.0,
+      "landArea": {
+        "value": 379.0,
+        "units": "sqm"
+      },
+      "leaseLifeId": 2258550,
+      "portalStatus": "appraisal",
+      "address": {
+        "country": {
+          "name": "Australia",
+          "gstRate": 10.0,
+          "isocode": "AU",
+          "id": 1
+        },
+        "level": "",
+        "unitNumber": "",
+        "state": {
+          "name": "Victoria",
+          "abbreviation": "VIC",
+          "id": 8
+        },
+        "streetNumber": "7",
+        "street": "Braestar Street",
+        "suburb": {
+          "name": "CRANBOURNE",
+          "nzDistrict": null,
+          "state": {
+            "name": "Victoria",
+            "abbreviation": "VIC",
+            "id": 8
+          },
+          "postcode": "3977",
+          "id": 8691
+        }
+      },
+      "certificateOfTitle": "",
+      "carports": 0,
+      "saleLifeId": 14125466,
+      "commercialListingType": "sale",
+      "soiUrl": null,
+      "contactStaff": [
+        {
+          "username": "Vik.Sahota",
+          "lastLogin": "2021-09-10T00:22:57+00:00",
+          "email": "Vik@essencerealty.com.au",
+          "firstName": "Vik",
+          "photo": {
+            "original": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/1623930561-118996-image.jpg",
+            "thumb_360": "https://s3-ap-southeast-2.amazonaws.com/staffphotos-clientvault-com/3221/small.1623930561-118996-image.jpg"
+          },
+          "phoneNumbers": [
+            {
+              "number": "0477352853",
+              "typeCode": "M",
+              "type": "Mobile",
+              "comment": null
+            }
+          ],
+          "lastName": "Sahota",
+          "profile": null,
+          "paAccess": [],
+          "position": "Business Development Manager",
+          "staffTypeId": 4,
+          "adminAccess": true,
+          "role": "residentialSales",
+          "permissions": {
+            "globalPropertiesReadWrite": true,
+            "globalNotesRead": false,
+            "globalTasksReadWrite": true,
+            "globalPropertiesRead": false,
+            "globalContactsReadWrite": true,
+            "globalNotesReadWrite": true,
+            "deleteProperties": true,
+            "globalActionListsReadWrite": true,
+            "accessSales": true,
+            "accessAlarmDetails": true,
+            "canLogin": true,
+            "sendSMS": true,
+            "accessPropertyManagement": true,
+            "settings": true,
+            "accessPropertyFinancials": true,
+            "deleteContacts": true
+          },
+          "websiteUrl": "",
+          "id": 118996
+        }
+      ],
+      "id": 12253934
+    }
+  ],
+  "totalItems": 2,
+  "totalPages": 1,
+  "urls": {
+    "previous": null,
+    "next": null,
+    "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/properties/residential/sale?pagesize=50&page=1"
+  }
+}

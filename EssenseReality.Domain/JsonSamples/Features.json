@@ -1,0 +1,377 @@
+{
+  "items": [
+    {
+      "features": [
+        {
+          "dataType": "boolean",
+          "displayName": "Aircon",
+          "data": "false",
+          "name": "aircon"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Alarm System",
+          "data": "false",
+          "name": "alarmsystem"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Bath",
+          "data": "false",
+          "name": "bathtub"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Built in Robes",
+          "data": "false",
+          "name": "Builtinrobes"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Dishwasher",
+          "data": "false",
+          "name": "Dishwasher"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Ducted Cooling",
+          "data": "false",
+          "name": "Ductedcooling"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Ducted Heating",
+          "data": "false",
+          "name": "Ductedheating"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Evaporative Cooling",
+          "data": "false",
+          "name": "Evaporativecooling"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Floorboards",
+          "data": "false",
+          "name": "floorboards"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Gas Heating",
+          "data": "false",
+          "name": "Gasheating"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Gym",
+          "data": "false",
+          "name": "Gym"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Hydronic Heating",
+          "data": "false",
+          "name": "Hydronicheating"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Inside Spa",
+          "data": "false",
+          "name": "Insidespa"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Intercom",
+          "data": "false",
+          "name": "Intercom"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Internal Laundry",
+          "data": "false",
+          "name": "laundry"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Open Fire Place",
+          "data": "false",
+          "name": "Openfireplace"
+        },
+        {
+          "dataType": "string",
+          "displayName": "Other Features",
+          "data": null,
+          "name": "otherfeatures"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Pet Friendly",
+          "data": "false",
+          "name": "Petfriendly"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Remote Garage",
+          "data": "false",
+          "name": "Remotegarage"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Reverse Cycle Aircon",
+          "data": "false",
+          "name": "Reversecycleaircon"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Secure Parking",
+          "data": "false",
+          "name": "Secureparking"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Separate Dining Room",
+          "data": "false",
+          "name": "separatediningroom"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Smoking Permitted",
+          "data": "false",
+          "name": "Smokers"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Split System Aircon",
+          "data": "false",
+          "name": "Splitsystemaircon"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Split System Heating",
+          "data": "false",
+          "name": "Splitsystemheating"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Study",
+          "data": "false",
+          "name": "study"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Vacuum System",
+          "data": "false",
+          "name": "Vacuumsystem"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Workshop",
+          "data": "false",
+          "name": "Workshop"
+        }
+      ],
+      "groupName": "general",
+      "groupDisplayName": "General"
+    },
+    {
+      "features": [
+        {
+          "dataType": "boolean",
+          "displayName": "Balcony",
+          "data": "false",
+          "name": "balcony"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Courtyards",
+          "data": "false",
+          "name": "Courtyard"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Deck",
+          "data": "false",
+          "name": "Deck"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Fully Fenced",
+          "data": "false",
+          "name": "fullyfenced"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Garden",
+          "data": "false",
+          "name": "garden"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Outdoor Entertaining",
+          "data": "false",
+          "name": "Outdoorent"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Outdoor Spa",
+          "data": "false",
+          "name": "Outsidespa"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Pool Above Ground",
+          "data": "false",
+          "name": "Poolaboveground"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Pool Inground",
+          "data": "false",
+          "name": "Poolinground"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Shed",
+          "data": "false",
+          "name": "shed"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Tennis Court",
+          "data": "false",
+          "name": "Tenniscourt"
+        }
+      ],
+      "groupName": "exterior",
+      "groupDisplayName": "Exterior/Outdoor"
+    },
+    {
+      "features": [
+        {
+          "dataType": "boolean",
+          "displayName": "City Views",
+          "data": "false",
+          "name": "cityviews"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Ground Floor",
+          "data": "false",
+          "name": "groundfloor"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "North Facing",
+          "data": "false",
+          "name": "northfacing"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Water Views",
+          "data": "false",
+          "name": "waterviews"
+        }
+      ],
+      "groupName": "location",
+      "groupDisplayName": "Location"
+    },
+    {
+      "features": [
+        {
+          "dataType": "boolean",
+          "displayName": "Ceiling Insulation",
+          "data": "false",
+          "name": "ceilinginsulation"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Double Glazed Windows",
+          "data": "false",
+          "name": "doubleglazedwindows"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Energy Efficient Appliances",
+          "data": "false",
+          "name": "energyefficientappliances"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Grey Water System",
+          "data": "false",
+          "name": "Greywatersystem"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Solar Hot Water",
+          "data": "false",
+          "name": "solarhotwater"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Solar Panels",
+          "data": "false",
+          "name": "solarpanels"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Wall Insulation",
+          "data": "false",
+          "name": "wallinsulation"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Water Efficient Appliances",
+          "data": "false",
+          "name": "waterefficientappliances"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Water Efficient Fixtures",
+          "data": "false",
+          "name": "waterefficientfixtures"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Water Tank",
+          "data": "false",
+          "name": "Watertank"
+        }
+      ],
+      "groupName": "ecoFriendly",
+      "groupDisplayName": "Eco Friendly"
+    },
+    {
+      "features": [
+        {
+          "dataType": "boolean",
+          "displayName": "Broadband",
+          "data": "false",
+          "name": "Broadband"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Gas",
+          "data": "false",
+          "name": "gas"
+        },
+        {
+          "dataType": "boolean",
+          "displayName": "Pay TV",
+          "data": "false",
+          "name": "Paytv"
+        }
+      ],
+      "groupName": "services",
+      "groupDisplayName": "Services"
+    }
+  ],
+  "totalItems": 5,
+  "totalPages": 1,
+  "urls": {
+    "previous": null,
+    "next": null,
+    "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/properties/10071143/features?page=1"
+  }
+}
