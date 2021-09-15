@@ -422,11 +422,12 @@
       "id": 12253934
     }
   ],
-  "totalItems": 2,
-  "totalPages": 1,
+  "totalItems": 100,
+  "totalPages": 5,
   "urls": {
     "previous": null,
     "next": null,
     "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/properties/residential/sale?pagesize=50&page=1"
   }
 }
+ 
