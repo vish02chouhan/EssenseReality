@@ -22,6 +22,9 @@ namespace EssenseReality.Data
         public DbSet<ContactStaff> ContactStaffs { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        
+        public DbSet<FloorPlan> FloorPlans { get; set; }
+        public DbSet<Enquiry> Enquiries { get; set; }
+        public DbSet<CrmEssenceLog> CrmEssenceLogs { get; set; }
+        public DbSet<CrmEssenceTransaction> CrmEssenceTransactions { get; set; }
     }
 }

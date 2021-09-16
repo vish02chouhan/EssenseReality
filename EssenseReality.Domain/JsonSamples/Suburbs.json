@@ -1,0 +1,557 @@
+{
+  "items": [
+    {
+      "name": "Unknown",
+      "id": -1,
+      "postcode": null,
+      "state": null,
+      "nzDistrict": null
+    },
+    {
+      "name": "AUSTRALIAN NATIONAL UNIVERSITY",
+      "id": 1,
+      "postcode": "200",
+      "state": {
+        "abbreviation": "ACT",
+        "id": 5,
+        "name": "Australian Capital Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "BARTON",
+      "id": 2,
+      "postcode": "221",
+      "state": {
+        "abbreviation": "ACT",
+        "id": 5,
+        "name": "Australian Capital Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "DARWIN",
+      "id": 3,
+      "postcode": "0800",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "DARWIN",
+      "id": 4,
+      "postcode": "0801",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "PARAP",
+      "id": 5,
+      "postcode": "0804",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "ALAWA",
+      "id": 6,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "BRINKIN",
+      "id": 7,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "CASUARINA",
+      "id": 8,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "COCONUT GROVE",
+      "id": 9,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "JINGILI",
+      "id": 10,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "LEE POINT",
+      "id": 11,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "LYONS",
+      "id": 12,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "MILLNER",
+      "id": 13,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "MOIL",
+      "id": 14,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "MUIRHEAD",
+      "id": 15,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "NAKARA",
+      "id": 16,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "NIGHTCLIFF",
+      "id": 17,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "RAPID CREEK",
+      "id": 18,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "TIWI",
+      "id": 19,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "WAGAMAN",
+      "id": 20,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "WANGURI",
+      "id": 21,
+      "postcode": "0810",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "CASUARINA",
+      "id": 22,
+      "postcode": "0811",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "ANULA",
+      "id": 23,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "BUFFALO CREEK",
+      "id": 24,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "HOLMES",
+      "id": 25,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "KARAMA",
+      "id": 26,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "LEANYER",
+      "id": 27,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "MALAK",
+      "id": 28,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "MARRARA",
+      "id": 29,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "NORTHLAKES",
+      "id": 30,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "SANDERSON",
+      "id": 31,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "WOODLEIGH GARDENS",
+      "id": 32,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "WULAGI",
+      "id": 33,
+      "postcode": "0812",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "KARAMA",
+      "id": 34,
+      "postcode": "0813",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "NIGHTCLIFF",
+      "id": 35,
+      "postcode": "0814",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "CHARLES DARWIN UNIVERSITY",
+      "id": 36,
+      "postcode": "0815",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "BAGOT",
+      "id": 37,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "BAYVIEW",
+      "id": 38,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "CHARLES DARWIN",
+      "id": 39,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "COONAWARRA",
+      "id": 40,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "CULLEN BAY",
+      "id": 41,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "DARWIN DC",
+      "id": 42,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "DARWIN INTERNATIONAL AIRPORT",
+      "id": 43,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "DARWIN MC",
+      "id": 44,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "EAST POINT",
+      "id": 45,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "EATON",
+      "id": 46,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "FANNIE BAY",
+      "id": 47,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "LARRAKEYAH",
+      "id": 48,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    },
+    {
+      "name": "LUDMILLA",
+      "id": 49,
+      "postcode": "0820",
+      "state": {
+        "abbreviation": "NT",
+        "id": 6,
+        "name": "Northern Territory"
+      },
+      "nzDistrict": null
+    }
+  ],
+  "totalItems": 19542,
+  "totalPages": 391,
+  "urls": {
+    "previous": null,
+    "next": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/suburbs?page=2",
+    "self": "https://ap-southeast-2.api.vaultre.com.au/api/v1.3/suburbs?page=1"
+  }
+}

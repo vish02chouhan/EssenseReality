@@ -5,6 +5,7 @@ namespace EssenseReality.Domain.Models
 {
     public class ContactStaff : WhoFields
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public Photo Photo { get; set; }
         public int StaffTypeId { get; set; }
@@ -15,7 +16,6 @@ namespace EssenseReality.Domain.Models
         public string Position { get; set; }
         public DateTime LastLogin { get; set; }
         public string Email { get; set; }
-        public int Id { get; set; }
         public string WebsiteUrl { get; set; }
         public List<Permission> Permissions { get; set; }
         public string Username { get; set; }

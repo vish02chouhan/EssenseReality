@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EssenseReality.Domain.Models
 {
@@ -16,18 +15,22 @@ namespace EssenseReality.Domain.Models
         public float DisplayPrice { get; set; }
         public Geolocation Geolocation { get; set; }
         public string Description { get; set; }
-        public string Status { get; set; }//Need to check as per html need to show "Fo Sale" etc
+        //Need to check. In htm status has text as "For Sale", from api in status field getting value as appraisal
+        public string Status { get; set; }
         public PropertyType PropertyType { get; set; }
         public int? YearBuilt { get; set; }
-
-        // public int Stories { get; set; } // Not able to find this attribute/ data points in CRM
+        public int Stories { get; set; } // Not able to find this attribute/data points in CRM
         public long? ReceptionRooms { get; set; } // Assuming it will give room count
         public List<PropertyFeature> PropertyFeature { get;set; }
         public Address Address { get; set; }
         public List<Photo> Photos { get; set; }
         public List<ContactStaff> ContactStaff { get; set; }
         public string VolumeNumber { get; set; }
-
+        public FloorPlan FloorPlan { get; set; }
+        public int SaleLifeId { get; set; }
+        public int LeaseLifeId { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
 
         //public object LandValue { get; set; }
         //public string TenantName { get; set; }
@@ -59,8 +62,7 @@ namespace EssenseReality.Domain.Models
         //public string LotNumber { get; set; }
         //public SetSaleDateDetails SetSaleDateDetails { get; set; }
         //public int OpenSpaces { get; set; }
-        //public DateTime Modified { get; set; }
-        //public int SaleLifeId { get; set; }      
+        //public DateTime Modified { get; set; }    
         //public object SellingFeePercent { get; set; }
         //public bool PriceOnApplication { get; set; }
         //public object PublishedToWeb { get; set; }
@@ -73,7 +75,6 @@ namespace EssenseReality.Domain.Models
         //public string TenancyDetails { get; set; }
         //public object WebId { get; set; }
         //public object SellingFeeFixed { get; set; }
-        //public int LeaseLifeId { get; set; }
         //public double? Frontage { get; set; }
         //public string LegalDescription { get; set; }
         //public object TenancyStop { get; set; }
@@ -86,6 +87,4 @@ namespace EssenseReality.Domain.Models
         //public Rates Rates { get; set; }
         //public object RateableValue { get; set; }
     }
-
-
 }
