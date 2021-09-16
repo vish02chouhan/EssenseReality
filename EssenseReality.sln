@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EssenseReality.Data", "Esse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EssenseReality.Domain", "EssenseReality.Domain\EssenseReality.Domain.csproj", "{7002B67A-8B88-4B4D-9DA5-B08DA489946A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EssenceRealty.Scheduler", "EssenceRealty.Scheduler\EssenceRealty.Scheduler.csproj", "{E6243243-6CCF-41B3-8A7D-E98D5E0FA0C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EssenceRealty.Repository", "EssenceRealty.Repository\EssenceRealty.Repository.csproj", "{E6DDCBC8-4108-4EF1-8818-45CDFF381ACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{7002B67A-8B88-4B4D-9DA5-B08DA489946A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7002B67A-8B88-4B4D-9DA5-B08DA489946A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7002B67A-8B88-4B4D-9DA5-B08DA489946A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6243243-6CCF-41B3-8A7D-E98D5E0FA0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6243243-6CCF-41B3-8A7D-E98D5E0FA0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6243243-6CCF-41B3-8A7D-E98D5E0FA0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6243243-6CCF-41B3-8A7D-E98D5E0FA0C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DDCBC8-4108-4EF1-8818-45CDFF381ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DDCBC8-4108-4EF1-8818-45CDFF381ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DDCBC8-4108-4EF1-8818-45CDFF381ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DDCBC8-4108-4EF1-8818-45CDFF381ACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
