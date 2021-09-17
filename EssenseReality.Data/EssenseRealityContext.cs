@@ -1,10 +1,11 @@
 ﻿using EssenseReality.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace EssenseReality.Data
 {
-    public class EssenseRealityContext:DbContext
+    public class EssenseRealityContext: IdentityDbContext
     {
         public EssenseRealityContext(DbContextOptions<EssenseRealityContext> options)
             : base(options)
@@ -20,11 +21,11 @@ namespace EssenseReality.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Thumbnail> Thumbnails { get; set; }
         public DbSet<ContactStaff> ContactStaffs { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<FloorPlan> FloorPlans { get; set; }
         public DbSet<Enquiry> Enquiries { get; set; }
         public DbSet<CrmEssenceLog> CrmEssenceLogs { get; set; }
         public DbSet<CrmEssenceTransaction> CrmEssenceTransactions { get; set; }
+        public DbSet<EssenceObjectRequiredApproval> EssenceObjectRequiredApprovals { get; set; }
     }
 }

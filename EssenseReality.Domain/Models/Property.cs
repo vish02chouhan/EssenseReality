@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EssenseReality.Domain.Models
 {
-    public class Property : WhoFields
+    public class Property : WhoFields, ICrmWhoFields, IAdminUpdate
     {
         public int Id { get; set; }
         public string DisplayAddress { get; set; }
@@ -31,13 +32,17 @@ namespace EssenseReality.Domain.Models
         public int LeaseLifeId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime Inserted { get; set; }
+        public DateTime Modified { get; set; }
+        public bool IsAdminUpdated { get; set; }
+
 
         //public object LandValue { get; set; }
         //public string TenantName { get; set; }
         //public string PortalStatus { get; set; }
         //public object Branch { get; set; }
         //public object AuthorityStart { get; set; }
-        //public DateTime Inserted { get; set; }
+
         //public string BrochureDescription { get; set; }
         //public object RoyalMailId { get; set; }
         //public object TenureOrTitleType { get; set; }
@@ -61,8 +66,7 @@ namespace EssenseReality.Domain.Models
         //public LandArea LandArea { get; set; }
         //public string LotNumber { get; set; }
         //public SetSaleDateDetails SetSaleDateDetails { get; set; }
-        //public int OpenSpaces { get; set; }
-        //public DateTime Modified { get; set; }    
+        //public int OpenSpaces { get; set; }   
         //public object SellingFeePercent { get; set; }
         //public bool PriceOnApplication { get; set; }
         //public object PublishedToWeb { get; set; }

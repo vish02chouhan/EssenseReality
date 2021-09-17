@@ -10,8 +10,11 @@ namespace EssenseReality.Domain.Models
         public int PageNumber {  get; set; }
         public DateTime RecivedDateTime {  get; set; }
         public DateTime ProcessedDateTime { get; set; }
-        public Status Status {  get; set; }
+        public LogTransactionStatus Status {  get; set; }
+        public EssenceObjectTypes EssenceObjectTypes { get; set; }
+        public Guid ProcessingGroupId { get;set; }
         public int Retry { get; set; }
+        public int TotalItems { get; set; }
     }
 
 }

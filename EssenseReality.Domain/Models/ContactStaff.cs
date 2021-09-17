@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EssenseReality.Domain.Models
 {
-    public class ContactStaff : WhoFields
+    public class ContactStaff : WhoFields, ICrmWhoFields
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -17,8 +17,9 @@ namespace EssenseReality.Domain.Models
         public DateTime LastLogin { get; set; }
         public string Email { get; set; }
         public string WebsiteUrl { get; set; }
-        public List<Permission> Permissions { get; set; }
         public string Username { get; set; }
+        public DateTime Inserted { get; set; }
+        public DateTime Modified { get; set; }
     }
 
 

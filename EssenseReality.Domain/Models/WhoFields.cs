@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EssenseReality.Domain.Models
 {
-   public class WhoFields
+   public abstract class WhoFields
     {
         public int CreatedBy { get; set; }
         public int CreatedDate { get; set; }

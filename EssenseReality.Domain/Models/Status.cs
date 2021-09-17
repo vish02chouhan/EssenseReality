@@ -1,6 +1,6 @@
 ﻿namespace EssenseReality.Domain.Models
 {
-    public enum Status
+    public enum LogTransactionStatus
     {
         Pending,
         InProgress,
