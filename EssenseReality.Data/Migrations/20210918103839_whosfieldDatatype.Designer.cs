@@ -4,14 +4,16 @@ using EssenseReality.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    partial class EssenseRealityContextModelSnapshot : ModelSnapshot
+    [Migration("20210918103839_whosfieldDatatype")]
+    partial class whosfieldDatatype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,14 +34,8 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Level")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -83,9 +79,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -102,9 +95,6 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -150,17 +140,11 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<double>("GstRate")
                         .HasColumnType("float");
 
                     b.Property<string>("Isocode")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -183,9 +167,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("EndPointUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -194,9 +175,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("JsonObjectBatch")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -237,9 +215,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("CrmEssenceLogId")
                         .HasColumnType("int");
 
@@ -254,9 +229,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("JsonObject")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -346,9 +318,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("DataId")
                         .HasColumnType("nvarchar(max)");
 
@@ -360,9 +329,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("JsonObject")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -400,17 +366,11 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -456,9 +416,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Filename")
                         .HasColumnType("nvarchar(max)");
 
@@ -475,9 +432,6 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -537,9 +491,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -577,9 +528,6 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -632,14 +580,8 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("InternalName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -662,9 +604,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Data")
                         .HasColumnType("nvarchar(max)");
 
@@ -673,9 +612,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -702,12 +638,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -738,12 +668,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -764,12 +688,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
@@ -799,12 +717,6 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
