@@ -8,9 +8,9 @@ namespace EssenseReality.Domain.Models
 {
    public abstract class WhoFields
     {
-        public int CreatedBy { get; set; }
-        public int CreatedDate { get; set; }
-        public int ModifieldBy { get; set; }
-        public int ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string ModifieldBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }
