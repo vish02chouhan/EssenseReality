@@ -7,6 +7,6 @@
         public string JsonObject { get; set; }
         public EssenceObjectTypes EssenceObjectTypes { get; set; }
         public EssenceObjectRequiredApprovalStatus EssenceObjectRequiredApprovalStatus { get; set; }
-
+        public CrmEssenceTransaction CrmEssenceTransaction { get; set; }
     }
 }
