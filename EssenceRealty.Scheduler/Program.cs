@@ -1,10 +1,12 @@
 using EssenceRealty.Repository;
 using EssenceRealty.Scheduler.Configurations;
+using EssenceRealty.Scheduler.ExternalServices;
+using EssenceRealty.Scheduler.Services;
 using EssenseReality.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using System;
 
 namespace EssenceRealty.Scheduler
 {
@@ -28,8 +30,14 @@ namespace EssenceRealty.Scheduler
 
                     services.AddPersistenceServices(hostContext.Configuration);
 
-                    services.AddVaultApiClient(options => options.BaseAddress = hostContext.Configuration.GetSection("VaultCrmService:Url").Value);
+                    services.AddVaultApiClient(options => {
+                        options.BaseAddress = hostContext.Configuration.GetSection("VaultCrmService:Url").Value;
+                        options.ApiKey = Environment.GetEnvironmentVariable("VAULT_API_KEY");
+                        options.BearerToken = Environment.GetEnvironmentVariable("VAULT_BEARER_TOKEN");
 
+                    });
+
+                    services.AddSingleton<VaultCrmProcessor, VaultCrmProcessor>();
                     services.AddHostedService<Worker>();
                 });
     }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,11 +23,15 @@ namespace EssenceRealty.Scheduler.ExternalServices
             _logger = logger;
 
             var endpointAddress = apiOptions?.Value?.BaseAddress ?? string.Empty;
+            var bearerToken = apiOptions?.Value?.BearerToken ?? string.Empty;
+            var apiKey = apiOptions?.Value?.ApiKey ?? string.Empty;
 
             if (string.IsNullOrEmpty(endpointAddress))
                 throw new Exception("Invalid API base address");
 
             _httpClient.BaseAddress = new Uri(endpointAddress);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            _httpClient.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
         }
 
         public async Task<string> GetEssenceData(string uri, CancellationToken cancellationToken = default)

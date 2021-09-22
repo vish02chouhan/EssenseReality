@@ -11,12 +11,13 @@ namespace EssenceRealty.Scheduler.Configurations
     public class VaultServicesConfig
     {
         public string Url { get; set; }
+        public int PageSize { get; set; }
         public EssenceMainObject[] EssenceMainObject { get; set; }
     }
 
     public class EssenceMainObject
     {
         public string Name { get; set; }
-        public string[] Url { get; set; }
+        public string[] Urls { get; set; }
     }
 }
