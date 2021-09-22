@@ -1,4 +1,6 @@
 using EssenceRealty.Scheduler.Configurations;
+using EssenceRealty.Scheduler.ExternalServices;
+using EssenceRealty.Scheduler.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,13 +14,13 @@ namespace EssenceRealty.Scheduler
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly VaultServicesConfig _vaultServicesConfig;
+        private readonly VaultCrmProcessor vaultCrmProcessor;
 
         public Worker(ILogger<Worker> logger,
-            VaultServicesConfig vaultServicesConfig)
+            VaultCrmProcessor vaultCrmProcessor)
         {
             _logger = logger;
-            _vaultServicesConfig = vaultServicesConfig;
+            this.vaultCrmProcessor = vaultCrmProcessor;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -27,7 +29,9 @@ namespace EssenceRealty.Scheduler
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-                await Task.Delay(1000, stoppingToken);
+                await vaultCrmProcessor.StartProcessing(Guid.NewGuid());
+
+                ///await Task.Delay(1000, stoppingToken);
             }
         }
     }

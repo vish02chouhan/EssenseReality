@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EssenseReality.Data
 {
@@ -27,5 +29,24 @@ namespace EssenseReality.Data
         public DbSet<CrmEssenceLog> CrmEssenceLogs { get; set; }
         public DbSet<CrmEssenceTransaction> CrmEssenceTransactions { get; set; }
         public DbSet<EssenceObjectRequiredApproval> EssenceObjectRequiredApprovals { get; set; }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<WhoFields>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedDate = DateTime.Now;
+                      //  entry.Entity.CreatedBy = _loggedInUserService.UserId;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.ModifiedDate = DateTime.Now;
+                      //  entry.Entity.LastModifiedBy = _loggedInUserService.UserId;
+                        break;
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

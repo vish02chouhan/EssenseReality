@@ -9,5 +9,7 @@ namespace EssenceRealty.Scheduler.ExternalServices
    public class VaultApiClientOptions
     {
         public string BaseAddress { get; set; }
+        public string ApiKey { get; set; }
+        public string BearerToken { get; set; }
     }
 }
