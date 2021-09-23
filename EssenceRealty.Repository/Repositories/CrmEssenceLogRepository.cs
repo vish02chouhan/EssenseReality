@@ -19,6 +19,11 @@ namespace EssenceRealty.Repository.Repositories
         {
            return await AddAsync(crmEssenceLog);
         }
+
+        public async Task<IList<CrmEssenceLog>> GetCrmEssenceLog(Guid processingGroupId)
+        {
+            return await GetManyAsync(x => x.ProcessingGroupId == processingGroupId);
+        }
     }
 
 }

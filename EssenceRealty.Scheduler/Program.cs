@@ -38,6 +38,7 @@ namespace EssenceRealty.Scheduler
                     });
 
                     services.AddSingleton<VaultCrmProcessor, VaultCrmProcessor>();
+                    services.AddSingleton<LogTransactionProcessor, LogTransactionProcessor>();
                     services.AddHostedService<Worker>();
                 });
     }
