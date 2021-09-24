@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -50,6 +51,17 @@ namespace EssenceRealty.Repository.Repositories
         public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IList<T>> GetManyAsync(Expression<Func<T, bool>> where)
+        {
+            return await _dbContext.Set<T>().Where(where).ToListAsync();
+        }
+
+        public async Task AddRangeAsync(IList<T> entites) 
+        {
+            await _dbContext.AddRangeAsync(entites);
             await _dbContext.SaveChangesAsync();
         }
     }

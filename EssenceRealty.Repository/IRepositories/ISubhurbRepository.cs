@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface ICrmEssenceLogRepository
+    public interface ISubhurbRepository
     {
-        Task<CrmEssenceLog> AddCrmEssenceLog(CrmEssenceLog crmEssenceLog);
-        Task<IList<CrmEssenceLog>> GetCrmEssenceLog(Guid processingGroupId);
+        Task AddSubhurbs(List<Suburb> lstSubhurb);
     }
 }
