@@ -4,14 +4,16 @@ using EssenseReality.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    partial class EssenseRealityContextModelSnapshot : ModelSnapshot
+    [Migration("20210924183747_addstatechanges")]
+    partial class addstatechanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +46,6 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
@@ -62,8 +61,6 @@ namespace EssenseReality.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("StateId");
 
                     b.HasIndex("SuburbId");
 
@@ -733,39 +730,6 @@ namespace EssenseReality.Data.Migrations
                     b.ToTable("PropertyTypes");
                 });
 
-            modelBuilder.Entity("EssenseReality.Domain.Models.State", b =>
-                {
-                    b.Property<int>("StateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Abbreviation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifieldBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StateId");
-
-                    b.ToTable("State");
-                });
-
             modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
                 {
                     b.Property<int>("SuburbId")
@@ -794,12 +758,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("Postcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
-                        .HasColumnType("int");
-
                     b.HasKey("SuburbId");
-
-                    b.HasIndex("StateId");
 
                     b.ToTable("Suburb");
                 });
@@ -1036,17 +995,11 @@ namespace EssenseReality.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CountryId");
 
-                    b.HasOne("EssenseReality.Domain.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
                     b.HasOne("EssenseReality.Domain.Models.Suburb", "Suburb")
                         .WithMany()
                         .HasForeignKey("SuburbId");
 
                     b.Navigation("Country");
-
-                    b.Navigation("State");
 
                     b.Navigation("Suburb");
                 });
@@ -1156,15 +1109,6 @@ namespace EssenseReality.Data.Migrations
                         .HasForeignKey("PropertyClassId");
 
                     b.Navigation("PropertyClass");
-                });
-
-            modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
-                {
-                    b.HasOne("EssenseReality.Domain.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
-                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EssenceRealty.Scheduler.Services
 {
@@ -70,14 +71,17 @@ namespace EssenceRealty.Scheduler.Services
             {
                 JObject json = JObject.Parse(crmEssenceLog.JsonObjectBatch);
                 JArray items = (JArray)json["items"];
+                List<State> lstStates = new List<State>();
                 List<Suburb> lstSubHurbs = new List<Suburb>();
 
                 foreach (var item in items)
                 {
                     try
                     {
-                        var result = JsonConvert.DeserializeObject<Suburb>(item.ToString());
-                        lstSubHurbs.Add(result);
+                        var stateData = JsonConvert.DeserializeObject<State>(item.SelectToken("state").ToString());
+                        var suburbData = JsonConvert.DeserializeObject<Suburb>(item.ToString());
+                        lstStates.Add(stateData);
+                        lstSubHurbs.Add(suburbData);
                     }
                     catch (Exception e)
                     {
@@ -85,6 +89,8 @@ namespace EssenceRealty.Scheduler.Services
                     }
                 }
                 using var scope = serviceProvider.CreateScope();
+                var stateRepo = scope.ServiceProvider.GetRequiredService<IStateRepository>();
+                await stateRepo.AddStates(lstStates.GroupBy(elem => elem.Id).Select(group => group.First()).ToList());
                 var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
                 await subhurbRepo.AddSubhurbs(lstSubHurbs);
             }

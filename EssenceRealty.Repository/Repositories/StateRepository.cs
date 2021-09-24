@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Repository.Repositories
 {
-    public class SubhurbRepository : BaseRepository<Suburb>, ISubhurbRepository
+    public class StateRepository : BaseRepository<State>, IStateRepository
     {
-        public SubhurbRepository(EssenseRealityContext dbContext) : base(dbContext)
+        public StateRepository(EssenseRealityContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task AddSubhurbs(List<Suburb> lstSuburb)
+        public async Task AddStates(IEnumerable<State> lstStates)
         {
-            await _dbContext.Suburb.UpsertRange(lstSuburb).On(x => x.Id).RunAsync();
+            await _dbContext.State.UpsertRange(lstStates).On(x => x.Id).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }
+
     }
 }
