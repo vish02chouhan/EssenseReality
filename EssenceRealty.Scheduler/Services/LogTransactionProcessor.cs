@@ -66,27 +66,32 @@ namespace EssenceRealty.Scheduler.Services
         }
         private async Task ProcessSubhurbMasterData(CrmEssenceLog crmEssenceLog)
         {
-            JObject json = JObject.Parse(crmEssenceLog.JsonObjectBatch);
-            JArray items = (JArray)json["items"];
-            List<Suburb> lstSubHurbs = new List<Suburb>();
-            foreach (var item in items)
+            try
             {
-                lstSubHurbs.Add(new Suburb()
+                JObject json = JObject.Parse(crmEssenceLog.JsonObjectBatch);
+                JArray items = (JArray)json["items"];
+                List<Suburb> lstSubHurbs = new List<Suburb>();
+
+                foreach (var item in items)
                 {
-                    //Id = Convert.ToInt32(item.SelectToken("id").ToString()),
-                    Name = item.SelectToken("name").ToString(),
-                    //State = new State()
-                    //{
-                    //    Id = 1,//Convert.ToInt32(item.SelectToken("state.id").ToString()),
-                    //    Name = null,//item.SelectToken("state.name").ToString(),
-                    //    Abbreviation = null//item.SelectToken("state.abbreviation").ToString()
-                    //},
-                    Postcode = item.SelectToken("postcode").ToString()
-                });
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<Suburb>(item.ToString());
+                        lstSubHurbs.Add(result);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+                using var scope = serviceProvider.CreateScope();
+                var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
+                await subhurbRepo.AddSubhurbs(lstSubHurbs);
             }
-            using var scope = serviceProvider.CreateScope();
-            var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
-            await subhurbRepo.AddSubhurbs(lstSubHurbs);
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
