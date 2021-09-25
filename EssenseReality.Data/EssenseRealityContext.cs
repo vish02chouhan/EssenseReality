@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +32,8 @@ namespace EssenseReality.Data
         public DbSet<CrmEssenceLog> CrmEssenceLogs { get; set; }
         public DbSet<CrmEssenceTransaction> CrmEssenceTransactions { get; set; }
         public DbSet<EssenceObjectRequiredApproval> EssenceObjectRequiredApprovals { get; set; }
+        public DbSet<Suburb> Suburb { get; set; }
+        public DbSet<State> State { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

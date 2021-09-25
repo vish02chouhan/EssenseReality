@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    [Migration("20210923090440_updateSuburbId")]
-    partial class updateSuburbId
+    [Migration("20210925135826_reconnectSuburbState")]
+    partial class reconnectSuburbState
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Address", b =>
@@ -55,8 +55,8 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("StreetNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("SuburbId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("SuburbId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UnitNumber")
                         .HasColumnType("nvarchar(max)");
@@ -751,6 +751,9 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CrmStateId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
@@ -767,9 +770,10 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
                 {
-                    b.Property<Guid>("SuburbId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -777,7 +781,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("CrmSuburbId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -792,10 +796,10 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("Postcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
+                    b.Property<int>("StateId")
                         .HasColumnType("int");
 
-                    b.HasKey("SuburbId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StateId");
 
@@ -1159,8 +1163,10 @@ namespace EssenseReality.Data.Migrations
             modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
                 {
                     b.HasOne("EssenseReality.Domain.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
+                        .WithMany("Suburb")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("State");
                 });
@@ -1233,6 +1239,11 @@ namespace EssenseReality.Data.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("PropertyFeature");
+                });
+
+            modelBuilder.Entity("EssenseReality.Domain.Models.State", b =>
+                {
+                    b.Navigation("Suburb");
                 });
 #pragma warning restore 612, 618
         }

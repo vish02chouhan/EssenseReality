@@ -7,16 +7,15 @@ namespace EssenseReality.Domain.Models
 {
     public class Suburb : WhoFields
     {
-        [Key]
-        public Guid SuburbId { get; set; }
-        //public State State { get; set; }
+
+        public int Id { get; set; }
         public string Postcode { get; set; }
         //public object NzDistrict { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
         public string Name { get; set; }
-
-        public State State { get; set; } = new State();
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CrmSuburbId { get; set; }
+        public int StateId { get; set; }
+        public State State { get; set; }
     }
 
 

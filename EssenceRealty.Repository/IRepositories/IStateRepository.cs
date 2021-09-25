@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface ISubhurbRepository
+    public interface IStateRepository
     {
-        Task UpsertSubhurbs(IList<Suburb> lstSubhurb);
+        Task UpsertStates(IList<State> lstStates);
+
     }
 }

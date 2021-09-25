@@ -9,6 +9,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
+using EssenceRealty.Scheduler.ServiceProcessors;
 
 namespace EssenceRealty.Scheduler.Services
 {
@@ -32,19 +34,18 @@ namespace EssenceRealty.Scheduler.Services
                 {
                     foreach (var url in essenceMainObject.Urls)
                     {
-                        await SaveData(url, guid, essenceMainObject.Name);
+                        await ProcessLogData(url, guid, essenceMainObject.Name);
                     }
 
                 }
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
 
-        public async Task SaveData(string url, Guid processingGroupId, string objectTypeName)
+        public async Task ProcessLogData(string url, Guid processingGroupId, string objectTypeName)
         { 
             while (!string.IsNullOrEmpty(url))
             {
@@ -53,44 +54,18 @@ namespace EssenceRealty.Scheduler.Services
                 IList<CrmEssenceLog> data = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
                 foreach (var item in data)
                 {
+                    JObject json = JObject.Parse(item.JsonObjectBatch);
+                    JArray items = (JArray)json["items"];
                     switch (item.EssenceObjectTypes)
                     {
                         case EssenceObjectTypes.Suburbs:
-                            await ProcessSubhurbMasterData(item);
+                            SuburbProcessor suburbProcessor = new SuburbProcessor();
+                            await suburbProcessor.ProcessSubhurbMasterData(serviceProvider,items);
                             break;
                         default:
                             break;
                     }
                 }
-            }
-        }
-        private async Task ProcessSubhurbMasterData(CrmEssenceLog crmEssenceLog)
-        {
-            try
-            {
-                JObject json = JObject.Parse(crmEssenceLog.JsonObjectBatch);
-                JArray items = (JArray)json["items"];
-                List<Suburb> lstSubHurbs = new List<Suburb>();
-
-                foreach (var item in items)
-                {
-                    try
-                    {
-                        var result = JsonConvert.DeserializeObject<Suburb>(item.ToString());
-                        lstSubHurbs.Add(result);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                }
-                using var scope = serviceProvider.CreateScope();
-                var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
-                await subhurbRepo.AddSubhurbs(lstSubHurbs);
-            }
-            catch (Exception ex) 
-            {
-                Console.WriteLine(ex.Message);
             }
         }
     }

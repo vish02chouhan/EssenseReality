@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EssenseReality.Data\EssenseReality.Data.csproj" />
   </ItemGroup>
 
