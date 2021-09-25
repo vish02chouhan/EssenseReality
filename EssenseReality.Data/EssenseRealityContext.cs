@@ -1,6 +1,7 @@
 ﻿using EssenseReality.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +31,10 @@ namespace EssenseReality.Data
         public DbSet<CrmEssenceTransaction> CrmEssenceTransactions { get; set; }
         public DbSet<EssenceObjectRequiredApproval> EssenceObjectRequiredApprovals { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
+        {
+            dbContextOptionsBuilder.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name}, LogLevel.Information);
+        }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<WhoFields>())
