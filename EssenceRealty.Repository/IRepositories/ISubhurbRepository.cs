@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface ISubhurbRepository
     {
-        Task AddSubhurbs(List<Suburb> lstSubhurb);
+        Task UpsertSubhurbs(IList<Suburb> lstSubhurb);
     }
 }

@@ -16,9 +16,15 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task AddSubhurbs(List<Suburb> lstSuburb)
+        public async Task UpsertSubhurbs(IList<Suburb> lstSuburb)
         {
-            await _dbContext.Suburb.UpsertRange(lstSuburb).On(x => x.Id).RunAsync();
+            var lstUpdatedStates = _dbContext.State.ToList();
+            foreach (var item in lstSuburb)
+            {
+                item.StateId = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First().Id;
+                item.State = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First();
+            }
+            await _dbContext.Suburb.UpsertRange(lstSuburb).On(x => x.CrmSuburbId).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }

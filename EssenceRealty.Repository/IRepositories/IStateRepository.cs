@@ -9,7 +9,7 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IStateRepository
     {
-        Task AddStates(IEnumerable<State> lstStates);
+        Task UpsertStates(IList<State> lstStates);
 
     }
 }

@@ -735,7 +735,7 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.State", b =>
                 {
-                    b.Property<int>("StateId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -749,7 +749,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("CrmStateId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -761,14 +761,14 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("StateId");
+                    b.HasKey("Id");
 
                     b.ToTable("State");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
                 {
-                    b.Property<int>("SuburbId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -779,7 +779,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("CrmSuburbId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -794,10 +794,10 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("Postcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
+                    b.Property<int>("StateId")
                         .HasColumnType("int");
 
-                    b.HasKey("SuburbId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StateId");
 
@@ -1161,8 +1161,10 @@ namespace EssenseReality.Data.Migrations
             modelBuilder.Entity("EssenseReality.Domain.Models.Suburb", b =>
                 {
                     b.HasOne("EssenseReality.Domain.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
+                        .WithMany("Suburb")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("State");
                 });
@@ -1235,6 +1237,11 @@ namespace EssenseReality.Data.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("PropertyFeature");
+                });
+
+            modelBuilder.Entity("EssenseReality.Domain.Models.State", b =>
+                {
+                    b.Navigation("Suburb");
                 });
 #pragma warning restore 612, 618
         }
