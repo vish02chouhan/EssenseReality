@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EssenseReality.Domain.Models
 {
@@ -16,7 +17,9 @@ namespace EssenseReality.Domain.Models
         public LogTransactionStatus Status {  get; set; }
         public EssenceObjectTypes EssenceObjectTypes { get; set; }
         public int Retry { get; set; }
-   
+        public ICollection<CrmEssenceTransaction> CrmEssenceTransaction { get; set; }
+
+
     }
 
 }
