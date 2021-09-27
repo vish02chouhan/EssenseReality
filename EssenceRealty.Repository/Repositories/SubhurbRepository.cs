@@ -18,13 +18,13 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task UpsertSubhurbs(IList<Suburb> lstSuburb)
         {
-            var lstUpdatedStates = _dbContext.State.ToList();
+            var lstUpdatedStates = _dbContext.States.ToList();
             foreach (var item in lstSuburb)
             {
                 item.StateId = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First().Id;
                 item.State = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First();
             }
-            await _dbContext.Suburb.UpsertRange(lstSuburb).On(x => x.CrmSuburbId).RunAsync();
+            await _dbContext.Suburbs.UpsertRange(lstSuburb).On(x => x.CrmSuburbId).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }

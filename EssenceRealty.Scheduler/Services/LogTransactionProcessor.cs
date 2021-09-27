@@ -54,16 +54,27 @@ namespace EssenceRealty.Scheduler.Services
                 IList<CrmEssenceLog> data = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
                 foreach (var item in data)
                 {
-                    JObject json = JObject.Parse(item.JsonObjectBatch);
-                    JArray items = (JArray)json["items"];
-                    switch (item.EssenceObjectTypes)
+                    try
                     {
-                        case EssenceObjectTypes.Suburbs:
-                            SuburbProcessor suburbProcessor = new SuburbProcessor();
-                            await suburbProcessor.ProcessSubhurbMasterData(serviceProvider,items);
-                            break;
-                        default:
-                            break;
+                        JObject json = JObject.Parse(item.JsonObjectBatch);
+                        JArray items = (JArray)json["items"];
+                        switch (item.EssenceObjectTypes)
+                        {
+                            case EssenceObjectTypes.Suburbs:
+                                SuburbProcessor suburbProcessor = new SuburbProcessor();
+                                await suburbProcessor.ProcessSubhurbMasterData(serviceProvider, items);
+                                break;
+                            default:
+                                break;
+                        }
+                        item.Status = LogTransactionStatus.Processed;
+                        await essenceLogRepo.UpdateCrmEssenceLog(item);
+                    }
+                    catch (Exception ex) 
+                    {
+                        item.Status = LogTransactionStatus.Failed;
+                        item.Retry = item.Retry + 1;
+                        await essenceLogRepo.UpdateCrmEssenceLog(item);
                     }
                 }
             }
