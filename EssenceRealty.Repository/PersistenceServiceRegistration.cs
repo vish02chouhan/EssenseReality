@@ -20,6 +20,7 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(ICrmEssenceLogRepository), typeof(CrmEssenceLogRepository));
             services.AddScoped(typeof(ISubhurbRepository), typeof(SubhurbRepository));
             services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
+            services.AddScoped(typeof(ICrmEssenceTransactionRepository), typeof(CrmEssenceTransactionRepository));
 
             return services;
         }

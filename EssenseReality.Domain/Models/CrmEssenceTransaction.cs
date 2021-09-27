@@ -9,6 +9,7 @@ namespace EssenseReality.Domain.Models
     {
         public int Id { get; set; }
         public string DataId { get; set; }
+        public int CrmEssenceLogId { get; set; }
         public CrmEssenceLog CrmEssenceLog { get; set; }
         public string JsonObject { get; set; }
         public LogTransactionStatus Status { get; set; }

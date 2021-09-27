@@ -57,6 +57,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                throw ex;
             }
         }
     }
