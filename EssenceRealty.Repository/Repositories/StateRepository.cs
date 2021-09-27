@@ -18,7 +18,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task UpsertStates(IList<State> lstStates)
         {
-            await _dbContext.State.UpsertRange(lstStates).On(x => x.CrmStateId).RunAsync();
+            await _dbContext.States.UpsertRange(lstStates).On(x => x.CrmStateId).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }

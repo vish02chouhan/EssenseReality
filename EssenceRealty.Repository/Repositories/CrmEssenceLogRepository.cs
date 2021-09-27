@@ -22,7 +22,15 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IList<CrmEssenceLog>> GetCrmEssenceLog(Guid processingGroupId)
         {
-            return await GetManyAsync(x => x.ProcessingGroupId == processingGroupId);
+            return await GetManyAsync(x => x.ProcessingGroupId == processingGroupId && 
+                                       (x.Status == LogTransactionStatus.Pending || x.Status == LogTransactionStatus.Failed) 
+                                       && x.Retry < 3);
+        }
+
+        public async Task<int> UpdateCrmEssenceLog(CrmEssenceLog crmEssenceLog)
+        {
+             _dbContext.Update(crmEssenceLog);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 
