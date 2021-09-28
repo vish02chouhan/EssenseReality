@@ -70,7 +70,7 @@ namespace EssenceRealty.Scheduler.Services
                         item.Status = LogTransactionStatus.Processed;
                         await essenceLogRepo.UpdateCrmEssenceLog(item);
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex) //need to improve exception handling
                     {
                         item.Status = LogTransactionStatus.Failed;
                         item.Retry = item.Retry + 1;
@@ -79,12 +79,12 @@ namespace EssenceRealty.Scheduler.Services
                         CrmEssenceTransaction crmEssenceTransaction = new CrmEssenceTransaction()
                         {
                             CreatedBy = "ProcessLogData",
-                            Description = ex.Message,
+                            //Description = ex.Message,
                             JsonObject = item.JsonObjectBatch,
-                            Retry = item.Retry + 1,
+                            //Retry = item.Retry + 1,
                             EssenceObjectTypes = (EssenceObjectTypes)Enum.Parse(typeof(EssenceObjectTypes), objectTypeName, true),
                             CrmEssenceLogId = item.Id,
-                            Status = LogTransactionStatus.Failed,
+                            //Status = LogTransactionStatus.Failed,
                             CrmEssenceLog = item
                         };
                         var essenceTransactionRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceTransactionRepository>();
