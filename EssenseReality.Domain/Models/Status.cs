@@ -3,9 +3,9 @@
     public enum LogTransactionStatus
     {
         Pending,
-        InProgress,
+        //InProgress,
         Processed,
-        PartiallyProcessed,
+        //PartiallyProcessed,
         Failed
     }
 
