@@ -72,6 +72,10 @@ namespace EssenceRealty.Scheduler.Services
                                 PropertyTypeProcessor propertyTypeProcessor = new PropertyTypeProcessor();
                                 await propertyTypeProcessor.ProcessPropertyTypeMasterData(serviceProvider, items);
                                 break;
+                            case EssenceObjectTypes.Contacts:
+                                ContactStaffProcessor contactStaffProcessor = new ContactStaffProcessor();
+                                await contactStaffProcessor.ProcessContactStaffData(serviceProvider, items);
+                                break;
                             default:
                                 break;
                         }
