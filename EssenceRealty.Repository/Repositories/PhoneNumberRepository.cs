@@ -18,7 +18,14 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task UpsertPhoneNumbers(IList<PhoneNumber> lstPhoneNumber)
         {
-            await _dbContext.PhoneNumbers.UpsertRange(lstPhoneNumber).On(x => x.CrmPhoneNumberId).RunAsync();
+            var lstUpdatedContactStaffs = _dbContext.ContactStaffs.ToList();
+            foreach (var item in lstPhoneNumber)
+            {
+                int id = item.ContactStaffId;
+                item.ContactStaffId = lstUpdatedContactStaffs.Where(x => x.CrmContactStaffId == id).First().Id;
+            }
+
+            await _dbContext.PhoneNumbers.UpsertRange(lstPhoneNumber).On(x => x.Number).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }

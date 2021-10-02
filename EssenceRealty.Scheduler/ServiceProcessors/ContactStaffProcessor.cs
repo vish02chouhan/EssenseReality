@@ -17,80 +17,74 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             try
             {
-                List<string> lst = new List<string>();
-                foreach (var item in items)
+
+                var ss = items.SelectTokens("$..marketingUser");
+                List<ContactStaff> lstContactStaff = new List<ContactStaff>();
+                List<PhoneNumber> lstPhoneNumber = new List<PhoneNumber>();
+
+                foreach (var item in ss)
                 {
-                    if (!string.IsNullOrEmpty(item.SelectToken("marketingUser").SelectToken("user").ToString())) 
+                    if (item != null && item["user"].HasValues)
                     {
-                        lst.Add(item.SelectToken("marketingUser").SelectToken("user").ToString());
+                        lstContactStaff.Add(new()
+                        {
+                            Id = 0,
+                            CrmContactStaffId = Convert.ToInt32(item["user"]["id"]),
+                            AdminAccess = null,
+                            Email = item["user"]["email"]?.ToString(),
+                            FirstName = item["user"]["firstName"]?.ToString(),
+                            Inserted = null,//Convert.ToDateTime(item["user"]["inserted"]),
+                            LastLogin = null,
+                            LastName = item["user"]["lastName"]?.ToString(),
+                            Modified = null,//Convert.ToDateTime(item["user"]["modified"]),
+                            Position = item["user"]["position"]?.ToString(),
+                            Role = item["user"]["role"]?.ToString(),
+                            StaffTypeId = 0,
+                            Username = null,
+                            WebsiteUrl = null,
+                            OriginalPhotoURL = item["user"]["photo"].SelectToken("original")?.ToString(),
+                            Thumb_360PhotoURL = item["user"]["photo"].SelectToken("thumb_360")?.ToString(),
+                            CreatedBy = "ContactStaffProcessor",
+                            CreatedDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,
+                            ModifieldBy = "ContactStaffProcessor"
+                        });
+
+                        if (item != null && item["user"]["phoneNumbers"].HasValues)
+                        {
+                            lstPhoneNumber.Add(new()
+                            {
+                                Id = 0,
+                                ContactStaffId = Convert.ToInt32(item["user"]["id"]),
+                                Number = item["user"]["phoneNumbers"].First()?.SelectToken("number")?.ToString(),
+                                Type = item["user"]["phoneNumbers"].First()?.SelectToken("type")?.ToString(),
+                                TypeCode = item["user"]["phoneNumbers"].First()?.SelectToken("typeCode")?.ToString()
+                            });
+                        }
                     }
                 }
-                var lstContactStaffs = JsonConvert.DeserializeObject<IList<ContactStaff>>(lst.ToString())
-                                  .Where(x => x != null && x.Id > 0).ToList()
-                                  .Select<ContactStaff, ContactStaff>(p => new ContactStaff
-                                  {
-                                      Id = 0,
-                                      CrmContactStaffId = p.Id,
-                                      AdminAccess = p.AdminAccess,
-                                      Email = p.Email,
-                                      FirstName = p.FirstName,
-                                      Inserted = p.Inserted,
-                                      LastLogin = p.LastLogin,
-                                      LastName = p.LastName,
-                                      Modified = p.Modified,
-                                      PhoneNumber = new PhoneNumber()
-                                      {
-                                          Id = 0,
-                                          CrmPhoneNumberId = p.PhoneNumber.Id,
-                                          Number = p.PhoneNumber.Number,
-                                          Type = p.PhoneNumber.Type,
-                                          TypeCode = p.PhoneNumber.TypeCode
-                                      },
-                                      PhoneNumberId = p.PhoneNumberId,
-                                      Photo = new Photo()
-                                      {
-                                          Id = 0,
-                                          CrmPhotoId = p.Photo.Id,
-                                          Type = p.Photo.Type,
-                                          Filename = p.Photo.Filename,
-                                          Filesize = p.Photo.Filesize,
-                                          Height = p.Photo.Height,
-                                          Inserted = p.Photo.Inserted,
-                                          Modified = p.Photo.Modified,
-                                          Published = p.Photo.Published,
-                                          Url = p.Photo.Url,
-                                          UserFilename = p.Photo.UserFilename,
-                                          Width = p.Photo.Width
-                                      },
-                                      PhotoId = p.PhotoId,
-                                      Position = p.Position,
-                                      Role = p.Role,
-                                      StaffTypeId = p.StaffTypeId,
-                                      Username = p.Username,
-                                      WebsiteUrl = p.WebsiteUrl,
-                                      CreatedBy = "ContactStaffProcessor",
-                                      CreatedDate = DateTime.Now,
-                                      ModifiedDate = DateTime.Now,
-                                      ModifieldBy = "ContactStaffProcessor"
-                                  }).ToList();
 
-                var lstPhoneNumbers = lstContactStaffs.Select(x => x.PhoneNumber)
-                            .Where(x => x != null && x.CrmPhoneNumberId > 0).ToList()
-                            .GroupBy(elem => elem.CrmPhoneNumberId)
-                            .Select(group => group.First()).ToList();
+                //var lstContactStaffs = lstContactStaff.Select(x => x)
+                //            .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
+                //            .GroupBy(elem => elem.CrmContactStaffId)
+                //            .Select(group => group.First()).ToList();
 
-                var lstPhotos = lstContactStaffs.Select(x => x.Photo)
-                            .Where(x => x != null && x.CrmPhotoId > 0).ToList()
-                            .GroupBy(elem => elem.CrmPhotoId)
-                            .Select(group => group.First()).ToList();
+                //var lstPhoneNumbers = lstPhoneNumber.Select(x => x)
+                //            .Where(x => x != null && x.ContactStaffId > 0).ToList()
+                //            .GroupBy(elem => elem.ContactStaffId)
+                //            .Select(group => group.First()).ToList();
 
                 using var scope = serviceProvider.CreateScope();
-                var phoneNumberRepo = scope.ServiceProvider.GetRequiredService<IPhoneNumberRepository>();
-                await phoneNumberRepo.UpsertPhoneNumbers(lstPhoneNumbers);
-                var photoRepo = scope.ServiceProvider.GetRequiredService<IPhotoRepository>();
-                await photoRepo.UpsertPhotos(lstPhotos);
                 var contactStaffRepo = scope.ServiceProvider.GetRequiredService<IContactStaffRepository>();
-                await contactStaffRepo.UpsertContactStaffs(lstContactStaffs);
+                await contactStaffRepo.UpsertContactStaffs(lstContactStaff.Select(x => x)
+                            .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
+                            .GroupBy(elem => elem.CrmContactStaffId)
+                            .Select(group => group.First()).ToList());
+                var phoneNumberRepo = scope.ServiceProvider.GetRequiredService<IPhoneNumberRepository>();
+                await phoneNumberRepo.UpsertPhoneNumbers(lstPhoneNumber.Select(x => x)
+                            .Where(x => x != null && x.ContactStaffId > 0).ToList()
+                            .GroupBy(elem => elem.ContactStaffId)
+                            .Select(group => group.First()).ToList());
             }
             catch (Exception ex)
             {

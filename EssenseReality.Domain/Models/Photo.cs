@@ -18,7 +18,6 @@ namespace EssenseReality.Domain.Models
         public DateTime Inserted { get; set; }
         public Thumbnail Thumbnails { get; set; }
         public DateTime Modified { get; set; }
-        public ICollection<ContactStaff> ContactStaff { get; set; }
     }
 
 

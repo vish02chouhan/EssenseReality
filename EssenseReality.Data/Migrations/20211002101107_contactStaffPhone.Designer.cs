@@ -4,14 +4,16 @@ using EssenseReality.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    partial class EssenseRealityContextModelSnapshot : ModelSnapshot
+    [Migration("20211002101107_contactStaffPhone")]
+    partial class contactStaffPhone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +97,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Inserted")
+                    b.Property<DateTime>("Inserted")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLogin")
@@ -104,7 +106,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Modified")
+                    b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -115,6 +117,9 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<string>("OriginalPhotoURL")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PhotoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
@@ -138,6 +143,8 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhotoId");
 
                     b.HasIndex("PropertyId");
 
@@ -567,7 +574,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<int?>("GeolocationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Inserted")
+                    b.Property<DateTime>("Inserted")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -582,7 +589,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<int>("LeaseLifeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Modified")
+                    b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -1057,6 +1064,10 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.ContactStaff", b =>
                 {
+                    b.HasOne("EssenseReality.Domain.Models.Photo", null)
+                        .WithMany("ContactStaff")
+                        .HasForeignKey("PhotoId");
+
                     b.HasOne("EssenseReality.Domain.Models.Property", null)
                         .WithMany("ContactStaff")
                         .HasForeignKey("PropertyId");
@@ -1239,6 +1250,11 @@ namespace EssenseReality.Data.Migrations
             modelBuilder.Entity("EssenseReality.Domain.Models.FloorPlan", b =>
                 {
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("EssenseReality.Domain.Models.Photo", b =>
+                {
+                    b.Navigation("ContactStaff");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Property", b =>
