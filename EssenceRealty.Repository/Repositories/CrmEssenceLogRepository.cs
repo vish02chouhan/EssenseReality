@@ -24,7 +24,7 @@ namespace EssenceRealty.Repository.Repositories
         {
             return await GetManyAsync(x => x.ProcessingGroupId == processingGroupId && 
                                        (x.Status == LogTransactionStatus.Pending || x.Status == LogTransactionStatus.Failed) 
-                                       && x.Retry < 3);
+                                       && x.Retry < 3 && x.EssenceObjectTypes == EssenceObjectTypes.Contacts);
         }
 
         public async Task<int> UpdateCrmEssenceLog(CrmEssenceLog crmEssenceLog)

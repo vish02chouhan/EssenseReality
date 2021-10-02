@@ -21,6 +21,11 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(ISubhurbRepository), typeof(SubhurbRepository));
             services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
             services.AddScoped(typeof(ICrmEssenceTransactionRepository), typeof(CrmEssenceTransactionRepository));
+            services.AddScoped(typeof(IPropertyClassRepository), typeof(PropertyClassRepository));
+            services.AddScoped(typeof(IPropertyTypeRepository), typeof(PropertyTypeRepository));
+            services.AddScoped(typeof(IPhoneNumberRepository), typeof(PhoneNumberRepository));
+            services.AddScoped(typeof(IPhotoRepository), typeof(PhotoRepository));
+            services.AddScoped(typeof(IContactStaffRepository), typeof(ContactStaffRepository));
 
             return services;
         }

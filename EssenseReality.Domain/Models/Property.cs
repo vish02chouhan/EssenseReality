@@ -32,8 +32,8 @@ namespace EssenseReality.Domain.Models
         public int LeaseLifeId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime Inserted { get; set; }
-        public DateTime Modified { get; set; }
+        public DateTime? Inserted { get; set; }
+        public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
 
 

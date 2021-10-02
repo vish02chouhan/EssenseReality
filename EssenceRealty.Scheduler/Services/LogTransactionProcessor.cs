@@ -64,6 +64,18 @@ namespace EssenceRealty.Scheduler.Services
                                 SuburbProcessor suburbProcessor = new SuburbProcessor();
                                 await suburbProcessor.ProcessSubhurbMasterData(serviceProvider, items);
                                 break;
+                            case EssenceObjectTypes.PropertyClass:
+                                PropertyClassProcessor propertyClassProcessor = new PropertyClassProcessor();
+                                await propertyClassProcessor.ProcessPropertyClassMasterData(serviceProvider, items);
+                                break;
+                            case EssenceObjectTypes.PropertyType:
+                                PropertyTypeProcessor propertyTypeProcessor = new PropertyTypeProcessor();
+                                await propertyTypeProcessor.ProcessPropertyTypeMasterData(serviceProvider, items);
+                                break;
+                            case EssenceObjectTypes.Contacts:
+                                ContactStaffProcessor contactStaffProcessor = new ContactStaffProcessor();
+                                await contactStaffProcessor.ProcessContactStaffData(serviceProvider, items);
+                                break;
                             default:
                                 break;
                         }
