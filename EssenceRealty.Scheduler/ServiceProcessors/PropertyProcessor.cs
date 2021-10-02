@@ -15,11 +15,18 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
     {
         private int checkNullForInt(string value) 
         {
-            if (string.IsNullOrEmpty(value)) 
+            try
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return 0;
+                }
+                return Convert.ToInt32(value);
+            }
+            catch (Exception ex) 
             {
                 return 0;
             }
-            return Convert.ToInt32(value);
         }
         private double checkNullForDouble(string value)
         {
@@ -29,6 +36,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             }
             return Convert.ToDouble(value);
         }
+
         public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items)
         {
             try
@@ -53,8 +61,8 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 Carports = checkNullForInt(item["carports"]?.ToString()),
                                 FloorAreaValue = checkNullForInt(item["floorArea"]["value"]?.ToString()),
                                 FloorAreaUnit = item["floorArea"]["units"]?.ToString(),
-                                SearchPrice = checkNullForInt(item["searchPrice"]?.ToString()),
-                                DisplayPrice = checkNullForInt(item["displayPrice"]?.ToString()),
+                                SearchPrice = (float)checkNullForDouble(item["searchPrice"]?.ToString()),
+                                DisplayPrice = (float)checkNullForDouble(item["displayPrice"]?.ToString()),
                                 Description = item["description"]?.ToString(),
                                 Status = item["status"]?.ToString(),
                                 YearBuilt = checkNullForInt(item["yearBuilt"]?.ToString()),
@@ -119,8 +127,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
                                 Accuracy = item["geolocation"]["accuracy"]?.ToString(),
                                 CreatedBy = "ContactStaffProcessor",
-                                CreatedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
                                 ModifieldBy = "ContactStaffProcessor"
                             });
                         }
@@ -163,7 +169,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     var geolocationRepo = scope.ServiceProvider.GetRequiredService<IGeolocationRepository>();
                     await geolocationRepo.UpsertGeolocations(lstGeolocation.Select(x => x)
                                 .Where(x => x != null ).ToList()
-                                .GroupBy(elem => elem.Latitude)
+                                .GroupBy(elem => elem)
                                 .Select(group => group.First()).ToList());
                     var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
                     await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
