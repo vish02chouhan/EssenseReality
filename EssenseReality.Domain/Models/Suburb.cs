@@ -12,7 +12,6 @@ namespace EssenseReality.Domain.Models
         public string Postcode { get; set; }
         //public object NzDistrict { get; set; }
         public string Name { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CrmSuburbId { get; set; }
         public int StateId { get; set; }
         public State State { get; set; }

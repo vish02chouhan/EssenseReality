@@ -23,6 +23,8 @@ namespace EssenseReality.Domain.Models
         public string Thumb_360PhotoURL { get; set; }
         public string OriginalPhotoURL { get; set; }
         public ICollection<PhoneNumber> PhoneNumber { get; set; }
+        public int? PropertyId { get; set; }
+        public Property Property { get; set; }
 
     }
 }

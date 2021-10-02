@@ -16,8 +16,11 @@ namespace EssenseReality.Domain.Models
         public int Filesize { get; set; }
         public string Url { get; set; }
         public DateTime Inserted { get; set; }
-        public Thumbnail Thumbnails { get; set; }
         public DateTime Modified { get; set; }
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
+        public int ThumbnailId { get; set; }
+        public Thumbnail Thumbnail { get; set; }
     }
 
 

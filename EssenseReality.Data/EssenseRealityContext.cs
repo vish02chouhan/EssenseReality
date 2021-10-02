@@ -34,6 +34,7 @@ namespace EssenseReality.Data
         public DbSet<EssenceObjectRequiredApproval> EssenceObjectRequiredApprovals { get; set; }
         public DbSet<Suburb> Suburbs { get; set; }
         public DbSet<State> States { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

@@ -17,7 +17,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             try
             {
-
                 var ss = items.SelectTokens("$..marketingUser");
                 List<ContactStaff> lstContactStaff = new List<ContactStaff>();
                 List<PhoneNumber> lstPhoneNumber = new List<PhoneNumber>();
@@ -63,16 +62,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         }
                     }
                 }
-
-                //var lstContactStaffs = lstContactStaff.Select(x => x)
-                //            .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
-                //            .GroupBy(elem => elem.CrmContactStaffId)
-                //            .Select(group => group.First()).ToList();
-
-                //var lstPhoneNumbers = lstPhoneNumber.Select(x => x)
-                //            .Where(x => x != null && x.ContactStaffId > 0).ToList()
-                //            .GroupBy(elem => elem.ContactStaffId)
-                //            .Select(group => group.First()).ToList();
 
                 using var scope = serviceProvider.CreateScope();
                 var contactStaffRepo = scope.ServiceProvider.GetRequiredService<IContactStaffRepository>();

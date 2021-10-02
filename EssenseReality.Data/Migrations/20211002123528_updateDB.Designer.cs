@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    [Migration("20210930053551_propertyTypeClass")]
-    partial class propertyTypeClass
+    [Migration("20211002123528_updateDB")]
+    partial class updateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -46,16 +46,13 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SuburbId")
+                    b.Property<int>("SuburbId")
                         .HasColumnType("int");
 
                     b.Property<string>("UnitNumber")
@@ -64,8 +61,6 @@ namespace EssenseReality.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("StateId");
 
                     b.HasIndex("SuburbId");
 
@@ -79,7 +74,7 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("AdminAccess")
+                    b.Property<bool?>("AdminAccess")
                         .HasColumnType("bit");
 
                     b.Property<string>("CreatedBy")
@@ -88,22 +83,25 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CrmContactStaffId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Inserted")
+                    b.Property<DateTime?>("Inserted")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("LastLogin")
+                    b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Modified")
+                    b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -112,8 +110,8 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PhotoId")
-                        .HasColumnType("int");
+                    b.Property<string>("OriginalPhotoURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
@@ -127,6 +125,9 @@ namespace EssenseReality.Data.Migrations
                     b.Property<int>("StaffTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Thumb_360PhotoURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -134,8 +135,6 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PhotoId");
 
                     b.HasIndex("PropertyId");
 
@@ -428,7 +427,7 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContactStaffId")
+                    b.Property<int>("ContactStaffId")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
@@ -460,6 +459,9 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("CrmPhotoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Filename")
                         .HasColumnType("nvarchar(max)");
 
@@ -484,13 +486,13 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PropertyId")
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Published")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ThumbnailsId")
+                    b.Property<int>("ThumbnailId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -511,7 +513,7 @@ namespace EssenseReality.Data.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.HasIndex("ThumbnailsId");
+                    b.HasIndex("ThumbnailId");
 
                     b.ToTable("Photos");
                 });
@@ -523,7 +525,7 @@ namespace EssenseReality.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<int>("Bath")
@@ -540,6 +542,9 @@ namespace EssenseReality.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("CrmPropertyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -559,10 +564,10 @@ namespace EssenseReality.Data.Migrations
                     b.Property<int?>("FloorPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GeolocationId")
+                    b.Property<int>("GeolocationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Inserted")
+                    b.Property<DateTime?>("Inserted")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -577,7 +582,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<int>("LeaseLifeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Modified")
+                    b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -586,7 +591,7 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PropertyTypeId")
+                    b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
 
                     b.Property<long?>("ReceptionRooms")
@@ -1033,34 +1038,28 @@ namespace EssenseReality.Data.Migrations
                 {
                     b.HasOne("EssenseReality.Domain.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("EssenseReality.Domain.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EssenseReality.Domain.Models.Suburb", "Suburb")
                         .WithMany()
-                        .HasForeignKey("SuburbId");
+                        .HasForeignKey("SuburbId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Country");
-
-                    b.Navigation("State");
 
                     b.Navigation("Suburb");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.ContactStaff", b =>
                 {
-                    b.HasOne("EssenseReality.Domain.Models.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId");
-
-                    b.HasOne("EssenseReality.Domain.Models.Property", null)
+                    b.HasOne("EssenseReality.Domain.Models.Property", "Property")
                         .WithMany("ContactStaff")
                         .HasForeignKey("PropertyId");
 
-                    b.Navigation("Photo");
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.CrmEssenceTransaction", b =>
@@ -1094,9 +1093,13 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.PhoneNumber", b =>
                 {
-                    b.HasOne("EssenseReality.Domain.Models.ContactStaff", null)
-                        .WithMany("PhoneNumbers")
-                        .HasForeignKey("ContactStaffId");
+                    b.HasOne("EssenseReality.Domain.Models.ContactStaff", "ContactStaff")
+                        .WithMany("PhoneNumber")
+                        .HasForeignKey("ContactStaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContactStaff");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Photo", b =>
@@ -1105,22 +1108,30 @@ namespace EssenseReality.Data.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("FloorPlanId");
 
-                    b.HasOne("EssenseReality.Domain.Models.Property", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("PropertyId");
+                    b.HasOne("EssenseReality.Domain.Models.Property", "Property")
+                        .WithMany("Photo")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("EssenseReality.Domain.Models.Thumbnail", "Thumbnails")
+                    b.HasOne("EssenseReality.Domain.Models.Thumbnail", "Thumbnail")
                         .WithMany()
-                        .HasForeignKey("ThumbnailsId");
+                        .HasForeignKey("ThumbnailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Thumbnails");
+                    b.Navigation("Property");
+
+                    b.Navigation("Thumbnail");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Property", b =>
                 {
                     b.HasOne("EssenseReality.Domain.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EssenseReality.Domain.Models.FloorPlan", "FloorPlan")
                         .WithMany()
@@ -1128,11 +1139,15 @@ namespace EssenseReality.Data.Migrations
 
                     b.HasOne("EssenseReality.Domain.Models.Geolocation", "Geolocation")
                         .WithMany()
-                        .HasForeignKey("GeolocationId");
+                        .HasForeignKey("GeolocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EssenseReality.Domain.Models.PropertyType", "PropertyType")
                         .WithMany()
-                        .HasForeignKey("PropertyTypeId");
+                        .HasForeignKey("PropertyTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
 
@@ -1225,7 +1240,7 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.ContactStaff", b =>
                 {
-                    b.Navigation("PhoneNumbers");
+                    b.Navigation("PhoneNumber");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.CrmEssenceLog", b =>
@@ -1242,7 +1257,7 @@ namespace EssenseReality.Data.Migrations
                 {
                     b.Navigation("ContactStaff");
 
-                    b.Navigation("Photos");
+                    b.Navigation("Photo");
 
                     b.Navigation("PropertyFeature");
                 });
