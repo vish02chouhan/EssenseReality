@@ -18,13 +18,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task UpsertThumbnails(IList<Thumbnail> lstThumbnail)
         {
-            //var lstUpdatedStates = _dbContext.States.ToList();
-            //foreach (var item in lstSuburb)
-            //{
-            //    item.StateId = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First().Id;
-            //    item.State = lstUpdatedStates.Where(x => x.CrmStateId == item.State.CrmStateId).First();
-            //}
-            //await _dbContext.Suburbs.UpsertRange(lstSuburb).On(x => x.CrmSuburbId).RunAsync();
+            await _dbContext.Thumbnails.UpsertRange(lstThumbnail).On(x => x.Thumb1024).RunAsync();
             await _dbContext.SaveChangesAsync();
 
         }

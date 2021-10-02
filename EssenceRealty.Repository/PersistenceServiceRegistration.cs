@@ -30,6 +30,7 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(IGeolocationRepository), typeof(GeolocationRepository));
             services.AddScoped(typeof(IAddressRepository), typeof(AddressRepository));
             services.AddScoped(typeof(IPropertyRepository), typeof(PropertyRepository));
+            services.AddScoped(typeof(IThumbnailRepository), typeof(ThumbnailRepository));
 
             return services;
         }

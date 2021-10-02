@@ -48,6 +48,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     List<Geolocation> lstGeolocation = new List<Geolocation>();
                     List<Photo> lstPhoto = new List<Photo>();
                     List<Country> lstCountry = new List<Country>();
+                    List<Thumbnail> lstThumbnail = new List<Thumbnail>();
 
                     foreach (var item in items)
                     {
@@ -157,7 +158,18 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         {
                             foreach (var photo in item["photos"])
                             {
-                                lstPhoto.Add(new()
+                                if (photo != null && photo["thumbnails"].HasValues)
+                                {
+                                    lstThumbnail.Add(new()
+                                    {
+                                        Id = 0,
+                                        Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
+                                        Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
+                                        CreatedBy = "ContactStaffProcessor",
+                                        ModifieldBy = "ContactStaffProcessor"
+                                    });
+                                }
+                                    lstPhoto.Add(new()
                                 {
                                     Id = 0,
                                     CrmPhotoId = checkNullForInt(photo["id"]?.ToString()),
@@ -166,9 +178,17 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                     Height = checkNullForInt(photo["height"]?.ToString()),
                                     Inserted = Convert.ToDateTime(photo["inserted"]),
                                     Modified = Convert.ToDateTime(photo["modified"]),
-                                    PropertyId = 0,
+                                    PropertyId = checkNullForInt(item["id"]?.ToString()),
                                     Published = Convert.ToBoolean(photo["published"]),
                                     ThumbnailId = 0,
+                                    Thumbnail = new()
+                                    {
+                                        Id = 0,
+                                        Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
+                                        Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
+                                        CreatedBy = "ContactStaffProcessor",
+                                        ModifieldBy = "ContactStaffProcessor"
+                                    },
                                     Type = photo["type"]?.ToString(),
                                     Url = photo["url"]?.ToString(),
                                     UserFilename = photo["userFilename"]?.ToString(),
@@ -202,6 +222,18 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
                                 .Where(x => x != null && x.CrmPropertyId > 0).ToList()
                                 .GroupBy(elem => elem.CrmPropertyId)
+                                .Select(group => group.First()).ToList());
+
+                    var thumbnailRepo = scope.ServiceProvider.GetRequiredService<IThumbnailRepository>();
+                    await thumbnailRepo.UpsertThumbnails(lstThumbnail.Select(x => x)
+                                .Where(x => x != null ).ToList()
+                                .GroupBy(elem => elem)
+                                .Select(group => group.First()).ToList());
+
+                    var photoRepo = scope.ServiceProvider.GetRequiredService<IPhotoRepository>();
+                    await photoRepo.UpsertPhotos(lstPhoto.Select(x => x)
+                                .Where(x => x != null && x.CrmPhotoId> 0).ToList()
+                                .GroupBy(elem => elem.CrmPhotoId)
                                 .Select(group => group.First()).ToList());
                 }
             }
