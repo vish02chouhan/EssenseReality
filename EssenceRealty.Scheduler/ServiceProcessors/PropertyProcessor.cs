@@ -77,7 +77,29 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 Modified = Convert.ToDateTime(item["modified"]),
                                 IsAdminUpdated = false,
                                 AddressId = 0,
+                                Address = new Address()
+                                {
+                                    Id = 0,
+                                    CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
+                                    Level = item["address"]["level"]?.ToString(),
+                                    Street = item["address"]["street"]?.ToString(),
+                                    StreetNumber = item["address"]["streetNumber"]?.ToString(),
+                                    SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
+                                    UnitNumber = item["address"]["unitNumber"]?.ToString(),
+                                    CreatedBy = "ContactStaffProcessor",
+                                    //CreatedDate = DateTime.Now,
+                                    //ModifiedDate = DateTime.Now,
+                                    ModifieldBy = "ContactStaffProcessor",
+                                },
                                 GeolocationId = 0,
+                                Geolocation = new Geolocation() {
+                                    Id = 0,
+                                    Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
+                                    Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
+                                    Accuracy = item["geolocation"]["accuracy"]?.ToString(),
+                                    CreatedBy = "ContactStaffProcessor",
+                                    ModifieldBy = "ContactStaffProcessor"
+                                },
                                 PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
                                 CreatedBy = "ContactStaffProcessor",
                                 CreatedDate = DateTime.Now,
@@ -90,16 +112,16 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                             lstAddress.Add(new()
                             {
                                 Id = 0,
-                                CountryId = 0,
+                                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
                                 Level = item["address"]["level"]?.ToString(),
                                 Street = item["address"]["street"]?.ToString(),
                                 StreetNumber = item["address"]["streetNumber"]?.ToString(),
-                                SuburbId = 0,
+                                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
                                 UnitNumber = item["address"]["unitNumber"]?.ToString(),
                                 CreatedBy = "ContactStaffProcessor",
-                                CreatedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ModifieldBy = "ContactStaffProcessor"
+                                //CreatedDate = DateTime.Now,
+                                //ModifiedDate = DateTime.Now,
+                                ModifieldBy = "ContactStaffProcessor",
                             });
                             if (item != null && item["address"]["country"].HasValues)
                             {
@@ -168,6 +190,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 .Select(group => group.First()).ToList());
                     var geolocationRepo = scope.ServiceProvider.GetRequiredService<IGeolocationRepository>();
                     await geolocationRepo.UpsertGeolocations(lstGeolocation.Select(x => x)
+                                .Where(x => x != null ).ToList()
+                                .GroupBy(elem => elem)
+                                .Select(group => group.First()).ToList());
+                    var addressRepo = scope.ServiceProvider.GetRequiredService<IAddressRepository>();
+                    await addressRepo.UpsertAddresss(lstAddress.Select(x => x)
                                 .Where(x => x != null ).ToList()
                                 .GroupBy(elem => elem)
                                 .Select(group => group.First()).ToList());
