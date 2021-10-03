@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenseReality.Data.Migrations
 {
-    public partial class updateDB : Migration
+    public partial class removeextratable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,12 +47,13 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Isocode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CrmCountryId = table.Column<int>(type: "int", nullable: false),
                     GstRate = table.Column<double>(type: "float", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -62,7 +63,7 @@ namespace EssenseReality.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,25 +107,6 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Geolocations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Accuracy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Geolocations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PropertyClasses",
                 columns: table => new
                 {
@@ -160,24 +142,6 @@ namespace EssenseReality.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_States", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Thumbnails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Thumb1024 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Thumb180 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Thumbnails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -391,40 +355,6 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnitNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StreetNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    SuburbId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Addresses_Country_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Country",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Addresses_Suburbs_SuburbId",
-                        column: x => x.SuburbId,
-                        principalTable: "Suburbs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Properties",
                 columns: table => new
                 {
@@ -453,9 +383,16 @@ namespace EssenseReality.Data.Migrations
                     Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsAdminUpdated = table.Column<bool>(type: "bit", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    GeolocationId = table.Column<int>(type: "int", nullable: false),
                     PropertyTypeId = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    SuburbId = table.Column<int>(type: "int", nullable: false),
+                    Accuracy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -465,9 +402,9 @@ namespace EssenseReality.Data.Migrations
                 {
                     table.PrimaryKey("PK_Properties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Properties_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
+                        name: "FK_Properties_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -477,15 +414,15 @@ namespace EssenseReality.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Properties_Geolocations_GeolocationId",
-                        column: x => x.GeolocationId,
-                        principalTable: "Geolocations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Properties_PropertyTypes_PropertyTypeId",
                         column: x => x.PropertyTypeId,
                         principalTable: "PropertyTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Properties_Suburbs_SuburbId",
+                        column: x => x.SuburbId,
+                        principalTable: "Suburbs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -581,6 +518,8 @@ namespace EssenseReality.Data.Migrations
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     ThumbnailId = table.Column<int>(type: "int", nullable: false),
+                    Thumb1024 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Thumb180 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FloorPlanId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -600,12 +539,6 @@ namespace EssenseReality.Data.Migrations
                         name: "FK_Photos_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Photos_Thumbnails_ThumbnailId",
-                        column: x => x.ThumbnailId,
-                        principalTable: "Thumbnails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -658,16 +591,6 @@ namespace EssenseReality.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Addresses_CountryId",
-                table: "Addresses",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Addresses_SuburbId",
-                table: "Addresses",
-                column: "SuburbId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -744,14 +667,9 @@ namespace EssenseReality.Data.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photos_ThumbnailId",
-                table: "Photos",
-                column: "ThumbnailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Properties_AddressId",
+                name: "IX_Properties_CountryId",
                 table: "Properties",
-                column: "AddressId");
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_FloorPlanId",
@@ -759,14 +677,14 @@ namespace EssenseReality.Data.Migrations
                 column: "FloorPlanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_GeolocationId",
-                table: "Properties",
-                column: "GeolocationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Properties_PropertyTypeId",
                 table: "Properties",
                 column: "PropertyTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Properties_SuburbId",
+                table: "Properties",
+                column: "SuburbId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PropertyFeatures_PropertyId",
@@ -829,28 +747,19 @@ namespace EssenseReality.Data.Migrations
                 name: "ContactStaffs");
 
             migrationBuilder.DropTable(
-                name: "Thumbnails");
-
-            migrationBuilder.DropTable(
                 name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
                 name: "Properties");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "FloorPlans");
 
             migrationBuilder.DropTable(
-                name: "Geolocations");
-
-            migrationBuilder.DropTable(
                 name: "PropertyTypes");
-
-            migrationBuilder.DropTable(
-                name: "Country");
 
             migrationBuilder.DropTable(
                 name: "Suburbs");

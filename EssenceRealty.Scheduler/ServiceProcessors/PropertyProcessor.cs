@@ -44,11 +44,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 if (items.HasValues)
                 {
                     List<Property> lstProperty = new List<Property>();
-                    List<Address> lstAddress = new List<Address>();
-                    List<Geolocation> lstGeolocation = new List<Geolocation>();
+                    //List<Address> lstAddress = new List<Address>();
+                    //List<Geolocation> lstGeolocation = new List<Geolocation>();
                     List<Photo> lstPhoto = new List<Photo>();
                     List<Country> lstCountry = new List<Country>();
-                    List<Thumbnail> lstThumbnail = new List<Thumbnail>();
+                    //List<Thumbnail> lstThumbnail = new List<Thumbnail>();
 
                     foreach (var item in items)
                     {
@@ -77,30 +77,30 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 Inserted = Convert.ToDateTime(item["inserted"]),
                                 Modified = Convert.ToDateTime(item["modified"]),
                                 IsAdminUpdated = false,
-                                AddressId = 0,
-                                Address = new Address()
-                                {
-                                    Id = 0,
-                                    CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
-                                    Level = item["address"]["level"]?.ToString(),
-                                    Street = item["address"]["street"]?.ToString(),
-                                    StreetNumber = item["address"]["streetNumber"]?.ToString(),
-                                    SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
-                                    UnitNumber = item["address"]["unitNumber"]?.ToString(),
-                                    CreatedBy = "ContactStaffProcessor",
+                                //AddressId = 0,
+                                //Address = new Address()
+                                //{
+                                //    Id = 0,
+                                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
+                                Level = item["address"]["level"]?.ToString(),
+                                Street = item["address"]["street"]?.ToString(),
+                                StreetNumber = item["address"]["streetNumber"]?.ToString(),
+                                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
+                                UnitNumber = item["address"]["unitNumber"]?.ToString(),
+                                    //CreatedBy = "ContactStaffProcessor",
                                     //CreatedDate = DateTime.Now,
                                     //ModifiedDate = DateTime.Now,
-                                    ModifieldBy = "ContactStaffProcessor",
-                                },
-                                GeolocationId = 0,
-                                Geolocation = new Geolocation() {
-                                    Id = 0,
-                                    Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
-                                    Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
-                                    Accuracy = item["geolocation"]["accuracy"]?.ToString(),
-                                    CreatedBy = "ContactStaffProcessor",
-                                    ModifieldBy = "ContactStaffProcessor"
-                                },
+                                    //ModifieldBy = "ContactStaffProcessor",
+                                //},
+                                //GeolocationId = 0,
+                                //Geolocation = new Geolocation() {
+                                    //Id = 0,
+                                Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
+                                Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
+                                Accuracy = item["geolocation"]["accuracy"]?.ToString(),
+                                //    CreatedBy = "ContactStaffProcessor",
+                                //    ModifieldBy = "ContactStaffProcessor"
+                                //},
                                 PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
                                 CreatedBy = "ContactStaffProcessor",
                                 CreatedDate = DateTime.Now,
@@ -110,20 +110,20 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 
                         if (item != null && item["address"].HasValues)
                         {
-                            lstAddress.Add(new()
-                            {
-                                Id = 0,
-                                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
-                                Level = item["address"]["level"]?.ToString(),
-                                Street = item["address"]["street"]?.ToString(),
-                                StreetNumber = item["address"]["streetNumber"]?.ToString(),
-                                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
-                                UnitNumber = item["address"]["unitNumber"]?.ToString(),
-                                CreatedBy = "ContactStaffProcessor",
-                                //CreatedDate = DateTime.Now,
-                                //ModifiedDate = DateTime.Now,
-                                ModifieldBy = "ContactStaffProcessor",
-                            });
+                            //lstAddress.Add(new()
+                            //{
+                            //    Id = 0,
+                            //    CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
+                            //    Level = item["address"]["level"]?.ToString(),
+                            //    Street = item["address"]["street"]?.ToString(),
+                            //    StreetNumber = item["address"]["streetNumber"]?.ToString(),
+                            //    SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
+                            //    UnitNumber = item["address"]["unitNumber"]?.ToString(),
+                            //    CreatedBy = "ContactStaffProcessor",
+                            //    //CreatedDate = DateTime.Now,
+                            //    //ModifiedDate = DateTime.Now,
+                            //    ModifieldBy = "ContactStaffProcessor",
+                            //});
                             if (item != null && item["address"]["country"].HasValues)
                             {
                                 lstCountry.Add(new()
@@ -141,34 +141,34 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                             }
                         }
 
-                        if (item != null && item["geolocation"].HasValues)
-                        {
-                            lstGeolocation.Add(new()
-                            {
-                                Id = 0,
-                                Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
-                                Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
-                                Accuracy = item["geolocation"]["accuracy"]?.ToString(),
-                                CreatedBy = "ContactStaffProcessor",
-                                ModifieldBy = "ContactStaffProcessor"
-                            });
-                        }
+                        //if (item != null && item["geolocation"].HasValues)
+                        //{
+                        //    lstGeolocation.Add(new()
+                        //    {
+                        //        Id = 0,
+                        //        Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
+                        //        Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
+                        //        Accuracy = item["geolocation"]["accuracy"]?.ToString(),
+                        //        CreatedBy = "ContactStaffProcessor",
+                        //        ModifieldBy = "ContactStaffProcessor"
+                        //    });
+                        //}
 
                         if (item != null && item["photos"].HasValues)
                         {
                             foreach (var photo in item["photos"])
                             {
-                                if (photo != null && photo["thumbnails"].HasValues)
-                                {
-                                    lstThumbnail.Add(new()
-                                    {
-                                        Id = 0,
-                                        Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
-                                        Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
-                                        CreatedBy = "ContactStaffProcessor",
-                                        ModifieldBy = "ContactStaffProcessor"
-                                    });
-                                }
+                                //if (photo != null && photo["thumbnails"].HasValues)
+                                //{
+                                //    lstThumbnail.Add(new()
+                                //    {
+                                //        Id = 0,
+                                //        Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
+                                //        Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
+                                //        CreatedBy = "ContactStaffProcessor",
+                                //        ModifieldBy = "ContactStaffProcessor"
+                                //    });
+                                //}
                                     lstPhoto.Add(new()
                                 {
                                     Id = 0,
@@ -180,15 +180,15 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                     Modified = Convert.ToDateTime(photo["modified"]),
                                     PropertyId = checkNullForInt(item["id"]?.ToString()),
                                     Published = Convert.ToBoolean(photo["published"]),
-                                    ThumbnailId = 0,
-                                    Thumbnail = new()
-                                    {
-                                        Id = 0,
-                                        Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
-                                        Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
-                                        CreatedBy = "ContactStaffProcessor",
-                                        ModifieldBy = "ContactStaffProcessor"
-                                    },
+                                    //ThumbnailId = 0,
+                                    //Thumbnail = new()
+                                    //{
+                                    //    Id = 0,
+                                    Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
+                                    Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
+                                    //    CreatedBy = "ContactStaffProcessor",
+                                    //    ModifieldBy = "ContactStaffProcessor"
+                                    //},
                                     Type = photo["type"]?.ToString(),
                                     Url = photo["url"]?.ToString(),
                                     UserFilename = photo["userFilename"]?.ToString(),
@@ -208,27 +208,27 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                 .Where(x => x != null && x.CrmCountryId> 0).ToList()
                                 .GroupBy(elem => elem.CrmCountryId)
                                 .Select(group => group.First()).ToList());
-                    var geolocationRepo = scope.ServiceProvider.GetRequiredService<IGeolocationRepository>();
-                    await geolocationRepo.UpsertGeolocations(lstGeolocation.Select(x => x)
-                                .Where(x => x != null ).ToList()
-                                .GroupBy(elem => elem)
-                                .Select(group => group.First()).ToList());
-                    var addressRepo = scope.ServiceProvider.GetRequiredService<IAddressRepository>();
-                    await addressRepo.UpsertAddresss(lstAddress.Select(x => x)
-                                .Where(x => x != null ).ToList()
-                                .GroupBy(elem => elem)
-                                .Select(group => group.First()).ToList());
+                    //var geolocationRepo = scope.ServiceProvider.GetRequiredService<IGeolocationRepository>();
+                    //await geolocationRepo.UpsertGeolocations(lstGeolocation.Select(x => x)
+                    //            .Where(x => x != null ).ToList()
+                    //            .GroupBy(elem => elem)
+                    //            .Select(group => group.First()).ToList());
+                    //var addressRepo = scope.ServiceProvider.GetRequiredService<IAddressRepository>();
+                    //await addressRepo.UpsertAddresss(lstAddress.Select(x => x)
+                    //            .Where(x => x != null ).ToList()
+                    //            .GroupBy(elem => elem)
+                    //            .Select(group => group.First()).ToList());
                     var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
                     await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
                                 .Where(x => x != null && x.CrmPropertyId > 0).ToList()
                                 .GroupBy(elem => elem.CrmPropertyId)
                                 .Select(group => group.First()).ToList());
 
-                    var thumbnailRepo = scope.ServiceProvider.GetRequiredService<IThumbnailRepository>();
-                    await thumbnailRepo.UpsertThumbnails(lstThumbnail.Select(x => x)
-                                .Where(x => x != null ).ToList()
-                                .GroupBy(elem => elem)
-                                .Select(group => group.First()).ToList());
+                    //var thumbnailRepo = scope.ServiceProvider.GetRequiredService<IThumbnailRepository>();
+                    //await thumbnailRepo.UpsertThumbnails(lstThumbnail.Select(x => x)
+                    //            .Where(x => x != null ).ToList()
+                    //            .GroupBy(elem => elem)
+                    //            .Select(group => group.First()).ToList());
 
                     var photoRepo = scope.ServiceProvider.GetRequiredService<IPhotoRepository>();
                     await photoRepo.UpsertPhotos(lstPhoto.Select(x => x)
