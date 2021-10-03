@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IGeolocationRepository
     {
-        Task UpsertGeolocations(IList<Geolocation> lstGeolocation);
+        //Task UpsertGeolocations(IList<Geolocation> lstGeolocation);
     }
 }

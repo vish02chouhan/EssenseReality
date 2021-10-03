@@ -30,15 +30,26 @@ namespace EssenseReality.Domain.Models
         public DateTime? Inserted { get; set; }
         public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
-        public int GeolocationId { get; set; }
-        public Geolocation Geolocation { get; set; }
+        //public int AddressId { get; set; }
+        //public Address Address { get; set; }
+        //public int GeolocationId { get; set; }
+        //public Geolocation Geolocation { get; set; }
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public ICollection<Photo> Photo { get; set; }
         public ICollection<ContactStaff> ContactStaff { get; set; }
         public List<PropertyFeature> PropertyFeature { get; set; }
+        public string Level { get; set; }
+        public string UnitNumber { get; set; }
+        public string Street { get; set; }
+        public string StreetNumber { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
+        public int SuburbId { get; set; }
+        public Suburb Suburb { get; set; }
+        public string Accuracy { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         //public object LandValue { get; set; }
         //public string TenantName { get; set; }

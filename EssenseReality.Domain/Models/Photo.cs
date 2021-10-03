@@ -20,7 +20,9 @@ namespace EssenseReality.Domain.Models
         public int PropertyId { get; set; }
         public Property Property { get; set; }
         public int ThumbnailId { get; set; }
-        public Thumbnail Thumbnail { get; set; }
+        //public Thumbnail Thumbnail { get; set; }
+        public string Thumb1024 { get; set; }
+        public string Thumb180 { get; set; }
     }
 
 

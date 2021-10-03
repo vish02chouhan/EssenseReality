@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IThumbnailRepository
     {
-        Task UpsertThumbnails(IList<Thumbnail> lstThumbnail);
+        //Task UpsertThumbnails(IList<Thumbnail> lstThumbnail);
     }
 }

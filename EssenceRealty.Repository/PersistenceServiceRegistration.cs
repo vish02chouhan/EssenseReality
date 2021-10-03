@@ -27,10 +27,10 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(IPhotoRepository), typeof(PhotoRepository));
             services.AddScoped(typeof(IContactStaffRepository), typeof(ContactStaffRepository));
             services.AddScoped(typeof(ICountryRepository), typeof(CountryRepository));
-            services.AddScoped(typeof(IGeolocationRepository), typeof(GeolocationRepository));
-            services.AddScoped(typeof(IAddressRepository), typeof(AddressRepository));
+            //services.AddScoped(typeof(IGeolocationRepository), typeof(GeolocationRepository));
+            //services.AddScoped(typeof(IAddressRepository), typeof(AddressRepository));
             services.AddScoped(typeof(IPropertyRepository), typeof(PropertyRepository));
-            services.AddScoped(typeof(IThumbnailRepository), typeof(ThumbnailRepository));
+            //services.AddScoped(typeof(IThumbnailRepository), typeof(ThumbnailRepository));
 
             return services;
         }

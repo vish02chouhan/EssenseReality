@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IAddressRepository
     {
-        Task UpsertAddresss(IList<Address> lstAddress);
+        //Task UpsertAddresss(IList<Address> lstAddress);
     }
 }
