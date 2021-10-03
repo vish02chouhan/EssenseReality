@@ -36,7 +36,7 @@ namespace EssenceRealty.Scheduler.ExternalServices
 
         public async Task<string> GetEssenceData(string uri, CancellationToken cancellationToken = default)
         {
-
+           
             using var httpResponse = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
 
             httpResponse.EnsureSuccessStatusCode(); // throws if not 200-299
