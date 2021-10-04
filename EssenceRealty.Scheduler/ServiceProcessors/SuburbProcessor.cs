@@ -51,6 +51,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 using var scope = serviceProvider.CreateScope();
                 var stateRepo = scope.ServiceProvider.GetRequiredService<IStateRepository>();
                 await stateRepo.UpsertStates(lstStates);
+
                 var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
                 await subhurbRepo.UpsertSubhurbs(lstSubHurbs);
             }

@@ -15,7 +15,7 @@ namespace EssenceRealty.Scheduler.Services
     {
         private readonly VaultApiClient vaultApiClient;
         private readonly IOptions<VaultServicesConfig> vaultServicesConfig;
-        private readonly ICrmEssenceLogRepository crmEssenceLogRepository;
+        private readonly int pageSize;
         private readonly IServiceProvider serviceProvider;
 
         public VaultCrmProcessor(VaultApiClient vaultApiClient,
@@ -25,6 +25,7 @@ namespace EssenceRealty.Scheduler.Services
             this.vaultApiClient = vaultApiClient;
             this.vaultServicesConfig = vaultServicesConfig;
             this.serviceProvider = serviceProvider;
+            this.pageSize = vaultServicesConfig.Value.PageSize;
         }
 
         public async Task StartProcessing(Guid guid)
@@ -33,17 +34,29 @@ namespace EssenceRealty.Scheduler.Services
             {
                 foreach (var essenceMainObject in vaultServicesConfig.Value.EssenceMainObject)
                 {
+                    if (!essenceMainObject.IsRequiredToProcess)
+                    {
+                        continue;
+                    }
+
                     foreach (var url in essenceMainObject.Urls)
                     {
-                        await SaveData(url, guid, essenceMainObject.Name);
+                        try
+                        {
+                            await SaveData(url, guid, essenceMainObject.Name);
+                        }
+                        catch (Exception)
+                        {
+                            //To Do; Will implement exception
+                        }
+                      
                     }
                   
                 }
             }
             catch (System.Exception)
             {
-
-                throw;
+                //To Do; Will implement exception
             }
         }
 
@@ -51,10 +64,14 @@ namespace EssenceRealty.Scheduler.Services
         {
             int pageNumber = 1;
             string urlNameForDb = url;
+            url = url + "?pagesize=" + pageSize;
+
+            using var scope = serviceProvider.CreateScope();
+            var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
+
             while (!string.IsNullOrEmpty(url))
             {
-                
-                
+                              
                 var data = await vaultApiClient.GetEssenceData(url);
                 JObject json = JObject.Parse(data);
                 JArray items = (JArray)json["items"];
@@ -62,7 +79,7 @@ namespace EssenceRealty.Scheduler.Services
                 CrmEssenceLog crmEssenceLog = new()
                 {
                     ProcessingGroupId = guid,
-                    JsonObjectBatch = data,
+                    JsonObjectBatch = json["items"].ToString(),
                     JsonObjectBatchItems = items.Count,
                     EndPointUrl = urlNameForDb,
                     RecivedDateTime = DateTime.Now,
@@ -72,10 +89,7 @@ namespace EssenceRealty.Scheduler.Services
                     Status = LogTransactionStatus.Pending,
                     EssenceObjectTypes = (EssenceObjectTypes)Enum.Parse(typeof(EssenceObjectTypes), objectTypeName, true),
                 };
-
-                using var scope = serviceProvider.CreateScope();
-                var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
-
+               
                 await essenceLogRepo.AddCrmEssenceLog(crmEssenceLog);
 
                 pageNumber++;
