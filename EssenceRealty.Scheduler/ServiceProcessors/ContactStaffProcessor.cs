@@ -29,11 +29,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         {
                             Id = 0,
                             CrmContactStaffId = Convert.ToInt32(item["user"]["id"]),
-                            AdminAccess = null,
+                            //AdminAccess = null,
                             Email = item["user"]["email"]?.ToString(),
                             FirstName = item["user"]["firstName"]?.ToString(),
                             Inserted = null,//Convert.ToDateTime(item["user"]["inserted"]),
-                            LastLogin = null,
+                            //LastLogin = null,
                             LastName = item["user"]["lastName"]?.ToString(),
                             Modified = null,//Convert.ToDateTime(item["user"]["modified"]),
                             Position = item["user"]["position"]?.ToString(),
@@ -43,10 +43,10 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                             WebsiteUrl = null,
                             OriginalPhotoURL = item["user"]["photo"].SelectToken("original")?.ToString(),
                             Thumb_360PhotoURL = item["user"]["photo"].SelectToken("thumb_360")?.ToString(),
-                            CreatedBy = "ContactStaffProcessor",
+                            CreatedBy = ERConstants.CONTACTSTAFF_PROCESSOR,
                             CreatedDate = DateTime.Now,
                             ModifiedDate = DateTime.Now,
-                            ModifieldBy = "ContactStaffProcessor"
+                            ModifieldBy = ERConstants.CONTACTSTAFF_PROCESSOR
                         });
 
                         if (item != null && item["user"]["phoneNumbers"].HasValues)

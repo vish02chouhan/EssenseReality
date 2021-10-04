@@ -37,7 +37,7 @@ namespace EssenseReality.Domain.Models
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public ICollection<Photo> Photo { get; set; }
-        public ICollection<ContactStaff> ContactStaff { get; set; }
+        public ICollection<PropertyContactStaff> PropertyContactStaffs { get; set; }
         public List<PropertyFeature> PropertyFeature { get; set; }
         public string Level { get; set; }
         public string UnitNumber { get; set; }

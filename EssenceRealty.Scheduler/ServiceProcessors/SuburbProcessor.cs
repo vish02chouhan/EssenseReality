@@ -32,15 +32,15 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                           Name = p.State.Name,
                                           CrmStateId = p.State.Id,
                                           Abbreviation = p.State.Abbreviation,
-                                          CreatedBy = "SuburbProcessor",
+                                          CreatedBy = ERConstants.SUBURB_PROCESSOR,
                                           CreatedDate = DateTime.Now,
                                           ModifiedDate = DateTime.Now,
-                                          ModifieldBy = "SuburbProcessor"
+                                          ModifieldBy = ERConstants.SUBURB_PROCESSOR
                                       },
-                                      CreatedBy = "SuburbProcessor",
+                                      CreatedBy = ERConstants.SUBURB_PROCESSOR,
                                       CreatedDate = DateTime.Now,
                                       ModifiedDate = DateTime.Now,
-                                      ModifieldBy = "SuburbProcessor"
+                                      ModifieldBy = ERConstants.SUBURB_PROCESSOR
                                   }).ToList();
 
                 var lstStates = lstSubHurbs.Select(x => x.State)

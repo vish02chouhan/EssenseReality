@@ -34,10 +34,10 @@ namespace EssenceRealty.Scheduler
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 Guid batchUniqueId = Guid.NewGuid();
-               // await vaultCrmProcessor.StartProcessing(batchUniqueId);
-                await logTransactionProcessor.StartProcessing(Guid.Parse("804fe586-1677-4107-82b5-92d0431f5b9d"));// batchUniqueId);
+            await vaultCrmProcessor.StartProcessing(batchUniqueId);
+            await logTransactionProcessor.StartProcessing(batchUniqueId);//Guid.Parse("804fe586-1677-4107-82b5-92d0431f5b9d"));// 
 
-                ///await Task.Delay(1000, stoppingToken);
+            ///await Task.Delay(1000, stoppingToken);
             //}
         }
     }

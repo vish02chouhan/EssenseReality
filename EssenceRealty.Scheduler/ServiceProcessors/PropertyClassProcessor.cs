@@ -25,10 +25,10 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                       Name = p.Name,
                                       CrmPropertyClassId = p.Id,
                                       InternalName = p.InternalName,
-                                      CreatedBy = "PropertyClassProcessor",
+                                      CreatedBy = ERConstants.PROPERTYCLASS_PROCESSOR,
                                       CreatedDate = DateTime.Now,
                                       ModifiedDate = DateTime.Now,
-                                      ModifieldBy = "PropertyClassProcessor"
+                                      ModifieldBy = ERConstants.PROPERTYCLASS_PROCESSOR
                                   }).ToList();
 
                 using var scope = serviceProvider.CreateScope();

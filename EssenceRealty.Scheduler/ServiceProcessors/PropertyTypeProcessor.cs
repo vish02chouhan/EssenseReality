@@ -29,15 +29,15 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                           CrmPropertyClassId = p.PropertyClass.Id,
                                           InternalName = p.PropertyClass.InternalName,
                                           Name = p.PropertyClass.Name,
-                                          CreatedBy = "PropertyTypeProcessor",
+                                          CreatedBy = ERConstants.PROPERTYTYPE_PROCESSOR,
                                           CreatedDate = DateTime.Now,
                                           ModifiedDate = DateTime.Now,
-                                          ModifieldBy = "PropertyTypeProcessor"
+                                          ModifieldBy = ERConstants.PROPERTYTYPE_PROCESSOR
                                       },
-                                      CreatedBy = "PropertyTypeProcessor",
+                                      CreatedBy = ERConstants.PROPERTYTYPE_PROCESSOR,
                                       CreatedDate = DateTime.Now,
                                       ModifiedDate = DateTime.Now,
-                                      ModifieldBy = "PropertyTypeProcessor"
+                                      ModifieldBy = ERConstants.PROPERTYTYPE_PROCESSOR
                                   }).ToList();
                 
                 var lstPropertyClass = lstPropertyTypes.Select(x => x.PropertyClass)
