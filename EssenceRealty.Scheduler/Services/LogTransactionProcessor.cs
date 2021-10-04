@@ -30,14 +30,9 @@ namespace EssenceRealty.Scheduler.Services
         {
             try
             {
-                foreach (var essenceMainObject in vaultServicesConfig.Value.EssenceMainObject)
-                {
-                    foreach (var url in essenceMainObject.Urls)
-                    {
-                        await ProcessLogData(url, guid, essenceMainObject.Name);
-                    }
 
-                }
+                await ProcessLogData(guid);
+
             }
             catch (System.Exception)
             {
@@ -45,71 +40,71 @@ namespace EssenceRealty.Scheduler.Services
             }
         }
 
-        public async Task ProcessLogData(string url, Guid processingGroupId, string objectTypeName)
-        { 
-            while (!string.IsNullOrEmpty(url))
+        public async Task ProcessLogData(Guid processingGroupId)
+        {
+
+            using var scope = serviceProvider.CreateScope();
+            var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
+            IList<CrmEssenceLog> essenceDataObjects = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
+            foreach (var essenceDataObject in essenceDataObjects)
             {
-                using var scope = serviceProvider.CreateScope();
-                var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
-                IList<CrmEssenceLog> data = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
-                foreach (var item in data)
+                try
                 {
-                    try
+                    JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
+ 
+                    // JArray items = (JArray)json["items"];
+                    switch (essenceDataObject.EssenceObjectTypes)
                     {
-                        JObject json = JObject.Parse(item.JsonObjectBatch);
-                        JArray items = (JArray)json["items"];
-                        switch (item.EssenceObjectTypes)
-                        {
-                            case EssenceObjectTypes.Suburbs:
-                                SuburbProcessor suburbProcessor = new SuburbProcessor();
-                                await suburbProcessor.ProcessSubhurbMasterData(serviceProvider, items);
-                                break;
-                            case EssenceObjectTypes.PropertyClass:
-                                PropertyClassProcessor propertyClassProcessor = new PropertyClassProcessor();
-                                await propertyClassProcessor.ProcessPropertyClassMasterData(serviceProvider, items);
-                                break;
-                            case EssenceObjectTypes.PropertyType:
-                                PropertyTypeProcessor propertyTypeProcessor = new PropertyTypeProcessor();
-                                await propertyTypeProcessor.ProcessPropertyTypeMasterData(serviceProvider, items);
-                                break;
-                            case EssenceObjectTypes.Contacts:
-                                ContactStaffProcessor contactStaffProcessor = new ContactStaffProcessor();
-                                await contactStaffProcessor.ProcessContactStaffData(serviceProvider, items);
-                                break;
-                            case EssenceObjectTypes.Property:
-                                PropertyProcessor propertyProcessor = new PropertyProcessor();
-                                await propertyProcessor.ProcessPropertyData(serviceProvider, items);
-                                break;
-                            default:
-                                break;
-                        }
-                        item.Status = LogTransactionStatus.Processed;
-                        await essenceLogRepo.UpdateCrmEssenceLog(item);
+                        case EssenceObjectTypes.Suburbs:
+                            SuburbProcessor suburbProcessor = new();
+                            await suburbProcessor.ProcessSubhurbMasterData(serviceProvider, essenceDataObjectArray);
+                            break;
+                        case EssenceObjectTypes.PropertyClass:
+                            PropertyClassProcessor propertyClassProcessor = new();
+                            await propertyClassProcessor.ProcessPropertyClassMasterData(serviceProvider, essenceDataObjectArray);
+                            break;
+                        case EssenceObjectTypes.PropertyType:
+                            PropertyTypeProcessor propertyTypeProcessor = new();
+                            await propertyTypeProcessor.ProcessPropertyTypeMasterData(serviceProvider, essenceDataObjectArray);
+                            break;
+                        case EssenceObjectTypes.Contacts:
+                            ContactStaffProcessor contactStaffProcessor = new();
+                            await contactStaffProcessor.ProcessContactStaffData(serviceProvider, essenceDataObjectArray);
+                            break;
+                        case EssenceObjectTypes.Property:
+                            PropertyProcessor propertyProcessor = new();
+                            await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray);
+                            break;
+                        default:
+                            break;
                     }
-                    catch (Exception ex) //need to improve exception handling
+                    essenceDataObject.Status = LogTransactionStatus.Processed;
+                    await essenceLogRepo.UpdateCrmEssenceLog(essenceDataObject);
+                }
+                catch (Exception ex) //need to improve exception handling
+                {
+                    essenceDataObject.Status = LogTransactionStatus.Failed;
+                    essenceDataObject.Retry = essenceDataObject.Retry + 1;
+                    await essenceLogRepo.UpdateCrmEssenceLog(essenceDataObject);
+
+                    CrmEssenceTransaction crmEssenceTransaction = new()
                     {
-                        item.Status = LogTransactionStatus.Failed;
-                        item.Retry = item.Retry + 1;
-                        await essenceLogRepo.UpdateCrmEssenceLog(item);
+                        CreatedBy = "ProcessLogData",
+                        //Description = ex.Message,
+                        JsonObject = essenceDataObject.JsonObjectBatch,
+                        //Retry = item.Retry + 1,
+                        EssenceObjectTypes = essenceDataObject.EssenceObjectTypes,
+                        CrmEssenceLogId = essenceDataObject.Id,
+                        //Status = LogTransactionStatus.Failed,
+                        CrmEssenceLog = essenceDataObject
+                    };
+                    var essenceTransactionRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceTransactionRepository>();
+                    await essenceTransactionRepo.AddCrmEssenceLog(crmEssenceTransaction);
 
-                        CrmEssenceTransaction crmEssenceTransaction = new CrmEssenceTransaction()
-                        {
-                            CreatedBy = "ProcessLogData",
-                            //Description = ex.Message,
-                            JsonObject = item.JsonObjectBatch,
-                            //Retry = item.Retry + 1,
-                            EssenceObjectTypes = (EssenceObjectTypes)Enum.Parse(typeof(EssenceObjectTypes), objectTypeName, true),
-                            CrmEssenceLogId = item.Id,
-                            //Status = LogTransactionStatus.Failed,
-                            CrmEssenceLog = item
-                        };
-                        var essenceTransactionRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceTransactionRepository>();
-                        await essenceTransactionRepo.AddCrmEssenceLog(crmEssenceTransaction);
-
-                    }
                 }
             }
         }
+        
     }
 }
 

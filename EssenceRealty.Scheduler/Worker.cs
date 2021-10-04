@@ -16,6 +16,7 @@ namespace EssenceRealty.Scheduler
         private readonly ILogger<Worker> _logger;
         private readonly VaultCrmProcessor vaultCrmProcessor;
         private readonly LogTransactionProcessor logTransactionProcessor;
+ 
 
         public Worker(ILogger<Worker> logger,
             VaultCrmProcessor vaultCrmProcessor,
@@ -28,16 +29,16 @@ namespace EssenceRealty.Scheduler
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 Guid batchUniqueId = Guid.NewGuid();
-                //await vaultCrmProcessor.StartProcessing(batchUniqueId);
-                await logTransactionProcessor.StartProcessing(Guid.Parse("E53B1AC6-CB41-4333-A124-917D7C3C0239"));// batchUniqueId);
+               // await vaultCrmProcessor.StartProcessing(batchUniqueId);
+                await logTransactionProcessor.StartProcessing(Guid.Parse("804fe586-1677-4107-82b5-92d0431f5b9d"));// batchUniqueId);
 
                 ///await Task.Delay(1000, stoppingToken);
-            }
+            //}
         }
     }
 }

@@ -41,15 +41,22 @@ namespace EssenceRealty.Scheduler.Services
 
                     foreach (var url in essenceMainObject.Urls)
                     {
-                        await SaveData(url, guid, essenceMainObject.Name);
+                        try
+                        {
+                            await SaveData(url, guid, essenceMainObject.Name);
+                        }
+                        catch (Exception)
+                        {
+                            //To Do; Will implement exception
+                        }
+                      
                     }
                   
                 }
             }
             catch (System.Exception)
             {
-
-                throw;
+                //To Do; Will implement exception
             }
         }
 
