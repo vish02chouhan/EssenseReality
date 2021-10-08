@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EssenseReality.Domain.Models
 {
@@ -37,7 +38,10 @@ namespace EssenseReality.Domain.Models
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public ICollection<Photo> Photo { get; set; }
+        public ICollection<EssenceObjectRequiredApproval> EssenceObjectRequiredApproval { get; set; }
         public ICollection<PropertyContactStaff> PropertyContactStaffs { get; set; }
+        [NotMapped]
+        public List<ContactStaff> ContactStaff { get; set; }
         public List<PropertyFeature> PropertyFeature { get; set; }
         public string Level { get; set; }
         public string UnitNumber { get; set; }

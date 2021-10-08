@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenseReality.Data.Migrations
 {
-    public partial class refreshdb : Migration
+    public partial class refreshDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -381,33 +381,6 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EssenceObjectRequiredApprovals",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JsonObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
-                    EssenceObjectRequiredApprovalStatus = table.Column<int>(type: "int", nullable: false),
-                    CrmEssenceTransactionId = table.Column<int>(type: "int", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EssenceObjectRequiredApprovals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EssenceObjectRequiredApprovals_CrmEssenceTransactions_CrmEssenceTransactionId",
-                        column: x => x.CrmEssenceTransactionId,
-                        principalTable: "CrmEssenceTransactions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Properties",
                 columns: table => new
                 {
@@ -508,6 +481,33 @@ namespace EssenseReality.Data.Migrations
                     table.PrimaryKey("PK_Enquiries", x => x.id);
                     table.ForeignKey(
                         name: "FK_Enquiries_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EssenceObjectRequiredApprovals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrmPropertyId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: true),
+                    JsonObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
+                    EssenceObjectRequiredApprovalStatus = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EssenceObjectRequiredApprovals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EssenceObjectRequiredApprovals_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
@@ -659,9 +659,9 @@ namespace EssenseReality.Data.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EssenceObjectRequiredApprovals_CrmEssenceTransactionId",
+                name: "IX_EssenceObjectRequiredApprovals_PropertyId",
                 table: "EssenceObjectRequiredApprovals",
-                column: "CrmEssenceTransactionId");
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_ContactStaffId",
@@ -737,6 +737,9 @@ namespace EssenseReality.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CrmEssenceTransactions");
+
+            migrationBuilder.DropTable(
                 name: "Enquiries");
 
             migrationBuilder.DropTable(
@@ -761,16 +764,13 @@ namespace EssenseReality.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "CrmEssenceTransactions");
+                name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
                 name: "ContactStaffs");
 
             migrationBuilder.DropTable(
                 name: "Properties");
-
-            migrationBuilder.DropTable(
-                name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
                 name: "Countries");

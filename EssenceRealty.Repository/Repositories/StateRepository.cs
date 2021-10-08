@@ -16,11 +16,16 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task UpsertStates(IList<State> lstStates)
+        public async Task UpsertStates(List<State> lstStates)
         {
-            await _dbContext.States.UpsertRange(lstStates).On(x => x.CrmStateId).RunAsync();
-            await _dbContext.SaveChangesAsync();
-
+            var lstStateIds = lstStates.Select(x => x.CrmStateId).Distinct().ToList();
+            var lstDBCrmStateIds = _dbContext.States.Where(x => lstStateIds.Contains(x.CrmStateId)).Select(x => x.CrmStateId).Distinct().ToList();
+            lstStates.RemoveAll(x => lstDBCrmStateIds.Contains(x.CrmStateId));
+            if (lstStates.Count > 0)
+            {
+                await _dbContext.States.UpsertRange(lstStates).On(x => x.CrmStateId).RunAsync();
+                await _dbContext.SaveChangesAsync();
+            }
         }
 
     }

@@ -24,6 +24,6 @@ namespace EssenseReality.Domain.Models
         public string Thumb_360PhotoURL { get; set; }
         public string OriginalPhotoURL { get; set; }
         public ICollection<PropertyContactStaff> PropertyContactStaffs { get; set; }
-        
+
     }
 }

@@ -17,7 +17,19 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             try
             {
-                var lstPropertyClass = JsonConvert.DeserializeObject<IList<PropertyClass>>(items.ToString())
+                var lstPropertyClass = ExtractPropertyClassData(items);
+                using var scope = serviceProvider.CreateScope();
+                await UpsertPropertyClassData(scope, lstPropertyClass);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+        }
+        public List<PropertyClass> ExtractPropertyClassData(JArray items)
+        {
+            return JsonConvert.DeserializeObject<IList<PropertyClass>>(items.ToString())
                                   .Where(x => x != null && x.Id > 0).ToList()
                                   .Select<PropertyClass, PropertyClass>(p => new PropertyClass
                                   {
@@ -30,16 +42,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                       ModifiedDate = DateTime.Now,
                                       ModifieldBy = ERConstants.PROPERTYCLASS_PROCESSOR
                                   }).ToList();
-
-                using var scope = serviceProvider.CreateScope();
-                var proprtyClassRepo = scope.ServiceProvider.GetRequiredService<IPropertyClassRepository>();
-                await proprtyClassRepo.UpsertPropertyClasses(lstPropertyClass);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw ex;
-            }
+        }
+        public async Task UpsertPropertyClassData(IServiceScope scope, List<PropertyClass> lstPropertyClass)
+        {
+            var proprtyClassRepo = scope.ServiceProvider.GetRequiredService<IPropertyClassRepository>();
+            await proprtyClassRepo.UpsertPropertyClasses(lstPropertyClass);
         }
     }
 }

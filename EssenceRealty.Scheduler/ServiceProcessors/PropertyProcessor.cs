@@ -13,7 +13,186 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 {
     public class PropertyProcessor
     {
-        private int checkNullForInt(string value) 
+        public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items)
+        {
+            try
+            {
+                if (items.HasValues)
+                {
+                    List<Property> lstProperty = new ();
+                    List<Photo> lstPhoto = new ();
+                    List<Country> lstCountry = new ();
+                    List<ContactStaff> lstContactStaff = new ();
+                    List<PhoneNumber> lstPhoneNumbers = new ();
+
+
+                    var suburbArray = new JArray();
+                    suburbArray.Add(items.Children().Select(x => x["address"]["suburb"]));
+                    SuburbProcessor suburbProcessor = new();
+                    var lstSubHurbs = suburbProcessor.ExtractSuburbStateData(suburbArray);
+
+                    var propertTypeArray = new JArray();
+                    propertTypeArray.Add(items.Children().Select(x => x["type"]));
+                    PropertyTypeProcessor propertTypeProcessor = new();
+                    var lstpropertyType = propertTypeProcessor.ExtractPropertyTypeData(propertTypeArray);
+                    var lstpropertClass = propertTypeProcessor.ExtractPropertyClassData(lstpropertyType);
+
+                    ContactStaffProcessor contactStaffProcessor = new();
+
+                    foreach (var item in items)
+                    {
+                        
+                        if (item != null && item["address"].HasValues && item["address"]["country"].HasValues)
+                        {
+                            lstCountry.Add(ExtractCountryData(item["address"]["country"]));
+                        }
+                        if (item != null && item["photos"].HasValues)
+                        {
+                            foreach (var photo in item["photos"])
+                            {
+                                lstPhoto.Add(ExtractPhotoData(photo, checkNullForInt(item["id"]?.ToString())));
+                            }
+                        }
+                        if (item != null && item["contactStaff"].HasValues)
+                        {
+                            foreach (var contactStaff in item["contactStaff"])
+                            {
+                                List<PhoneNumber> lstPhnNumber = new();
+                                foreach (var phoneNumber in contactStaff["phoneNumbers"])
+                                {
+                                    lstPhnNumber.Add(contactStaffProcessor.ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(contactStaff["id"])));
+                                }
+                                ContactStaff objContactStaff = contactStaffProcessor.ExtractContactStaffData(contactStaff);
+                                objContactStaff.PhoneNumbers = lstPhnNumber;
+                                lstContactStaff.Add(objContactStaff);
+                                lstPhoneNumbers.AddRange(lstPhnNumber);
+                            }
+                        }
+                        Property objProperty = new();
+                        objProperty = ExtractPropertyData(item);
+                        objProperty.Country = lstCountry.Find(x => x.CrmCountryId == objProperty.CountryId);
+                        objProperty.Photo = lstPhoto;
+                        objProperty.Suburb = lstSubHurbs.Find(x => x.CrmSuburbId == objProperty.SuburbId);
+                        objProperty.PropertyType = lstpropertyType.Find(x => x.CrmPropertyTypeId == objProperty.PropertyTypeId);
+                        objProperty.ContactStaff = lstContactStaff;
+                        lstProperty.Add(objProperty);
+                    }
+                    
+                    using var scope = serviceProvider.CreateScope();
+                    await suburbProcessor.UpsertStateData(scope, lstSubHurbs);
+                    await suburbProcessor.UpsertSubhurbData(scope, lstSubHurbs);
+
+                    PropertyClassProcessor propertyClassProcessor = new();
+                    await propertyClassProcessor.UpsertPropertyClassData(scope, lstpropertClass);
+                    
+                    await propertTypeProcessor.UpsertPropertyTypeData(scope, lstpropertyType);
+
+                    await UpsertCountryData(scope, lstCountry);
+                    await UpsertPropertyData(scope, lstProperty);
+                    await UpsertPhotoData(scope, lstPhoto);
+                    await contactStaffProcessor.UpsertContactStaffData(scope, lstContactStaff);
+                    await contactStaffProcessor.UpsertPhoneNumberData(scope, lstPhoneNumbers);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+        }
+        private Property ExtractPropertyData(JToken item)
+        {
+            return new()
+            {
+                Id = 0,
+                CrmPropertyId = checkNullForInt(item["id"]?.ToString()),
+                DisplayAddress = item["displayAddress"]?.ToString(),
+                Bath = checkNullForInt(item["bath"]?.ToString()),
+                Bed = checkNullForInt(item["bed"]?.ToString()),
+                Carports = checkNullForInt(item["carports"]?.ToString()),
+                FloorAreaValue = checkNullForInt(item["floorArea"]["value"]?.ToString()),
+                FloorAreaUnit = item["floorArea"]["units"]?.ToString(),
+                SearchPrice = (float)checkNullForDouble(item["searchPrice"]?.ToString()),
+                DisplayPrice = (float)checkNullForDouble(item["displayPrice"]?.ToString()),
+                Description = item["description"]?.ToString(),
+                Status = item["status"]?.ToString(),
+                YearBuilt = checkNullForInt(item["yearBuilt"]?.ToString()),
+                Stories = 0,//item["stories"]
+                ReceptionRooms = checkNullForInt(item["ReceptionRooms"]?.ToString()),
+                VolumeNumber = item["VolumeNumber"]?.ToString(),
+                SaleLifeId = checkNullForInt(item["SaleLifeId"]?.ToString()),
+                LeaseLifeId = checkNullForInt(item["LeaseLifeId"]?.ToString()),
+                IsActive = true,
+                IsDeleted = false,
+                Inserted = Convert.ToDateTime(item["inserted"]),
+                Modified = Convert.ToDateTime(item["modified"]),
+                IsAdminUpdated = false,
+                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
+                Level = item["address"]["level"]?.ToString(),
+                Street = item["address"]["street"]?.ToString(),
+                StreetNumber = item["address"]["streetNumber"]?.ToString(),
+                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
+                UnitNumber = item["address"]["unitNumber"]?.ToString(),
+                Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
+                Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
+                Accuracy = item["geolocation"]["accuracy"]?.ToString(),
+                PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
+                CreatedBy = "ContactStaffProcessor",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                ModifieldBy = "ContactStaffProcessor"
+            };
+        }
+        private Country ExtractCountryData(JToken address)
+        {
+            Country objCountry = JsonConvert.DeserializeObject<Country>(address.ToString());
+            objCountry.CrmCountryId = objCountry.Id;
+            objCountry.Id = 0;
+            objCountry.CreatedBy = ERConstants.PROPERTY_PROCESSOR;
+            objCountry.CreatedDate = DateTime.Now;
+            objCountry.ModifiedDate = DateTime.Now;
+            objCountry.ModifieldBy = ERConstants.PROPERTY_PROCESSOR;
+            return objCountry;
+        }
+        private Photo ExtractPhotoData(JToken photo, int proprtyId)
+        {
+            Photo objPhoto = JsonConvert.DeserializeObject<Photo>(photo.ToString());
+            objPhoto.CrmPhotoId = objPhoto.Id;
+            objPhoto.Id = 0;
+            objPhoto.PropertyId = proprtyId;
+            objPhoto.Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString();
+            objPhoto.Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString();
+            objPhoto.CreatedBy = ERConstants.PROPERTY_PROCESSOR;
+            objPhoto.CreatedDate = DateTime.Now;
+            objPhoto.ModifiedDate = DateTime.Now;
+            objPhoto.ModifieldBy = ERConstants.PROPERTY_PROCESSOR;
+            return objPhoto;
+        }
+        private async Task UpsertCountryData(IServiceScope scope, List<Country> lstCountry)
+        {
+            var countryRepo = scope.ServiceProvider.GetRequiredService<ICountryRepository>();
+            await countryRepo.UpsertCountrys(lstCountry.Select(x => x)
+                        .Where(x => x != null && x.CrmCountryId > 0).ToList()
+                        .GroupBy(elem => elem.CrmCountryId)
+                        .Select(group => group.First()).ToList());
+        }
+        private async Task UpsertPropertyData(IServiceScope scope, List<Property> lstProperty)
+        {
+            var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
+            await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
+                        .Where(x => x != null && x.CrmPropertyId > 0).ToList()
+                        .GroupBy(elem => elem.CrmPropertyId)
+                        .Select(group => group.First()).ToList());
+        }
+        private async Task UpsertPhotoData(IServiceScope scope, List<Photo> lstPhoto)
+        {
+            var photoRepo = scope.ServiceProvider.GetRequiredService<IPhotoRepository>();
+            await photoRepo.UpsertPhotos(lstPhoto.Select(x => x)
+                        .Where(x => x != null && x.CrmPhotoId > 0).ToList()
+                        .GroupBy(elem => elem.CrmPhotoId)
+                        .Select(group => group.First()).ToList());
+        }
+        private int checkNullForInt(string value)
         {
             try
             {
@@ -23,9 +202,9 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 }
                 return Convert.ToInt32(value);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return 0;
+                throw ex;
             }
         }
         private double checkNullForDouble(string value)
@@ -36,129 +215,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             }
             return Convert.ToDouble(value);
         }
-
-        public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items)
-        {
-            try
-            {
-                if (items.HasValues)
-                {
-                    List<Property> lstProperty = new List<Property>();
-                    List<Photo> lstPhoto = new List<Photo>();
-                    List<Country> lstCountry = new List<Country>();
-
-                    foreach (var item in items)
-                    {
-                            lstProperty.Add(new()
-                            {
-                                Id = 0,
-                                CrmPropertyId = checkNullForInt(item["id"]?.ToString()),
-                                DisplayAddress = item["displayAddress"]?.ToString(),
-                                Bath = checkNullForInt(item["bath"]?.ToString()),
-                                Bed = checkNullForInt(item["bed"]?.ToString()),
-                                Carports = checkNullForInt(item["carports"]?.ToString()),
-                                FloorAreaValue = checkNullForInt(item["floorArea"]["value"]?.ToString()),
-                                FloorAreaUnit = item["floorArea"]["units"]?.ToString(),
-                                SearchPrice = (float)checkNullForDouble(item["searchPrice"]?.ToString()),
-                                DisplayPrice = (float)checkNullForDouble(item["displayPrice"]?.ToString()),
-                                Description = item["description"]?.ToString(),
-                                Status = item["status"]?.ToString(),
-                                YearBuilt = checkNullForInt(item["yearBuilt"]?.ToString()),
-                                Stories = 0,//item["stories"]
-                                ReceptionRooms = checkNullForInt(item["ReceptionRooms"]?.ToString()),
-                                VolumeNumber = item["VolumeNumber"]?.ToString(),
-                                SaleLifeId = checkNullForInt(item["SaleLifeId"]?.ToString()),
-                                LeaseLifeId = checkNullForInt(item["LeaseLifeId"]?.ToString()),
-                                IsActive = true,
-                                IsDeleted = false,
-                                Inserted = Convert.ToDateTime(item["inserted"]),
-                                Modified = Convert.ToDateTime(item["modified"]),
-                                IsAdminUpdated = false,
-                                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
-                                Level = item["address"]["level"]?.ToString(),
-                                Street = item["address"]["street"]?.ToString(),
-                                StreetNumber = item["address"]["streetNumber"]?.ToString(),
-                                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
-                                UnitNumber = item["address"]["unitNumber"]?.ToString(),
-                                Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
-                                Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
-                                Accuracy = item["geolocation"]["accuracy"]?.ToString(),
-                                PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
-                                CreatedBy = "ContactStaffProcessor",
-                                CreatedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ModifieldBy = "ContactStaffProcessor"
-                            });
-
-                            if (item != null && item["address"].HasValues && item["address"]["country"].HasValues)
-                            {
-                                lstCountry.Add(new()
-                                {
-                                    Id = 0,
-                                    CrmCountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
-                                    GstRate = checkNullForDouble(item["address"]["country"]["gstRate"]?.ToString()),
-                                    Isocode = item["address"]["country"]["isocode"]?.ToString(),
-                                    Name = item["address"]["country"]["name"]?.ToString(),
-                                    CreatedBy = "ContactStaffProcessor",
-                                    CreatedDate = DateTime.Now,
-                                    ModifiedDate = DateTime.Now,
-                                    ModifieldBy = "ContactStaffProcessor"
-                                });
-                            }
-
-                        if (item != null && item["photos"].HasValues)
-                        {
-                            foreach (var photo in item["photos"])
-                            {
-                                lstPhoto.Add(new()
-                                {
-                                    Id = 0,
-                                    CrmPhotoId = checkNullForInt(photo["id"]?.ToString()),
-                                    Filename = photo["filename"]?.ToString(),
-                                    Filesize = checkNullForInt(photo["filesize"]?.ToString()),
-                                    Height = checkNullForInt(photo["height"]?.ToString()),
-                                    Inserted = Convert.ToDateTime(photo["inserted"]),
-                                    Modified = Convert.ToDateTime(photo["modified"]),
-                                    PropertyId = checkNullForInt(item["id"]?.ToString()),
-                                    Published = Convert.ToBoolean(photo["published"]),
-                                    Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString(),
-                                    Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString(),
-                                    Type = photo["type"]?.ToString(),
-                                    Url = photo["url"]?.ToString(),
-                                    UserFilename = photo["userFilename"]?.ToString(),
-                                    Width = Convert.ToInt32(photo["width"]?.ToString()),
-                                    CreatedBy = "ContactStaffProcessor",
-                                    CreatedDate = DateTime.Now,
-                                    ModifiedDate = DateTime.Now,
-                                    ModifieldBy = "ContactStaffProcessor"
-                                });
-                            }
-                        }
-                    }
-
-                    using var scope = serviceProvider.CreateScope();
-                    var countryRepo = scope.ServiceProvider.GetRequiredService<ICountryRepository>();
-                    await countryRepo.UpsertCountrys(lstCountry.Select(x => x)
-                                .Where(x => x != null && x.CrmCountryId> 0).ToList()
-                                .GroupBy(elem => elem.CrmCountryId)
-                                .Select(group => group.First()).ToList());
-                    var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
-                    await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
-                                .Where(x => x != null && x.CrmPropertyId > 0).ToList()
-                                .GroupBy(elem => elem.CrmPropertyId)
-                                .Select(group => group.First()).ToList());
-                    var photoRepo = scope.ServiceProvider.GetRequiredService<IPhotoRepository>();
-                    await photoRepo.UpsertPhotos(lstPhoto.Select(x => x)
-                                .Where(x => x != null && x.CrmPhotoId> 0).ToList()
-                                .GroupBy(elem => elem.CrmPhotoId)
-                                .Select(group => group.First()).ToList());
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw ex;
-            }
-        }
+         
     }
 }

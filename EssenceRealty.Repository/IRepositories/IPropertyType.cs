@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IPropertyTypeRepository
     {
-        Task UpsertPropertyTypes(IList<PropertyType> lstPropertyType);
+        Task UpsertPropertyTypes(List<PropertyType> lstPropertyType);
     }
 }

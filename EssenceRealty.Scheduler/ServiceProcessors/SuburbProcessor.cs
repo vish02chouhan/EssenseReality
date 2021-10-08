@@ -17,7 +17,20 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             try
             {
-                var lstSubHurbs = JsonConvert.DeserializeObject<IList<Suburb>>(items.ToString())
+                var lstSubHurbs = ExtractSuburbStateData(items);
+                using var scope = serviceProvider.CreateScope();
+                await UpsertStateData(scope, lstSubHurbs);
+                await UpsertSubhurbData(scope, lstSubHurbs);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+        }
+        public List<Suburb> ExtractSuburbStateData(JArray items)
+        {
+            return JsonConvert.DeserializeObject<IList<Suburb>>(items.ToString())
                                   .Where(x => x != null && x.Id > 0).ToList()
                                   .Select<Suburb, Suburb>(p => new Suburb
                                   {
@@ -42,24 +55,21 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                                       ModifiedDate = DateTime.Now,
                                       ModifieldBy = ERConstants.SUBURB_PROCESSOR
                                   }).ToList();
+        }
+        public async Task UpsertStateData(IServiceScope scope, List<Suburb> lstSubHurbs)
+        {
+            var lstStates = lstSubHurbs.Select(x => x.State)
+                           .Where(x => x != null && x.CrmStateId > 0).ToList()
+                           .GroupBy(elem => elem.CrmStateId)
+                           .Select(group => group.First()).ToList();
 
-                var lstStates = lstSubHurbs.Select(x => x.State)
-                            .Where(x => x != null && x.CrmStateId > 0).ToList()
-                            .GroupBy(elem => elem.CrmStateId)
-                            .Select(group => group.First()).ToList();
-
-                using var scope = serviceProvider.CreateScope();
-                var stateRepo = scope.ServiceProvider.GetRequiredService<IStateRepository>();
-                await stateRepo.UpsertStates(lstStates);
-
-                var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
-                await subhurbRepo.UpsertSubhurbs(lstSubHurbs);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw ex;
-            }
+            var stateRepo = scope.ServiceProvider.GetRequiredService<IStateRepository>();
+            await stateRepo.UpsertStates(lstStates);
+        }
+        public async Task UpsertSubhurbData(IServiceScope scope, List<Suburb> lstSubHurbs)
+        {
+            var subhurbRepo = scope.ServiceProvider.GetRequiredService<ISubhurbRepository>();
+            await subhurbRepo.UpsertSubhurbs(lstSubHurbs.GroupBy(elem => elem.CrmSuburbId).Select(group => group.First()).ToList());
         }
     }
 }

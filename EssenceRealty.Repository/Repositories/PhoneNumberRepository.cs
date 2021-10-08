@@ -16,18 +16,24 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task UpsertPhoneNumbers(IList<PhoneNumber> lstPhoneNumber)
+        public async Task UpsertPhoneNumbers(List<PhoneNumber> lstPhoneNumber)
         {
-            var lstUpdatedContactStaffs = _dbContext.ContactStaffs.ToList();
-            foreach (var item in lstPhoneNumber)
+            var lstPhoneNumberIds = lstPhoneNumber.Select(x => x.Number).Distinct().ToList();
+            var lstDBPhoneNumberIds = _dbContext.PhoneNumbers.Where(x => lstPhoneNumberIds.Contains(x.Number)).Select(x => x.Number).Distinct().ToList();
+            lstPhoneNumber.RemoveAll(x => lstDBPhoneNumberIds.Contains(x.Number));
+
+            if (lstPhoneNumber.Count > 0)
             {
-                int id = item.ContactStaffId;
-                item.ContactStaffId = lstUpdatedContactStaffs.Where(x => x.CrmContactStaffId == id).First().Id;
+                var lstContactStaffIds = lstPhoneNumber.Select(x => x.ContactStaffId).Distinct().ToList();
+                var lstDBContactStaffDetails = _dbContext.ContactStaffs.Where(x => lstContactStaffIds.Contains(x.CrmContactStaffId)).Select(x => new { Id = x.Id, CrmContactStaffId = x.CrmContactStaffId }).Distinct().ToList();
+                foreach (var item in lstPhoneNumber)
+                {
+                    item.ContactStaffId = lstDBContactStaffDetails.Where(x => x.CrmContactStaffId == item.ContactStaffId).First().Id;
+                }
+
+                await _dbContext.PhoneNumbers.UpsertRange(lstPhoneNumber).On(x => x.Number).RunAsync();
+                await _dbContext.SaveChangesAsync();
             }
-
-            await _dbContext.PhoneNumbers.UpsertRange(lstPhoneNumber).On(x => x.Number).RunAsync();
-            await _dbContext.SaveChangesAsync();
-
         }
     }
 }

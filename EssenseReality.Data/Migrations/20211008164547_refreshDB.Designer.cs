@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenseReality.Data.Migrations
 {
     [DbContext(typeof(EssenseRealityContext))]
-    [Migration("20211004151016_refreshdb")]
-    partial class refreshdb
+    [Migration("20211008164547_refreshDB")]
+    partial class refreshDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -296,11 +296,8 @@ namespace EssenseReality.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CrmEssenceTransactionId")
+                    b.Property<int>("CrmPropertyId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DataId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EssenceObjectRequiredApprovalStatus")
                         .HasColumnType("int");
@@ -317,9 +314,12 @@ namespace EssenseReality.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CrmEssenceTransactionId");
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("EssenceObjectRequiredApprovals");
                 });
@@ -985,11 +985,11 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.EssenceObjectRequiredApproval", b =>
                 {
-                    b.HasOne("EssenseReality.Domain.Models.CrmEssenceTransaction", "CrmEssenceTransaction")
-                        .WithMany()
-                        .HasForeignKey("CrmEssenceTransactionId");
+                    b.HasOne("EssenseReality.Domain.Models.Property", "Property")
+                        .WithMany("EssenceObjectRequiredApproval")
+                        .HasForeignKey("PropertyId");
 
-                    b.Navigation("CrmEssenceTransaction");
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("EssenseReality.Domain.Models.PhoneNumber", b =>
@@ -1169,6 +1169,8 @@ namespace EssenseReality.Data.Migrations
 
             modelBuilder.Entity("EssenseReality.Domain.Models.Property", b =>
                 {
+                    b.Navigation("EssenceObjectRequiredApproval");
+
                     b.Navigation("Photo");
 
                     b.Navigation("PropertyContactStaffs");

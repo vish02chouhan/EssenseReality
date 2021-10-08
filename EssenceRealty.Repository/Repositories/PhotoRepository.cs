@@ -16,18 +16,23 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task UpsertPhotos(IList<Photo> lstPhoto)
+        public async Task UpsertPhotos(List<Photo> lstPhoto)
         {
-            var lstUpdatedProperties = _dbContext.Properties.ToList();
-            //var lstUpdatedThumbnails = _dbContext.Thumbnails.ToList();
-            foreach (var item in lstPhoto)
-            {
-                item.PropertyId = lstUpdatedProperties.Where(x => x.CrmPropertyId == item.PropertyId).First().Id;
-                //item.ThumbnailId = lstUpdatedThumbnails.Where(x => x.Thumb1024 == item.Thumbnail.Thumb1024 && x.Thumb180 == item.Thumbnail.Thumb180).First().Id;
-            }
-            await _dbContext.Photos.UpsertRange(lstPhoto).On(x => x.CrmPhotoId).RunAsync();
-            await _dbContext.SaveChangesAsync();
+            var lstPhotoIds = lstPhoto.Select(x => x.CrmPhotoId).Distinct().ToList();
+            var lstDBCrmPhotoIds = _dbContext.Photos.Where(x => lstPhotoIds.Contains(x.CrmPhotoId)).Select(x => x.CrmPhotoId).Distinct().ToList();
+            lstPhoto.RemoveAll(x => lstDBCrmPhotoIds.Contains(x.CrmPhotoId));
 
+            if (lstPhoto.Count > 0)
+            {
+                var lstPropertyIds = lstPhoto.Select(x => x.PropertyId).Distinct().ToList();
+                var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId)).Select(x => new { Id = x.Id, CrmPropertyId = x.CrmPropertyId }).Distinct().ToList();
+                foreach (var item in lstPhoto)
+                {
+                    item.PropertyId = lstDBPropertyDetails.Where(x => x.CrmPropertyId == item.PropertyId).First().Id;
+                }
+                await _dbContext.Photos.UpsertRange(lstPhoto).On(x => x.CrmPhotoId).RunAsync();
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
