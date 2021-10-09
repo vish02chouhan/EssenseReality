@@ -16,11 +16,16 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task UpsertPropertyClasses(IList<PropertyClass> lstPropertyClass)
+        public async Task UpsertPropertyClasses(List<PropertyClass> lstPropertyClass)
         {
-            await _dbContext.PropertyClasses.UpsertRange(lstPropertyClass).On(x => x.CrmPropertyClassId).RunAsync();
-            await _dbContext.SaveChangesAsync();
-
+            var lstPropertyClassIds = lstPropertyClass.Select(x => x.CrmPropertyClassId).ToList();
+            var lstDBPropertyClassIds = _dbContext.PropertyClasses.Where(x => lstPropertyClassIds.Contains(x.CrmPropertyClassId)).Select(x => x.CrmPropertyClassId).ToList();
+            lstPropertyClass.RemoveAll(x => lstDBPropertyClassIds.Contains(x.CrmPropertyClassId));
+            if (lstPropertyClass.Count > 0)
+            {
+                await _dbContext.PropertyClasses.UpsertRange(lstPropertyClass).On(x => x.CrmPropertyClassId).RunAsync();
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

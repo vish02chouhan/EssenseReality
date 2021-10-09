@@ -16,11 +16,16 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
-        public async Task UpsertCountrys(IList<Country> lstCountry)
+        public async Task UpsertCountrys(List<Country> lstCountry)
         {
-            await _dbContext.Countries.UpsertRange(lstCountry).On(x => x.CrmCountryId).RunAsync();
-            await _dbContext.SaveChangesAsync();
-
+            var lstCountryIds = lstCountry.Select(x => x.CrmCountryId).Distinct().ToList();
+            var lstDBCrmCountryIds = _dbContext.Countries.Where(x => lstCountryIds.Contains(x.CrmCountryId)).Select(x => x.CrmCountryId).Distinct().ToList();
+            lstCountry.RemoveAll(x => lstDBCrmCountryIds.Contains(x.CrmCountryId));
+            if (lstCountry.Count > 0)
+            {
+                await _dbContext.Countries.UpsertRange(lstCountry).On(x => x.CrmCountryId).RunAsync();
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

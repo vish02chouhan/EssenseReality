@@ -19,13 +19,10 @@ namespace EssenseReality.Data
 
         }
         public DbSet<Property> Properties { get; set; }
-        //public DbSet<Geolocation> Geolocations { get; set; }
         public DbSet<PropertyType> PropertyTypes { get; set; }
         public DbSet<PropertyClass> PropertyClasses { get; set; }
         public DbSet<PropertyFeature> PropertyFeatures { get; set; }
-        //public DbSet<Address> Addresses { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        //public DbSet<Thumbnail> Thumbnails { get; set; }
         public DbSet<ContactStaff> ContactStaffs { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<FloorPlan> FloorPlans { get; set; }
@@ -36,7 +33,21 @@ namespace EssenseReality.Data
         public DbSet<Suburb> Suburbs { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
-
+        public DbSet<PropertyContactStaff> PropertyContactStaffs { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PropertyContactStaff>()
+                    .HasKey(bc => new { bc.PropertyId, bc.ContactStaffId});
+            modelBuilder.Entity<PropertyContactStaff>()
+                .HasOne(bc => bc.Property)
+                .WithMany(b => b.PropertyContactStaffs)
+                .HasForeignKey(bc => bc.PropertyId);
+            modelBuilder.Entity<PropertyContactStaff>()
+                .HasOne(bc => bc.ContactStaff)
+                .WithMany(c => c.PropertyContactStaffs)
+                .HasForeignKey(bc => bc.ContactStaffId);
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             dbContextOptionsBuilder.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name}, LogLevel.Information);

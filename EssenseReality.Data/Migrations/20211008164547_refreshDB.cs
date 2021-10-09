@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenseReality.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class refreshDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,37 @@ namespace EssenseReality.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactStaffs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrmContactStaffId = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StaffTypeId = table.Column<int>(type: "int", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdminAccess = table.Column<bool>(type: "bit", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Thumb_360PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OriginalPhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactStaffs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,6 +282,28 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PhoneNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactStaffId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhoneNumbers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PhoneNumbers_ContactStaffs_ContactStaffId",
+                        column: x => x.ContactStaffId,
+                        principalTable: "ContactStaffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CrmEssenceTransactions",
                 columns: table => new
                 {
@@ -328,33 +381,6 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EssenceObjectRequiredApprovals",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JsonObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
-                    EssenceObjectRequiredApprovalStatus = table.Column<int>(type: "int", nullable: false),
-                    CrmEssenceTransactionId = table.Column<int>(type: "int", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EssenceObjectRequiredApprovals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EssenceObjectRequiredApprovals_CrmEssenceTransactions_CrmEssenceTransactionId",
-                        column: x => x.CrmEssenceTransactionId,
-                        principalTable: "CrmEssenceTransactions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Properties",
                 columns: table => new
                 {
@@ -428,44 +454,6 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactStaffs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmContactStaffId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StaffTypeId = table.Column<int>(type: "int", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AdminAccess = table.Column<bool>(type: "bit", nullable: true),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Thumb_360PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OriginalPhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PropertyId = table.Column<int>(type: "int", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactStaffs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContactStaffs_Properties_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Enquiries",
                 columns: table => new
                 {
@@ -493,6 +481,33 @@ namespace EssenseReality.Data.Migrations
                     table.PrimaryKey("PK_Enquiries", x => x.id);
                     table.ForeignKey(
                         name: "FK_Enquiries_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EssenceObjectRequiredApprovals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrmPropertyId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: true),
+                    JsonObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
+                    EssenceObjectRequiredApprovalStatus = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EssenceObjectRequiredApprovals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EssenceObjectRequiredApprovals_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
@@ -544,6 +559,30 @@ namespace EssenseReality.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PropertyContactStaffs",
+                columns: table => new
+                {
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    ContactStaffId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyContactStaffs", x => new { x.PropertyId, x.ContactStaffId });
+                    table.ForeignKey(
+                        name: "FK_PropertyContactStaffs_ContactStaffs_ContactStaffId",
+                        column: x => x.ContactStaffId,
+                        principalTable: "ContactStaffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PropertyContactStaffs_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PropertyFeatures",
                 columns: table => new
                 {
@@ -568,28 +607,6 @@ namespace EssenseReality.Data.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhoneNumbers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactStaffId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumbers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumbers_ContactStaffs_ContactStaffId",
-                        column: x => x.ContactStaffId,
-                        principalTable: "ContactStaffs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -632,11 +649,6 @@ namespace EssenseReality.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactStaffs_PropertyId",
-                table: "ContactStaffs",
-                column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CrmEssenceTransactions_CrmEssenceLogId",
                 table: "CrmEssenceTransactions",
                 column: "CrmEssenceLogId");
@@ -647,9 +659,9 @@ namespace EssenseReality.Data.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EssenceObjectRequiredApprovals_CrmEssenceTransactionId",
+                name: "IX_EssenceObjectRequiredApprovals_PropertyId",
                 table: "EssenceObjectRequiredApprovals",
-                column: "CrmEssenceTransactionId");
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_ContactStaffId",
@@ -687,6 +699,11 @@ namespace EssenseReality.Data.Migrations
                 column: "SuburbId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PropertyContactStaffs_ContactStaffId",
+                table: "PropertyContactStaffs",
+                column: "ContactStaffId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PropertyFeatures_PropertyId",
                 table: "PropertyFeatures",
                 column: "PropertyId");
@@ -720,6 +737,9 @@ namespace EssenseReality.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CrmEssenceTransactions");
+
+            migrationBuilder.DropTable(
                 name: "Enquiries");
 
             migrationBuilder.DropTable(
@@ -732,6 +752,9 @@ namespace EssenseReality.Data.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
+                name: "PropertyContactStaffs");
+
+            migrationBuilder.DropTable(
                 name: "PropertyFeatures");
 
             migrationBuilder.DropTable(
@@ -741,13 +764,10 @@ namespace EssenseReality.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "CrmEssenceTransactions");
+                name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
                 name: "ContactStaffs");
-
-            migrationBuilder.DropTable(
-                name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
                 name: "Properties");

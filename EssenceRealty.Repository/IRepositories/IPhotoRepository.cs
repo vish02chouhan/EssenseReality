@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IPhotoRepository
     {
-        Task UpsertPhotos(IList<Photo> lstPhoto);
+        Task UpsertPhotos(List<Photo> lstPhoto);
     }
 }

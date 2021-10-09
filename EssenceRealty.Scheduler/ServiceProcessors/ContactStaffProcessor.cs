@@ -25,61 +25,80 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 {
                     if (item != null && item["user"].HasValues)
                     {
-                        lstContactStaff.Add(new()
+                        lstContactStaff.Add(ExtractContactStaffData(item["user"]));
+                        foreach (var phoneNumber in item["user"]["phoneNumbers"])
                         {
-                            Id = 0,
-                            CrmContactStaffId = Convert.ToInt32(item["user"]["id"]),
-                            AdminAccess = null,
-                            Email = item["user"]["email"]?.ToString(),
-                            FirstName = item["user"]["firstName"]?.ToString(),
-                            Inserted = null,//Convert.ToDateTime(item["user"]["inserted"]),
-                            LastLogin = null,
-                            LastName = item["user"]["lastName"]?.ToString(),
-                            Modified = null,//Convert.ToDateTime(item["user"]["modified"]),
-                            Position = item["user"]["position"]?.ToString(),
-                            Role = item["user"]["role"]?.ToString(),
-                            StaffTypeId = 0,
-                            Username = null,
-                            WebsiteUrl = null,
-                            OriginalPhotoURL = item["user"]["photo"].SelectToken("original")?.ToString(),
-                            Thumb_360PhotoURL = item["user"]["photo"].SelectToken("thumb_360")?.ToString(),
-                            CreatedBy = "ContactStaffProcessor",
-                            CreatedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            ModifieldBy = "ContactStaffProcessor"
-                        });
-
-                        if (item != null && item["user"]["phoneNumbers"].HasValues)
-                        {
-                            lstPhoneNumber.Add(new()
+                            if (item != null && phoneNumber.HasValues)
                             {
-                                Id = 0,
-                                ContactStaffId = Convert.ToInt32(item["user"]["id"]),
-                                Number = item["user"]["phoneNumbers"].First()?.SelectToken("number")?.ToString(),
-                                Type = item["user"]["phoneNumbers"].First()?.SelectToken("type")?.ToString(),
-                                TypeCode = item["user"]["phoneNumbers"].First()?.SelectToken("typeCode")?.ToString()
-                            });
+                                lstPhoneNumber.Add(ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(item["user"]["id"])));
+                            }
                         }
                     }
                 }
 
                 using var scope = serviceProvider.CreateScope();
-                var contactStaffRepo = scope.ServiceProvider.GetRequiredService<IContactStaffRepository>();
-                await contactStaffRepo.UpsertContactStaffs(lstContactStaff.Select(x => x)
-                            .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
-                            .GroupBy(elem => elem.CrmContactStaffId)
-                            .Select(group => group.First()).ToList());
-                var phoneNumberRepo = scope.ServiceProvider.GetRequiredService<IPhoneNumberRepository>();
-                await phoneNumberRepo.UpsertPhoneNumbers(lstPhoneNumber.Select(x => x)
-                            .Where(x => x != null && x.ContactStaffId > 0).ToList()
-                            .GroupBy(elem => elem.ContactStaffId)
-                            .Select(group => group.First()).ToList());
+                await UpsertContactStaffData(scope, lstContactStaff);
+                await UpsertPhoneNumberData(scope, lstPhoneNumber);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 throw ex;
             }
+        }
+        public ContactStaff ExtractContactStaffData(JToken item)
+        {
+            return new()
+            {
+                Id = 0,
+                CrmContactStaffId = Convert.ToInt32(item["id"]),
+                //AdminAccess = null,
+                Email = item["email"]?.ToString(),
+                FirstName = item["firstName"]?.ToString(),
+                Inserted = null,
+                //LastLogin = null,
+                LastName = item["lastName"]?.ToString(),
+                Modified = null,
+                Position = item["position"]?.ToString(),
+                Role = item["role"]?.ToString(),
+                StaffTypeId = 0,
+                Username = null,
+                WebsiteUrl = null,
+                OriginalPhotoURL = item["photo"].SelectToken("original")?.ToString(),
+                Thumb_360PhotoURL = item["photo"].SelectToken("thumb_360")?.ToString(),
+                CreatedBy = ERConstants.CONTACTSTAFF_PROCESSOR,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                ModifieldBy = ERConstants.CONTACTSTAFF_PROCESSOR
+            };
+
+        }
+        public PhoneNumber ExtractPhoneNumberData(JToken item, int ContactStaffId)
+        {
+            return new()
+            {
+                Id = 0,
+                ContactStaffId = ContactStaffId,
+                Number = item["number"]?.ToString(),
+                Type = item["type"]?.ToString(),
+                TypeCode = item["typeCode"]?.ToString()
+            };
+        }
+        public async Task UpsertContactStaffData(IServiceScope scope, List<ContactStaff> lstContactStaff)
+        {
+            var contactStaffRepo = scope.ServiceProvider.GetRequiredService<IContactStaffRepository>();
+            await contactStaffRepo.UpsertContactStaffs(lstContactStaff.Select(x => x)
+                        .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
+                        .GroupBy(elem => elem.CrmContactStaffId)
+                        .Select(group => group.First()).ToList());
+        }
+        public async Task UpsertPhoneNumberData(IServiceScope scope, List<PhoneNumber> lstPhoneNumber)
+        {
+            var phoneNumberRepo = scope.ServiceProvider.GetRequiredService<IPhoneNumberRepository>();
+            await phoneNumberRepo.UpsertPhoneNumbers(lstPhoneNumber.Select(x => x)
+                        .Where(x => x != null && x.ContactStaffId > 0).ToList()
+                        .GroupBy(elem => elem.ContactStaffId)
+                        .Select(group => group.First()).ToList());
         }
     }
 }

@@ -30,9 +30,7 @@ namespace EssenceRealty.Scheduler.Services
         {
             try
             {
-
                 await ProcessLogData(guid);
-
             }
             catch (System.Exception)
             {
@@ -51,7 +49,6 @@ namespace EssenceRealty.Scheduler.Services
                 try
                 {
                     JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
- 
                     // JArray items = (JArray)json["items"];
                     switch (essenceDataObject.EssenceObjectTypes)
                     {
@@ -90,7 +87,7 @@ namespace EssenceRealty.Scheduler.Services
                     CrmEssenceTransaction crmEssenceTransaction = new()
                     {
                         CreatedBy = "ProcessLogData",
-                        //Description = ex.Message,
+                        ErrorDescription = ex.Message,
                         JsonObject = essenceDataObject.JsonObjectBatch,
                         //Retry = item.Retry + 1,
                         EssenceObjectTypes = essenceDataObject.EssenceObjectTypes,

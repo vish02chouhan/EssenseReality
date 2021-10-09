@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IContactStaffRepository
     {
-        Task UpsertContactStaffs(IList<ContactStaff> lstContactStaff);
+        Task UpsertContactStaffs(List<ContactStaff> lstContactStaff);
     }
 }
