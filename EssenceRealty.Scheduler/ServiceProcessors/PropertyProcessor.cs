@@ -92,6 +92,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     await UpsertPhotoData(scope, lstPhoto);
                     await contactStaffProcessor.UpsertContactStaffData(scope, lstContactStaff);
                     await contactStaffProcessor.UpsertPhoneNumberData(scope, lstPhoneNumbers);
+                    await UpsertPropertyContactStaffData(scope, lstProperty);
                 }
             }
             catch (Exception ex)
@@ -191,6 +192,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         .Where(x => x != null && x.CrmPhotoId > 0).ToList()
                         .GroupBy(elem => elem.CrmPhotoId)
                         .Select(group => group.First()).ToList());
+        }
+        private async Task UpsertPropertyContactStaffData(IServiceScope scope, List<Property> lstProperty)
+        {
+            var propertyContactStaffRepo = scope.ServiceProvider.GetRequiredService<IPropertyContactStaffRepository>();
+            await propertyContactStaffRepo.UpsertPropertyContactStaffs(lstProperty);
         }
         private int checkNullForInt(string value)
         {
