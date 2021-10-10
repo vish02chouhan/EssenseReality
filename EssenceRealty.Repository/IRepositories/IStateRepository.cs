@@ -9,7 +9,7 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IStateRepository : IAsyncRepository<State>
     {
-        Task UpsertStates(IList<State> lstStates);
+        Task UpsertStates(List<State> lstStates);
 
     }
 }

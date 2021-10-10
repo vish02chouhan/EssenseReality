@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface ICountryRepository :IAsyncRepository<Country>
     {
-        Task UpsertCountrys(IList<Country> lstCountry);
+        Task UpsertCountrys(List<Country> lstCountry);
     }
 }

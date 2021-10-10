@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IAddressRepository
+    public interface IPropertyContactStaffRepository
     {
-        //Task UpsertAddresss(IList<Address> lstAddress);
+        Task UpsertPropertyContactStaffs(List<Property> lstProperty);
     }
 }

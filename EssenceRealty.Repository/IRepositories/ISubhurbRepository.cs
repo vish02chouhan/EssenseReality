@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface ISubhurbRepository : IAsyncRepository<Suburb>
     {
-        Task UpsertSubhurbs(IList<Suburb> lstSubhurb);
+        Task UpsertSubhurbs(List<Suburb> lstSubhurb);
     }
 }

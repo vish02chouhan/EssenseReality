@@ -2,10 +2,9 @@
 using EssenseReality.Data;
 using EssenseReality.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EssenceRealty.Repository.Repositories
@@ -15,27 +14,72 @@ namespace EssenceRealty.Repository.Repositories
         public PropertyRepository(EssenseRealityContext dbContext) : base(dbContext)
         {
         }
-
-        public async Task UpsertPropertys(IList<Property> lstProperty)
+        public async Task UpsertPropertys(List<Property> lstProperty)
         {
-            //var lstUpdatedGeolocations = _dbContext.Geolocations.ToList();
-            //var lstUpdatedAddresses = _dbContext.Addresses.ToList();
-            //foreach (var item in lstProperty)
-            //{
-            //    item.GeolocationId = lstUpdatedGeolocations.Where(x => x.Latitude == item.Geolocation.Latitude && x.Longitude == item.Geolocation.Longitude).First().Id;
-            //    item.AddressId = lstUpdatedAddresses.Where(x => x.StreetNumber == item.Address.StreetNumber && x.Street == item.Address.Street 
-            //    && x.Level == item.Address.Level && x.UnitNumber == item.Address.UnitNumber).First().Id;
-            //}
-            var lstUpdatedSuburbs = _dbContext.Suburbs.ToList();
-            var lstUpdatedCountries = _dbContext.Countries.ToList();
+            var lstPropertyIds = lstProperty.Select(x => x.CrmPropertyId).ToList();
+            var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))
+                                    .Select(x => new { CrmPropertyId = x.CrmPropertyId, Modified = x.Modified, IsAdminUpdated = x.IsAdminUpdated }).ToList();
+            lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && x.Modified == y.Modified));
+
+            var lstSuburbIds = lstProperty.Select(x => x.SuburbId).Distinct().ToList();
+            var lstDBSuburbDetails = _dbContext.Suburbs.Where(x => lstSuburbIds.Contains(x.CrmSuburbId)).Select(x => new { Id = x.Id, CrmSuburbId = x.CrmSuburbId }).Distinct().ToList();
+
+            var lstCountryIds = lstProperty.Select(x => x.CountryId).Distinct().ToList();
+            var lstDBCountryDetails = _dbContext.Countries.Where(x => lstCountryIds.Contains(x.CrmCountryId)).Select(x => new { Id = x.Id, CrmCountryId = x.CrmCountryId }).Distinct().ToList();
+
+            var lstPropertyTypeIds = lstProperty.Select(x => x.PropertyTypeId).Distinct().ToList();
+            var lstDBPropertyTypeDetails = _dbContext.PropertyTypes.Where(x => lstPropertyTypeIds.Contains(x.CrmPropertyTypeId)).Select(x => new { Id = x.Id, CrmPropertyTypeId = x.CrmPropertyTypeId }).Distinct().ToList();
+
             foreach (var item in lstProperty)
             {
-                item.CountryId = lstUpdatedCountries.Where(x => x.CrmCountryId == item.CountryId).First().Id;
-                item.SuburbId = lstUpdatedSuburbs.Where(x => x.CrmSuburbId == item.SuburbId).First().Id;
+                item.CountryId = lstDBCountryDetails.Where(x => x.CrmCountryId == item.CountryId).First().Id;
+                item.SuburbId = lstDBSuburbDetails.Where(x => x.CrmSuburbId == item.SuburbId).First().Id;
+                item.PropertyTypeId = lstDBPropertyTypeDetails.Where(x => x.CrmPropertyTypeId == item.PropertyTypeId).First().Id;
             }
-            await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
-            await _dbContext.SaveChangesAsync();
 
+            var propertyNeedsApprovals = lstProperty.FindAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
+
+            lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
+
+            if (propertyNeedsApprovals.Count > 0)
+            {
+                var lstPropertyNeedsApprovalsIds = propertyNeedsApprovals.Select(x => x.CrmPropertyId).ToList();
+
+                var lstDBEssenceObjectRequiredApproval = _dbContext.EssenceObjectRequiredApprovals.Where(x => lstPropertyNeedsApprovalsIds.Contains(x.CrmPropertyId))
+                    .Select(x => new { CrmPropertyId = x.CrmPropertyId, EssenceObjectRequiredApprovalStatus = x.EssenceObjectRequiredApprovalStatus }).ToList();
+
+                foreach (var item in propertyNeedsApprovals)
+                {
+                    if (lstDBEssenceObjectRequiredApproval.Exists(x => item.CrmPropertyId == x.CrmPropertyId && x.EssenceObjectRequiredApprovalStatus == EssenceObjectRequiredApprovalStatus.Pending))
+                    {
+                        await _dbContext.EssenceObjectRequiredApprovals.Upsert(GetEssenceObject(item)).On(x => x.CrmPropertyId).RunAsync();
+                    }
+                    else
+                    {
+                        await _dbContext.EssenceObjectRequiredApprovals.AddAsync(GetEssenceObject(item));
+                    }
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+            if (lstProperty.Count > 0)
+            {
+                await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
+            }
+        }
+        public EssenceObjectRequiredApproval GetEssenceObject(Property item)
+        {
+            return new()
+            {
+                CrmPropertyId = item.CrmPropertyId,
+                EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Pending,
+                EssenceObjectTypes = EssenceObjectTypes.Property,
+                Id = 0,
+                JsonObject = JsonSerializer.Serialize(item),
+                CreatedBy = ERConstants.PROPERTY_PROCESSOR,
+                CreatedDate = System.DateTime.Now,
+                ModifiedDate = System.DateTime.Now,
+                ModifieldBy = ERConstants.PROPERTY_PROCESSOR
+            };
         }
 
         public async Task<IEnumerable<Property>> GelAll()

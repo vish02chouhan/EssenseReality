@@ -8,6 +8,6 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IPhoneNumberRepository
     {
-        Task UpsertPhoneNumbers(IList<PhoneNumber> lstPhoneNumber);
+        Task UpsertPhoneNumbers(List<PhoneNumber> lstPhoneNumber);
     }
 }
