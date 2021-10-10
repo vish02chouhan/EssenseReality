@@ -38,21 +38,48 @@ namespace EssenceRealty.Repository.Repositories
             }
 
             var propertyNeedsApprovals = lstProperty.FindAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
-            
+
             lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
 
             if (propertyNeedsApprovals.Count > 0)
             {
-                var jsn = JsonSerializer.Serialize(propertyNeedsApprovals);
-                //await _dbContext.EssenceObjectRequiredApprovals.UpsertRange(propertyNeedsApprovals).On(x => x.).RunAsync();
+                var lstPropertyNeedsApprovalsIds = propertyNeedsApprovals.Select(x => x.CrmPropertyId).ToList();
+
+                var lstDBEssenceObjectRequiredApproval = _dbContext.EssenceObjectRequiredApprovals.Where(x => lstPropertyNeedsApprovalsIds.Contains(x.CrmPropertyId))
+                    .Select(x => new { CrmPropertyId = x.CrmPropertyId, EssenceObjectRequiredApprovalStatus = x.EssenceObjectRequiredApprovalStatus }).ToList();
+
+                foreach (var item in propertyNeedsApprovals)
+                {
+                    if (lstDBEssenceObjectRequiredApproval.Exists(x => item.CrmPropertyId == x.CrmPropertyId && x.EssenceObjectRequiredApprovalStatus == EssenceObjectRequiredApprovalStatus.Pending))
+                    {
+                        await _dbContext.EssenceObjectRequiredApprovals.Upsert(GetEssenceObject(item)).On(x => x.CrmPropertyId).RunAsync();
+                    }
+                    else
+                    {
+                        await _dbContext.EssenceObjectRequiredApprovals.AddAsync(GetEssenceObject(item));
+                    }
+                }
                 await _dbContext.SaveChangesAsync();
             }
-
             if (lstProperty.Count > 0)
             {
                 await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
-                await _dbContext.SaveChangesAsync();
             }
+        }
+        public EssenceObjectRequiredApproval GetEssenceObject(Property item)
+        {
+            return new()
+            {
+                CrmPropertyId = item.CrmPropertyId,
+                EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Pending,
+                EssenceObjectTypes = EssenceObjectTypes.Property,
+                Id = 0,
+                JsonObject = JsonSerializer.Serialize(item),
+                CreatedBy = ERConstants.PROPERTY_PROCESSOR,
+                CreatedDate = System.DateTime.Now,
+                ModifiedDate = System.DateTime.Now,
+                ModifieldBy = ERConstants.PROPERTY_PROCESSOR
+            };
         }
     }
 }
