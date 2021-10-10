@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IPropertyTypeRepository
+    public interface IPropertyTypeRepository :IAsyncRepository<PropertyType>
     {
         Task UpsertPropertyTypes(IList<PropertyType> lstPropertyType);
     }

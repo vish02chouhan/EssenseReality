@@ -9,5 +9,6 @@ namespace EssenceRealty.Repository.IRepositories
     public interface IPropertyRepository
     {
         Task UpsertPropertys(IList<Property> lstProperty);
+        Task<IEnumerable<Property>> GelAll();
     }
 }

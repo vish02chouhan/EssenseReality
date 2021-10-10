@@ -37,5 +37,31 @@ namespace EssenceRealty.Repository.Repositories
             await _dbContext.SaveChangesAsync();
 
         }
+
+        public async Task<IEnumerable<Property>> GelAll()
+        {
+          return await  _dbContext.Properties
+                       .Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)
+                       .Include(x => x.ContactStaff).ThenInclude(y=>y.PhoneNumber)
+                       .Include(x=> x.PropertyType).ThenInclude(y=>y.PropertyClass)
+                       .Include(x => x.PropertyFeature).ToListAsync();
+        }
+
+        public async Task<Property> Add(Property property)
+        {
+            await _dbContext.Properties.AddAsync(property);    
+            
+            return property;
+        }
+
+        //public async Task<Property> Update(Property property)
+        //{
+
+        //    await _dbContext.Properties.Update(property);
+
+        //    return property;
+        //}
     }
 }

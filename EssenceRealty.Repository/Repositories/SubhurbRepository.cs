@@ -26,7 +26,6 @@ namespace EssenceRealty.Repository.Repositories
             }
             await _dbContext.Suburbs.UpsertRange(lstSuburb).On(x => x.CrmSuburbId).RunAsync();
             await _dbContext.SaveChangesAsync();
-
         }
     }
 }

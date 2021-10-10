@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -13,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EssenceRealty.Repository\EssenceRealty.Repository.csproj" />
     <ProjectReference Include="..\EssenseReality.Data\EssenseReality.Data.csproj" />
     <ProjectReference Include="..\EssenseReality.Domain\EssenseReality.Domain.csproj" />
   </ItemGroup>
