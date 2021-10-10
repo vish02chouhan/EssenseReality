@@ -1,3 +1,4 @@
+using EssenceRealty.Repository;
 using EssenseReality.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,10 +26,14 @@ namespace EssenseReality.Web.API
 
             services.AddControllers();
 
-            services.AddDbContext<EssenseRealityContext>(opt =>
-                 opt.UseSqlServer(Configuration.GetConnectionString("EssenceConnex"))
-                    .EnableSensitiveDataLogging()
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            //services.AddDbContext<EssenseRealityContext>(opt =>
+            //     opt.UseSqlServer(Configuration.GetConnectionString("EssenceConnex"))
+            //        .EnableSensitiveDataLogging()
+            //        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+            services.AddPersistenceServices(Configuration);
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddSwaggerGen(c =>
             {

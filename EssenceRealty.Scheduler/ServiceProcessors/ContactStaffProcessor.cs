@@ -43,7 +43,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw ex;
+                throw;
             }
         }
         public ContactStaff ExtractContactStaffData(JToken item)

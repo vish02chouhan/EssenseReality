@@ -81,5 +81,31 @@ namespace EssenceRealty.Repository.Repositories
                 ModifieldBy = ERConstants.PROPERTY_PROCESSOR
             };
         }
+
+        public async Task<IEnumerable<Property>> GelAll()
+        {
+          return await  _dbContext.Properties
+                       .Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y=>y.ContactStaff).ThenInclude(z=>z.PhoneNumbers)
+                       .Include(x=> x.PropertyType).ThenInclude(y=>y.PropertyClass)
+                       .Include(x => x.PropertyFeature).ToListAsync();
+        }
+
+        public async Task<Property> Add(Property property)
+        {
+            await _dbContext.Properties.AddAsync(property);    
+            
+            return property;
+        }
+
+        //public async Task<Property> Update(Property property)
+        //{
+
+        //    await _dbContext.Properties.Update(property);
+
+        //    return property;
+        //}
     }
 }

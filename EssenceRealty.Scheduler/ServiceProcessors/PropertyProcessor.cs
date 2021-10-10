@@ -98,7 +98,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw ex;
+                throw;
             }
         }
         private Property ExtractPropertyData(JToken item)
@@ -210,7 +210,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
         private double checkNullForDouble(string value)

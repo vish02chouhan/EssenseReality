@@ -31,10 +31,6 @@ namespace EssenseReality.Domain.Models
         public DateTime? Inserted { get; set; }
         public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
-        //public int AddressId { get; set; }
-        //public Address Address { get; set; }
-        //public int GeolocationId { get; set; }
-        //public Geolocation Geolocation { get; set; }
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public ICollection<Photo> Photo { get; set; }
@@ -55,58 +51,5 @@ namespace EssenseReality.Domain.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
-        //public object LandValue { get; set; }
-        //public string TenantName { get; set; }
-        //public string PortalStatus { get; set; }
-        //public object Branch { get; set; }
-        //public object AuthorityStart { get; set; }
-
-        //public string BrochureDescription { get; set; }
-        //public object RoyalMailId { get; set; }
-        //public object TenureOrTitleType { get; set; }
-        //public Class Class { get; set; }
-        //public string TenantEmail { get; set; }
-        //public string CommercialListingType { get; set; }
-        //public bool Tenanted { get; set; }
-        //public AuctionDetails AuctionDetails { get; set; }
-        //public string Heading { get; set; }
-        //public MethodOfSale MethodOfSale { get; set; }
-        //public TenderDetails TenderDetails { get; set; }
-        //public FloorArea FloorArea { get; set; }
-        //public object EnergyRating { get; set; }
-        //public object ETableUrl { get; set; }
-        //public int? Ensuites { get; set; }
-        //public string ReferenceID { get; set; }
-        //public object TenancyStart { get; set; }
-        //public object EpcGraphUrl { get; set; }
-        //public object Building { get; set; } 
-        //public string AddressVisibility { get; set; }
-        //public LandArea LandArea { get; set; }
-        //public string LotNumber { get; set; }
-        //public SetSaleDateDetails SetSaleDateDetails { get; set; }
-        //public int OpenSpaces { get; set; }   
-        //public object SellingFeePercent { get; set; }
-        //public bool PriceOnApplication { get; set; }
-        //public object PublishedToWeb { get; set; }
-        //public List<object> ExternalLinks { get; set; }
-        //public object PriceQualifier { get; set; }
-        //public string MobileMarketingDescription { get; set; }
-        //public int? Toilets { get; set; }
-        //public double? Vpa { get; set; }
-        //public string TenantPhone { get; set; }
-        //public string TenancyDetails { get; set; }
-        //public object WebId { get; set; }
-        //public object SellingFeeFixed { get; set; }
-        //public double? Frontage { get; set; }
-        //public string LegalDescription { get; set; }
-        //public object TenancyStop { get; set; }
-        //public string FolioNumber { get; set; }
-        //public int CorelogicId { get; set; }
-        //public int Garages { get; set; }
-        //public object ImprovementValue { get; set; }
-        //public string Rpdp { get; set; }
-        //public AuthorityType AuthorityType { get; set; }
-        //public Rates Rates { get; set; }
-        //public object RateableValue { get; set; }
     }
 }
