@@ -24,7 +24,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw ex;
+                throw;
             }
         }
         public List<PropertyClass> ExtractPropertyClassData(JArray items)

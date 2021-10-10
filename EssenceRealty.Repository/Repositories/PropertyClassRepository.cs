@@ -27,5 +27,12 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async override Task<IReadOnlyList<PropertyClass>> ListAllAsync()
+        {
+            return await _dbContext.PropertyClasses
+                                   .Include(x => x.PropertyType)
+                                   .ToListAsync();
+        }
     }
 }

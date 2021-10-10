@@ -29,7 +29,7 @@ namespace EssenseReality.Web.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PropertyClassViewModel>> GetAll()
+        public async Task<IEnumerable<PropertyClassViewModel>> Get()
         {
             var result = await propertyRepository.GelAll();
 

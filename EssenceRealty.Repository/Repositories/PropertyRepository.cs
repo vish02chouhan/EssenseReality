@@ -88,7 +88,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
-                       .Include(x => x.ContactStaff).ThenInclude(y=>y.PhoneNumber)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y=>y.ContactStaff).ThenInclude(z=>z.PhoneNumbers)
                        .Include(x=> x.PropertyType).ThenInclude(y=>y.PropertyClass)
                        .Include(x => x.PropertyFeature).ToListAsync();
         }

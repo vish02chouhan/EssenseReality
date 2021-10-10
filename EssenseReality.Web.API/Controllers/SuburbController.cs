@@ -29,7 +29,7 @@ namespace EssenseReality.Web.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<SuburbViewModel>> GetAll()
+        public async Task<IEnumerable<SuburbViewModel>> Get()
         {
             var result = await subhurbRepository.ListAllAsync();
 
@@ -38,8 +38,8 @@ namespace EssenseReality.Web.API.Controllers
             return suburbViewModel;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<SuburbViewModel>> GetPage(int pageNumber, int pageSize)
+        [HttpGet("{pageNumber}/{pageSize}")]
+        public async Task<IEnumerable<SuburbViewModel>> Get(int pageNumber, int pageSize)
         {
             var result = await subhurbRepository.GetPagedReponseAsync(pageNumber, pageSize);
 

@@ -2,7 +2,7 @@
 {
     public class PropertyTypeViewModel
     {
-        public int CrmPropertyTypeId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public PropertyClassViewModel PropertyClass { get; set; }
 

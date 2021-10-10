@@ -19,6 +19,9 @@ namespace EssenseReality.Web.API.Mapper
             CreateMap<FloorPlan, FloorPlanViewModel>();
             CreateMap<PropertyFeature, PropertyFeatureViewModel>();
 
+
+            CreateMap<PropertyViewModel, Property>();
+
         }   
     }
 }

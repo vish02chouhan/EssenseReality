@@ -38,6 +38,27 @@ namespace EssenseReality.Web.API.Controllers
             return propertyViewModel;
         }
 
+        [HttpGet("/{id}")]
+        public async Task<PropertyViewModel> Get(int id)
+        {
+            var result = await propertyRepository.GetByIdAsync(id);
+
+            var propertyViewModel = mapper.Map<PropertyViewModel>(result);
+
+            return propertyViewModel;
+        }
+
+        [HttpPut]
+        public async Task<PropertyViewModel> Put(PropertyViewModel propertyViewModel)
+        {
+
+            var property = mapper.Map<Property>(propertyViewModel);
+
+             await propertyRepository.UpdateAsync(property);
+
+            return mapper.Map<PropertyViewModel>(property);
+        }
+
 
     }
 }
