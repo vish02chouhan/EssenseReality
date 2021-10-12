@@ -21,6 +21,15 @@ namespace EssenseReality.Web.API.Mapper
 
 
             CreateMap<PropertyViewModel, Property>();
+            CreateMap<SuburbViewModel, Suburb>();
+            CreateMap<StateViewModel, State>();
+            CreateMap<CountryViewModel, Country>();
+            CreateMap<PropertyTypeViewModel, PropertyType>();
+            CreateMap<PropertyClassViewModel, PropertyClass>();
+            CreateMap<ContactStaffViewModel, ContactStaff>();
+            CreateMap<PhotoViewModel, PhotoViewModel>();
+            CreateMap<FloorPlanViewModel, FloorPlan>();
+            CreateMap<PropertyFeatureViewModel, PropertyFeature>();
 
         }   
     }

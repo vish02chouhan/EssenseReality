@@ -28,5 +28,16 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public override async Task<ContactStaff> GetByIdAsync(int id)
+        {
+            var data = await _dbContext.ContactStaffs
+                                       .Where(x => x.Id == id)
+                                       .Include(x=>x.PhoneNumbers)
+                                       .SingleAsync();
+
+            return data;
+              
+        }
     }
 }

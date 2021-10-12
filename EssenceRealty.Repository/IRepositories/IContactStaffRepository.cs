@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IContactStaffRepository
+    public interface IContactStaffRepository : IAsyncRepository<ContactStaff>
     {
         Task UpsertContactStaffs(List<ContactStaff> lstContactStaff);
     }
