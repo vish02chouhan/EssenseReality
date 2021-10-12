@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Scheduler
 {
-    public class Worker : BackgroundService
+    public class Worker : IHostedService, IDisposable
     {
         private readonly ILogger<Worker> _logger;
         private readonly VaultCrmProcessor vaultCrmProcessor;
         private readonly LogTransactionProcessor logTransactionProcessor;
- 
+        private Timer _timer;
 
         public Worker(ILogger<Worker> logger,
             VaultCrmProcessor vaultCrmProcessor,
@@ -27,18 +27,49 @@ namespace EssenceRealty.Scheduler
             this.logTransactionProcessor = logTransactionProcessor;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            //while (!stoppingToken.IsCancellationRequested)
-            //{
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(5));
+            return Task.CompletedTask;
+        }
 
-                Guid batchUniqueId = Guid.NewGuid();
+        private async void OnTimer(object state)
+        {
+            _logger.LogInformation("OnTimer event called");
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+            Guid batchUniqueId = Guid.NewGuid();
             await vaultCrmProcessor.StartProcessing(batchUniqueId);
             await logTransactionProcessor.StartProcessing(batchUniqueId); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
 
-            ///await Task.Delay(1000, stoppingToken);
-            //}
         }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("StopAsync Called");
+            _timer.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            _logger.LogInformation("Dispose Called");
+            _timer?.Dispose();
+        }
+
+
+        //protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        //{
+        //while (!stoppingToken.IsCancellationRequested)
+        //{
+        //       _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
+        //Guid batchUniqueId = Guid.NewGuid();
+        // await vaultCrmProcessor.StartProcessing(batchUniqueId);
+        //await logTransactionProcessor.StartProcessing(batchUniqueId); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
+
+        ///await Task.Delay(1000, stoppingToken);
+        //}
+        //}
     }
 }

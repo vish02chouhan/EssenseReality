@@ -100,12 +100,22 @@ namespace EssenceRealty.Repository.Repositories
             return property;
         }
 
-        //public async Task<Property> Update(Property property)
-        //{
+        public override async Task<Property> GetByIdAsync(int id)
+        {
+            var data = await _dbContext.Properties.Where(x => x.Id == id)
+                       .Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
+                       .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
+                       .Include(x => x.PropertyFeature).FirstAsync();
 
-        //    await _dbContext.Properties.Update(property);
+            data.ContactStaff = await _dbContext.PropertyContactStaffs
+                                .Where(x => x.PropertyId == id)
+                                .Include(x => x.ContactStaff)
+                                .Select(x => x.ContactStaff).ToListAsync();
 
-        //    return property;
-        //}
+            return data;
+        }
     }
 }

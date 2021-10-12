@@ -7,6 +7,7 @@ namespace EssenseReality.Domain.ViewModels
 {
     public class SuburbViewModel
     {
+        public int Id { get; set; }
         public string Postcode { get; set; }
         public string Name { get; set; }
         public StateViewModel State { get; set; }
