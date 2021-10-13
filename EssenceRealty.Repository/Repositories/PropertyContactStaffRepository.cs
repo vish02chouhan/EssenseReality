@@ -32,11 +32,18 @@ namespace EssenceRealty.Repository.Repositories
 
             foreach (var item in lstPropertyContactStaffDetails)
             {
-                lstPropertyContactStaff.Add(new()
+                PropertyContactStaff objPropertyContactStaff = new()
                 {
                     ContactStaffId = lstDBContactStaffIds.Where(x => x.CrmContactStaffId == item.CrmContactStaffId).First().Id,
                     PropertyId = lstDBPropertyIds.Where(x => x.CrmPropertyId == item.CrmPropertyId).First().Id,
-                }) ;
+                };
+                var propertyIdExists = _dbContext.PropertyContactStaffs
+                    .Where(x => x.ContactStaffId == objPropertyContactStaff.ContactStaffId && x.PropertyId == objPropertyContactStaff.PropertyId)
+                    .Select(x => x.PropertyId).First();
+                if (propertyIdExists <= 0)
+                {
+                    lstPropertyContactStaff.Add(objPropertyContactStaff);
+                }
             }
 
             if (lstPropertyContactStaff.Count > 0)
