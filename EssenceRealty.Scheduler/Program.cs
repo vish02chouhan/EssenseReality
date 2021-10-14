@@ -19,6 +19,7 @@ namespace EssenceRealty.Scheduler
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.Configure<VaultServicesConfig>(hostContext.Configuration.GetSection("VaultCrmService"));
