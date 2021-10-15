@@ -39,7 +39,7 @@ namespace EssenseReality.Web.API.Controllers
             return contactStaffViewModel;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public async Task<ContactStaffViewModel> Get(int id)
         {
             var result = await contactStaffRepository.GetByIdAsync(id);
