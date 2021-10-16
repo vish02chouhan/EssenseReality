@@ -1,6 +1,6 @@
 ﻿using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Data;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Data;
+using EssenceRealty.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace EssenceRealty.Repository.Repositories
 {
     class CrmEssenceLogRepository : BaseRepository<CrmEssenceLog>, ICrmEssenceLogRepository
     {
-        public CrmEssenceLogRepository(EssenseRealityContext dbContext) : base(dbContext)
+        public CrmEssenceLogRepository(EssenceRealtyContext dbContext) : base(dbContext)
         {
         }
 

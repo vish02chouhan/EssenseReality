@@ -1,6 +1,6 @@
 ﻿using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Data;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Data;
+using EssenceRealty.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace EssenceRealty.Repository.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
-        protected readonly EssenseRealityContext _dbContext;
+        protected readonly EssenceRealtyContext _dbContext;
 
-        public BaseRepository(EssenseRealityContext dbContext)
+        public BaseRepository(EssenceRealtyContext dbContext)
         {
             _dbContext = dbContext;
         }

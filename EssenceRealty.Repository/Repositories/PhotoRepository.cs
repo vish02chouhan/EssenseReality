@@ -1,6 +1,6 @@
 ﻿using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Data;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Data;
+using EssenceRealty.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace EssenceRealty.Repository.Repositories
 {
     public class PhotoRepository : BaseRepository<Photo>, IPhotoRepository
     {
-        public PhotoRepository(EssenseRealityContext dbContext) : base(dbContext)
+        public PhotoRepository(EssenceRealtyContext dbContext) : base(dbContext)
         {
         }
 

@@ -19,8 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EssenceRealty.Domain\EssenceRealty.Domain.csproj" />
     <ProjectReference Include="..\EssenceRealty.Repository\EssenceRealty.Repository.csproj" />
-    <ProjectReference Include="..\EssenseReality.Data\EssenseReality.Data.csproj" />
+    <ProjectReference Include="..\EssenceRealty.Data\EssenceRealty.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

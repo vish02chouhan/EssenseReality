@@ -1,6 +1,6 @@
 ﻿using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Data;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Data;
+using EssenceRealty.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace EssenceRealty.Repository.Repositories
 {
     public class PropertyRepository : BaseRepository<Property>, IPropertyRepository
     {
-        public PropertyRepository(EssenseRealityContext dbContext) : base(dbContext)
+        public PropertyRepository(EssenceRealtyContext dbContext) : base(dbContext)
         {
         }
         public async Task UpsertPropertys(List<Property> lstProperty)
@@ -108,12 +108,16 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.Suburb)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
-                       .Include(x => x.PropertyFeature).FirstAsync();
+                       .Include(x => x.PropertyFeature).SingleOrDefaultAsync();
 
-            data.ContactStaff = await _dbContext.PropertyContactStaffs
-                                .Where(x => x.PropertyId == id)
-                                .Include(x => x.ContactStaff)
-                                .Select(x => x.ContactStaff).ToListAsync();
+            if(data != null)
+            {
+                data.ContactStaff = await _dbContext.PropertyContactStaffs
+                                    .Where(x => x.PropertyId == id)
+                                    .Include(x => x.ContactStaff).ThenInclude(y => y.PhoneNumbers)
+                                    .Select(x => x.ContactStaff).ToListAsync();
+            }
+
 
             return data;
         }

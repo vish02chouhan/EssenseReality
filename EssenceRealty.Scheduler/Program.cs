@@ -2,7 +2,7 @@ using EssenceRealty.Repository;
 using EssenceRealty.Scheduler.Configurations;
 using EssenceRealty.Scheduler.ExternalServices;
 using EssenceRealty.Scheduler.Services;
-using EssenseReality.Data;
+using EssenceRealty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +24,7 @@ namespace EssenceRealty.Scheduler
                 {
                     services.Configure<VaultServicesConfig>(hostContext.Configuration.GetSection("VaultCrmService"));
               
-                    //services.AddDbContext<EssenseRealityContext>(opt =>
+                    //services.AddDbContext<EssenceRealtyContext>(opt =>
                     //   opt.UseSqlServer(hostContext.Configuration.GetSection("ConnectionStrings:EssenceConnex").Value)
                     //      .EnableSensitiveDataLogging()
                     //      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
