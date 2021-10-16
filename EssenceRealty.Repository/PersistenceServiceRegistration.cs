@@ -1,6 +1,6 @@
 ﻿using EssenceRealty.Repository.IRepositories;
 using EssenceRealty.Repository.Repositories;
-using EssenseReality.Data;
+using EssenceRealty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +12,7 @@ namespace EssenceRealty.Repository
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<EssenseRealityContext>(options =>
+            services.AddDbContext<EssenceRealtyContext>(options =>
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                 .UseSqlServer(configuration.GetConnectionString("EssenceConnex")));
 

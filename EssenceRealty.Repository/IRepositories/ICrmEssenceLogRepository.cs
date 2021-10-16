@@ -1,4 +1,4 @@
-﻿using EssenseReality.Domain.Models;
+﻿using EssenceRealty.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

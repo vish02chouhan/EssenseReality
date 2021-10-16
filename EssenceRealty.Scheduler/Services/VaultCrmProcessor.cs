@@ -1,7 +1,7 @@
 ﻿using EssenceRealty.Scheduler.Configurations;
 using EssenceRealty.Scheduler.ExternalServices;
 using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Domain.Models;
 using Newtonsoft.Json;
 using System;
 using Newtonsoft.Json.Linq;

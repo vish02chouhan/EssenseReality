@@ -1,5 +1,5 @@
 ﻿using EssenceRealty.Repository.IRepositories;
-using EssenseReality.Domain.Models;
+using EssenceRealty.Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
