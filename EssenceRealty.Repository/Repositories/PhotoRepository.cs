@@ -34,5 +34,20 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<List<Photo>> AddPhotos(List<Photo> lstPhotos)
+        {
+            try
+            {
+                await _dbContext.Photos.AddRangeAsync(lstPhotos);
+                await _dbContext.SaveChangesAsync();
+                return lstPhotos;
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+        }
     }
 }

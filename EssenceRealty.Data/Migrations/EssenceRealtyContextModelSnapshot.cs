@@ -4,16 +4,14 @@ using EssenceRealty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211015072642_initial")]
-    partial class initial
+    partial class EssenceRealtyContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -378,19 +376,19 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmPhotoId")
+                    b.Property<int?>("CrmPhotoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Filename")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Filesize")
-                        .HasColumnType("int");
+                    b.Property<long?>("Filesize")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("FloorPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Height")
+                    b.Property<int?>("Height")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Inserted")
@@ -417,7 +415,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Thumb180")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ThumbnailId")
+                    b.Property<int?>("ThumbnailId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -429,7 +427,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("UserFilename")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Width")
+                    b.Property<int?>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
