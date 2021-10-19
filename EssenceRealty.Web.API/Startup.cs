@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using EssenceRealty.Web.API.Model;
 
 namespace EssenceRealty.Web.API
 {
@@ -25,6 +26,7 @@ namespace EssenceRealty.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.Configure<ERConfiguration>(Configuration.GetSection("ERImagePath"));
             services.AddControllers();
 
             services.AddPersistenceServices(Configuration);
@@ -40,6 +42,7 @@ namespace EssenceRealty.Web.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EssenceRealty.Web.API", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

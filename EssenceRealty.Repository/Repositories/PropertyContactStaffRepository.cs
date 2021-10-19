@@ -39,7 +39,7 @@ namespace EssenceRealty.Repository.Repositories
                 };
                 var propertyIdExists = _dbContext.PropertyContactStaffs
                     .Where(x => x.ContactStaffId == objPropertyContactStaff.ContactStaffId && x.PropertyId == objPropertyContactStaff.PropertyId)
-                    .Select(x => x.PropertyId).First();
+                    .Select(x => x.PropertyId).FirstOrDefault();
                 if (propertyIdExists <= 0)
                 {
                     lstPropertyContactStaff.Add(objPropertyContactStaff);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class photoupdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -520,19 +520,19 @@ namespace EssenceRealty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmPhotoId = table.Column<int>(type: "int", nullable: false),
+                    CrmPhotoId = table.Column<int>(type: "int", nullable: true),
                     Published = table.Column<bool>(type: "bit", nullable: false),
-                    Width = table.Column<int>(type: "int", nullable: false),
+                    Width = table.Column<int>(type: "int", nullable: true),
                     Filename = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserFilename = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Height = table.Column<int>(type: "int", nullable: false),
-                    Filesize = table.Column<int>(type: "int", nullable: false),
+                    Height = table.Column<int>(type: "int", nullable: true),
+                    Filesize = table.Column<long>(type: "bigint", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Inserted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
-                    ThumbnailId = table.Column<int>(type: "int", nullable: false),
+                    ThumbnailId = table.Column<int>(type: "int", nullable: true),
                     Thumb1024 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Thumb180 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FloorPlanId = table.Column<int>(type: "int", nullable: true),

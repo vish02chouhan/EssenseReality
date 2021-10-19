@@ -1,6 +1,7 @@
 ﻿using EssenceRealty.Domain.Models;
 using EssenceRealty.Domain.ViewModels;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace EssenceRealty.Web.API.Mapper
 {

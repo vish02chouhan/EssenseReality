@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IPhotoRepository
+    public interface IPhotoRepository : IAsyncRepository<Photo>
     {
         Task UpsertPhotos(List<Photo> lstPhoto);
+        Task<List<Photo>> AddPhotos(List<Photo> lstPhotos);
     }
 }
