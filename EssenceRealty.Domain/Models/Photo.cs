@@ -13,7 +13,7 @@ namespace EssenceRealty.Domain.Models
         public string UserFilename { get; set; }
         public string Type { get; set; }
         public int? Height { get; set; }
-        public long? Filesize { get; set; }
+        public int? Filesize { get; set; }
         public string Url { get; set; }
         public DateTime Inserted { get; set; }
         public DateTime Modified { get; set; }

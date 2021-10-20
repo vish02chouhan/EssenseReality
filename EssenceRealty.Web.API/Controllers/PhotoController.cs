@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using AutoMapper.Configuration;
 using Microsoft.Extensions.Options;
+using System.Drawing;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -45,26 +46,40 @@ namespace EssenceRealty.Web.API.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    string fileId = Guid.NewGuid().ToString().Replace("-", "");
-                    
-                    //var path = Path.Combine(_config?.ERImagePath?.ToString(), PropertyId.ToString());
-                    var path = Path.Combine(@"/Users/vivekverma/Documents/ER_Photos", PropertyId.ToString());
+                    var extension = Path.GetExtension(formFile.FileName);
+
+                    var imageId = Guid.NewGuid().ToString().Replace("-", "");
+
+                    string imageName = $"{imageId}.{extension}";
+
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\properties", PropertyId.ToString());
+
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    var filePath = Path.Combine(path ,fileId);
-                    using (var stream = System.IO.File.Create(filePath))
-                    {
+
+                    var filePath = Path.Combine(path , imageName);
+
+                    int imageWidth, imageHeight = 0;
+                    using (var stream = System.IO.File.Create(filePath)) {
+                      
                         await formFile.CopyToAsync(stream);
+                    
                     }
+
+                    using var image = Image.FromStream(formFile.OpenReadStream());
+                    imageWidth = image.Width;
+                    imageHeight = image.Height;
+
                     PhotoViewModel photoViewModel = new()
                     {
-                        Filesize = formFile.Length,
-                        Height = 0,
+                        Filesize =(int)formFile.Length,
+                        Height = imageHeight,
+                        Width = imageWidth,
                         Published = true,
                         Type = formFile.ContentType,
-                        Filename = fileId,
+                        Filename = imageName,
                         UserFilename = formFile.FileName,
                         Thumb1024 = path,
                         Id = 0,
@@ -74,6 +89,12 @@ namespace EssenceRealty.Web.API.Controllers
                 }
             }
             var lstPhoto = mapper.Map<List<Photo>>(lstPhotoViewModel);
+
+            lstPhoto.ForEach(x =>
+            {
+               x.CrmPhotoId = 0;
+                x.ThumbnailId = 0;
+            });
 
             await PhotoRepository.AddPhotos(lstPhoto);
 
