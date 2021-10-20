@@ -51,10 +51,15 @@ namespace EssenceRealty.Web.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EssenceRealty.Web.API v1"));
             }
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EssenceRealty.Web.API v1"));
+            else
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/essencerealty/swagger/v1/swagger.json", "EssenceRealty.Web.API v1"));
+            }
+          
 
             //   app.UseHttpsRedirection();
 

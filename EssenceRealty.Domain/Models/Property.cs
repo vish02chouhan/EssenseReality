@@ -28,9 +28,6 @@ namespace EssenceRealty.Domain.Models
         public int LeaseLifeId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? Inserted { get; set; }
-        public DateTime? Modified { get; set; }
-        public bool IsAdminUpdated { get; set; }
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public ICollection<Photo> Photo { get; set; }
@@ -50,6 +47,10 @@ namespace EssenceRealty.Domain.Models
         public string Accuracy { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        public DateTime? Inserted { get; set; }
+        public DateTime? Modified { get; set; }
+        public bool IsAdminUpdated { get; set; }
 
     }
 }
