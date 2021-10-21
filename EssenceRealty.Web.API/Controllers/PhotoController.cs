@@ -114,5 +114,26 @@ namespace EssenceRealty.Web.API.Controllers
                 Data = mapper.Map<List<PhotoViewModel>>(lstPhoto)
             });
         }
+
+        [HttpDelete]
+        public async Task Delete(PhotoViewModel photoViewModel)
+        {
+            
+            if (System.IO.File.Exists(photoViewModel.Url))
+            {
+                System.IO.File.Delete(photoViewModel.Url);
+            }
+            if (System.IO.File.Exists(photoViewModel.Thumb1024))
+            {
+                System.IO.File.Delete(photoViewModel.Thumb1024);
+            }
+            if (System.IO.File.Exists(photoViewModel.Thumb180))
+            {
+                System.IO.File.Delete(photoViewModel.Thumb180);
+            }
+            var photo = mapper.Map<Photo>(photoViewModel);
+            await PhotoRepository.DeleteAsync(photo);
+            
+        }
     }
 }
