@@ -9,5 +9,6 @@ namespace EssenceRealty.Repository.IRepositories
     public interface ISubhurbRepository : IAsyncRepository<Suburb>
     {
         Task UpsertSubhurbs(List<Suburb> lstSubhurb);
+        Task<IList<Suburb>> GetSuburbByStateId(int stateId);
     }
 }
