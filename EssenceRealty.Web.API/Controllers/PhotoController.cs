@@ -62,7 +62,6 @@ namespace EssenceRealty.Web.API.Controllers
 
                     var filePath = Path.Combine(path , imageName);
 
-                    int imageWidth, imageHeight = 0;
                     using (var stream = System.IO.File.Create(filePath)) {
                       
                         await formFile.CopyToAsync(stream);
@@ -70,6 +69,7 @@ namespace EssenceRealty.Web.API.Controllers
                     }
 
                     using var image = Image.FromStream(formFile.OpenReadStream());
+                    int imageWidth, imageHeight = 0;
                     imageWidth = image.Width;
                     imageHeight = image.Height;
 
