@@ -34,5 +34,9 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+        public async Task<IList<Suburb>> GetSuburbByStateId(int stateId)
+        {
+            return await GetManyAsync(x => x.StateId == stateId);
+        }
     }
 }

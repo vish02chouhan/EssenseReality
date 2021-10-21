@@ -40,6 +40,18 @@ namespace EssenceRealty.Web.API.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("GetSuburbByStateId")]
+        public async Task<ActionResult<EssenceResponse<IEnumerable<SuburbViewModel>>>> GetSuburbByStateId(int stateId)
+        {
+            var result = await subhurbRepository.GetSuburbByStateId(stateId);
+
+            return Ok(new EssenceResponse<IEnumerable<SuburbViewModel>>
+            {
+                Data = mapper.Map<IEnumerable<SuburbViewModel>>(result)
+            });
+        }
+
         [HttpGet("{pageNumber}/{pageSize}")]
         public async Task<ActionResult<EssenceResponse<IEnumerable<SuburbViewModel>>>> Get(int pageNumber, int pageSize)
         {
