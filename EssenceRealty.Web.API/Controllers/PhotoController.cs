@@ -50,9 +50,10 @@ namespace EssenceRealty.Web.API.Controllers
 
                     var imageId = Guid.NewGuid().ToString().Replace("-", "");
 
-                    string imageName = $"{imageId}.{extension}";
+                    string imageName = $"{imageId}{extension}";
 
                     var path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\properties", PropertyId.ToString());
+                    //var path = Path.Combine(@"/Users/vivekverma/Documents/ER_Photos", PropertyId.ToString());
 
                     if (!Directory.Exists(path))
                     {
@@ -61,7 +62,6 @@ namespace EssenceRealty.Web.API.Controllers
 
                     var filePath = Path.Combine(path , imageName);
 
-                    int imageWidth, imageHeight = 0;
                     using (var stream = System.IO.File.Create(filePath)) {
                       
                         await formFile.CopyToAsync(stream);
@@ -69,8 +69,17 @@ namespace EssenceRealty.Web.API.Controllers
                     }
 
                     using var image = Image.FromStream(formFile.OpenReadStream());
+                    int imageWidth, imageHeight = 0;
                     imageWidth = image.Width;
                     imageHeight = image.Height;
+
+                    var thumb1024 = image.GetThumbnailImage(963, 558, () => false, IntPtr.Zero);
+                    var thumb1024FilePath = Path.Combine(path, "thumb1024" + imageName);
+                    thumb1024.Save(thumb1024FilePath);
+
+                    var thumb180 = image.GetThumbnailImage(180, 104, () => false, IntPtr.Zero);
+                    var thumb180FilePath = Path.Combine(path, "thumb180" + imageName);
+                    thumb180.Save(thumb180FilePath);
 
                     PhotoViewModel photoViewModel = new()
                     {
@@ -81,9 +90,11 @@ namespace EssenceRealty.Web.API.Controllers
                         Type = formFile.ContentType,
                         Filename = imageName,
                         UserFilename = formFile.FileName,
-                        Thumb1024 = path,
+                        Thumb1024 = thumb1024FilePath,
                         Id = 0,
-                        PropertyId = PropertyId
+                        PropertyId = PropertyId,
+                        Thumb180 = thumb180FilePath,
+                        Url = filePath
                     };
                     lstPhotoViewModel.Add(photoViewModel);
                 }
@@ -103,7 +114,5 @@ namespace EssenceRealty.Web.API.Controllers
                 Data = mapper.Map<List<PhotoViewModel>>(lstPhoto)
             });
         }
-
-
     }
 }
