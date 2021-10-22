@@ -84,7 +84,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IEnumerable<Property>> GelAll()
         {
-          return await  _dbContext.Properties
+          var data = await  _dbContext.Properties
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
@@ -92,6 +92,16 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeature)
                        .ToListAsync();
+            foreach (var item in data)
+            {
+                item.ContactStaff = await _dbContext.PropertyContactStaffs
+                                  .Where(x => x.PropertyId == item.Id)
+                                  .Include(x => x.ContactStaff).ThenInclude(y => y.PhoneNumbers)
+                                  .Select(x => x.ContactStaff).ToListAsync();
+              
+            }
+
+            return data;
         }
 
         public async Task<Property> Add(Property property)

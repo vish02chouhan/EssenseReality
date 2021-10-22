@@ -39,5 +39,12 @@ namespace EssenceRealty.Repository.Repositories
             return data;
               
         }
+
+        public async override Task<IReadOnlyList<ContactStaff>> ListAllAsync()
+        {
+            return await _dbContext.ContactStaffs
+                                       .Include(x => x.PhoneNumbers)
+                                   .ToListAsync();
+        }
     }
 }

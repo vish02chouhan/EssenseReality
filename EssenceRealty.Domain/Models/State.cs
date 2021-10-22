@@ -11,7 +11,7 @@ namespace EssenceRealty.Domain.Models
         public int Id { get; set; }
         public string Abbreviation { get; set; }
         public string Name { get; set; }
-        public int CrmStateId { get; set; }
+        public int? CrmStateId { get; set; }
         public ICollection<Suburb> Suburb { get; set; }
     }
 }

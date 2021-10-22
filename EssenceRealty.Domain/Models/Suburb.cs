@@ -10,7 +10,6 @@ namespace EssenceRealty.Domain.Models
 
         public int Id { get; set; }
         public string Postcode { get; set; }
-        //public object NzDistrict { get; set; }
         public string Name { get; set; }
         public int CrmSuburbId { get; set; }
         public int StateId { get; set; }

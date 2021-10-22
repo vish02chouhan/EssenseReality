@@ -1,4 +1,6 @@
-﻿namespace EssenceRealty.Domain.ViewModels
+﻿using System.Collections.Generic;
+
+namespace EssenceRealty.Domain.ViewModels
 {
     public class PropertyClassViewModel
     {

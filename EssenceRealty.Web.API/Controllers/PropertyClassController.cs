@@ -18,21 +18,21 @@ namespace EssenceRealty.Web.API.Controllers
     {
 
         private readonly ILogger<PropertyClassController> _logger;
-        private readonly IPropertyRepository propertyRepository;
+        private readonly IPropertyClassRepository propertyClassRepository;
         private readonly IMapper mapper;
 
-        public PropertyClassController(ILogger<PropertyClassController> logger, IPropertyRepository propertyRepository,
+        public PropertyClassController(ILogger<PropertyClassController> logger, IPropertyClassRepository propertyClassRepository,
             IMapper mapper)
         {
             _logger = logger;
-            this.propertyRepository = propertyRepository;
+            this.propertyClassRepository = propertyClassRepository;
             this.mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<EssenceResponse<IEnumerable<PropertyClassViewModel>>>> Get()
         {
-            var result = await propertyRepository.GelAll();
+            var result = await propertyClassRepository.ListAllAsync();
 
             var propertyClassViewModel = mapper.Map<IEnumerable<PropertyClassViewModel>>(result);
 

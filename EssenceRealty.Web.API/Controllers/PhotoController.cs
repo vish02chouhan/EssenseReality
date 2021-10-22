@@ -62,6 +62,8 @@ namespace EssenceRealty.Web.API.Controllers
 
                     var filePath = Path.Combine(path , imageName);
 
+                
+
                     using (var stream = System.IO.File.Create(filePath)) {
                       
                         await formFile.CopyToAsync(stream);
@@ -80,6 +82,13 @@ namespace EssenceRealty.Web.API.Controllers
                     var thumb180 = image.GetThumbnailImage(180, 104, () => false, IntPtr.Zero);
                     var thumb180FilePath = Path.Combine(path, "thumb180" + imageName);
                     thumb180.Save(thumb180FilePath);
+
+                    var serverUrl = "http://20.37.253.197/essencerealty";
+
+                    filePath = filePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\","/").Replace("wwwroot","");
+                    thumb1024FilePath = thumb1024FilePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\", "/").Replace("wwwroot", "");
+                    thumb180FilePath = thumb180FilePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\", "/").Replace("wwwroot", "");
+
 
                     PhotoViewModel photoViewModel = new()
                     {
@@ -101,12 +110,6 @@ namespace EssenceRealty.Web.API.Controllers
             }
             var lstPhoto = mapper.Map<List<Photo>>(lstPhotoViewModel);
 
-            lstPhoto.ForEach(x =>
-            {
-               x.CrmPhotoId = 0;
-                x.ThumbnailId = 0;
-            });
-
             await PhotoRepository.AddPhotos(lstPhoto);
 
             return Ok(new EssenceResponse<IEnumerable<PhotoViewModel>>
@@ -119,18 +122,18 @@ namespace EssenceRealty.Web.API.Controllers
         public async Task Delete(PhotoViewModel photoViewModel)
         {
             
-            if (System.IO.File.Exists(photoViewModel.Url))
-            {
-                System.IO.File.Delete(photoViewModel.Url);
-            }
-            if (System.IO.File.Exists(photoViewModel.Thumb1024))
-            {
-                System.IO.File.Delete(photoViewModel.Thumb1024);
-            }
-            if (System.IO.File.Exists(photoViewModel.Thumb180))
-            {
-                System.IO.File.Delete(photoViewModel.Thumb180);
-            }
+            //if (System.IO.File.Exists(photoViewModel.Url))
+            //{
+            //    System.IO.File.Delete(photoViewModel.Url);
+            //}
+            //if (System.IO.File.Exists(photoViewModel.Thumb1024))
+            //{
+            //    System.IO.File.Delete(photoViewModel.Thumb1024);
+            //}
+            //if (System.IO.File.Exists(photoViewModel.Thumb180))
+            //{
+            //    System.IO.File.Delete(photoViewModel.Thumb180);
+            //}
             var photo = mapper.Map<Photo>(photoViewModel);
             await PhotoRepository.DeleteAsync(photo);
             
