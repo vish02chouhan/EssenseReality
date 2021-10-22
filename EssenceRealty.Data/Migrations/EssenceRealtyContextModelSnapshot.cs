@@ -32,10 +32,10 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmContactStaffId")
+                    b.Property<int?>("CrmContactStaffId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -56,7 +56,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -71,7 +71,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StaffTypeId")
+                    b.Property<int?>("StaffTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Thumb_360PhotoURL")
@@ -98,7 +98,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CrmCountryId")
@@ -110,7 +110,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Isocode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -134,7 +134,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EndPointUrl")
@@ -149,7 +149,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<int>("JsonObjectBatchItems")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -191,7 +191,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CrmEssenceLogId")
@@ -206,7 +206,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("JsonObject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -221,7 +221,7 @@ namespace EssenceRealty.Data.Migrations
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.Enquiry", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -274,7 +274,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("PropertyId");
 
@@ -291,10 +291,10 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmPropertyId")
+                    b.Property<int?>("CrmPropertyId")
                         .HasColumnType("int");
 
                     b.Property<int>("EssenceObjectRequiredApprovalStatus")
@@ -306,7 +306,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("JsonObject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -344,7 +344,7 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ContactStaffId")
+                    b.Property<int?>("ContactStaffId")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
@@ -373,7 +373,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("CrmPhotoId")
@@ -391,19 +391,19 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<int?>("Height")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Inserted")
+                    b.Property<DateTime?>("Inserted")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Modified")
+                    b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PropertyId")
+                    b.Property<int?>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Published")
@@ -414,9 +414,6 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<string>("Thumb180")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ThumbnailId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -449,10 +446,10 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Accuracy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Bath")
+                    b.Property<int?>("Bath")
                         .HasColumnType("int");
 
-                    b.Property<int>("Bed")
+                    b.Property<int?>("Bed")
                         .HasColumnType("int");
 
                     b.Property<int>("Carports")
@@ -464,10 +461,10 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmPropertyId")
+                    b.Property<int?>("CrmPropertyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -476,13 +473,13 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("DisplayAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("DisplayPrice")
+                    b.Property<float?>("DisplayPrice")
                         .HasColumnType("real");
 
                     b.Property<string>("FloorAreaUnit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("FloorAreaValue")
+                    b.Property<long?>("FloorAreaValue")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("FloorPlanId")
@@ -500,22 +497,22 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Latitude")
+                    b.Property<double?>("Latitude")
                         .HasColumnType("float");
 
-                    b.Property<int>("LeaseLifeId")
+                    b.Property<int?>("LeaseLifeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Level")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("Longitude")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -527,16 +524,16 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<long?>("ReceptionRooms")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("SaleLifeId")
+                    b.Property<int?>("SaleLifeId")
                         .HasColumnType("int");
 
-                    b.Property<float>("SearchPrice")
+                    b.Property<float?>("SearchPrice")
                         .HasColumnType("real");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stories")
+                    b.Property<int?>("Stories")
                         .HasColumnType("int");
 
                     b.Property<string>("Street")
@@ -580,16 +577,16 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmPropertyClassId")
+                    b.Property<int?>("CrmPropertyClassId")
                         .HasColumnType("int");
 
                     b.Property<string>("InternalName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -628,7 +625,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Data")
@@ -640,7 +637,7 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -669,13 +666,13 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CrmPropertyTypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -707,13 +704,13 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CrmStateId")
+                    b.Property<int?>("CrmStateId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -737,13 +734,13 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CrmSuburbId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifieldBy")
@@ -994,9 +991,7 @@ namespace EssenceRealty.Data.Migrations
                 {
                     b.HasOne("EssenceRealty.Domain.Models.ContactStaff", "ContactStaff")
                         .WithMany("PhoneNumbers")
-                        .HasForeignKey("ContactStaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactStaffId");
 
                     b.Navigation("ContactStaff");
                 });
@@ -1009,9 +1004,7 @@ namespace EssenceRealty.Data.Migrations
 
                     b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
                         .WithMany("Photo")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PropertyId");
 
                     b.Navigation("Property");
                 });

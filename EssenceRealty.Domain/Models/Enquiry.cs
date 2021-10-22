@@ -4,7 +4,7 @@ namespace EssenceRealty.Domain.Models
 {
     public class Enquiry
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public Property Property { get; set; }
         public DateTime EnquiryDate { get; set; }
         public string Subject { get; set; }

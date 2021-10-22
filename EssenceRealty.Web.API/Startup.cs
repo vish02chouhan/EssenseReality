@@ -65,6 +65,7 @@ namespace EssenceRealty.Web.API
 
             app.UseRouting();
 
+            app.UseStaticFiles();
             app.UseCustomExceptionHandler();
 
             app.UseCors("Open");

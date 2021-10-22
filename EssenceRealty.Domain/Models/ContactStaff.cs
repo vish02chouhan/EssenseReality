@@ -6,10 +6,10 @@ namespace EssenceRealty.Domain.Models
     public class ContactStaff : WhoFields, ICrmWhoFields
     {
         public int Id { get; set; }
-        public int CrmContactStaffId { get; set; }
+        public int? CrmContactStaffId { get; set; }
         public string FirstName { get; set; }
         //public Photo Photo { get; set; }
-        public int StaffTypeId { get; set; }
+        public int? StaffTypeId { get; set; }
         public string LastName { get; set; }
         public string Role { get; set; }
         public ICollection<PhoneNumber> PhoneNumbers { get; set; }

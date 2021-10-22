@@ -8,7 +8,7 @@ namespace EssenceRealty.Domain.Models
         public string Number { get; set; }
         public string TypeCode { get; set; }
         public string Type { get; set; }
-        public int ContactStaffId { get; set; }
+        public int? ContactStaffId { get; set; }
         public ContactStaff ContactStaff { get; set; }
     }
 

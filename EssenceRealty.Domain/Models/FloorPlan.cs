@@ -8,6 +8,4 @@ namespace EssenceRealty.Domain.Models
         public List<Photo> Photos { get; set; }
         public string Description { get; set; }
     }
-
-
 }

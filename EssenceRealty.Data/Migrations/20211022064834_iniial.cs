@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class photoupdate : Migration
+    public partial class iniial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,9 +52,9 @@ namespace EssenceRealty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmContactStaffId = table.Column<int>(type: "int", nullable: false),
+                    CrmContactStaffId = table.Column<int>(type: "int", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StaffTypeId = table.Column<int>(type: "int", nullable: false),
+                    StaffTypeId = table.Column<int>(type: "int", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdminAccess = table.Column<bool>(type: "bit", nullable: false),
@@ -68,9 +68,9 @@ namespace EssenceRealty.Data.Migrations
                     Thumb_360PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginalPhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,9 +88,9 @@ namespace EssenceRealty.Data.Migrations
                     GstRate = table.Column<double>(type: "float", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,9 +115,9 @@ namespace EssenceRealty.Data.Migrations
                     EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
                     Retry = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,13 +143,13 @@ namespace EssenceRealty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmPropertyClassId = table.Column<int>(type: "int", nullable: false),
+                    CrmPropertyClassId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InternalName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,11 +164,11 @@ namespace EssenceRealty.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CrmStateId = table.Column<int>(type: "int", nullable: false),
+                    CrmStateId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -290,7 +290,7 @@ namespace EssenceRealty.Data.Migrations
                     Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactStaffId = table.Column<int>(type: "int", nullable: false)
+                    ContactStaffId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -300,7 +300,7 @@ namespace EssenceRealty.Data.Migrations
                         column: x => x.ContactStaffId,
                         principalTable: "ContactStaffs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -314,9 +314,9 @@ namespace EssenceRealty.Data.Migrations
                     EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
                     ErrorDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,9 +339,9 @@ namespace EssenceRealty.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PropertyClassId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -365,9 +365,9 @@ namespace EssenceRealty.Data.Migrations
                     CrmSuburbId = table.Column<int>(type: "int", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -386,29 +386,26 @@ namespace EssenceRealty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmPropertyId = table.Column<int>(type: "int", nullable: false),
+                    CrmPropertyId = table.Column<int>(type: "int", nullable: true),
                     DisplayAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Bath = table.Column<int>(type: "int", nullable: false),
-                    Bed = table.Column<int>(type: "int", nullable: false),
+                    Bath = table.Column<int>(type: "int", nullable: true),
+                    Bed = table.Column<int>(type: "int", nullable: true),
                     Carports = table.Column<int>(type: "int", nullable: false),
-                    FloorAreaValue = table.Column<long>(type: "bigint", nullable: false),
+                    FloorAreaValue = table.Column<long>(type: "bigint", nullable: true),
                     FloorAreaUnit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SearchPrice = table.Column<float>(type: "real", nullable: false),
-                    DisplayPrice = table.Column<float>(type: "real", nullable: false),
+                    SearchPrice = table.Column<float>(type: "real", nullable: true),
+                    DisplayPrice = table.Column<float>(type: "real", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     YearBuilt = table.Column<int>(type: "int", nullable: true),
-                    Stories = table.Column<int>(type: "int", nullable: false),
+                    Stories = table.Column<int>(type: "int", nullable: true),
                     ReceptionRooms = table.Column<long>(type: "bigint", nullable: true),
                     VolumeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FloorPlanId = table.Column<int>(type: "int", nullable: true),
-                    SaleLifeId = table.Column<int>(type: "int", nullable: false),
-                    LeaseLifeId = table.Column<int>(type: "int", nullable: false),
+                    SaleLifeId = table.Column<int>(type: "int", nullable: true),
+                    LeaseLifeId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsAdminUpdated = table.Column<bool>(type: "bit", nullable: false),
                     PropertyTypeId = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UnitNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -417,12 +414,15 @@ namespace EssenceRealty.Data.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     SuburbId = table.Column<int>(type: "int", nullable: false),
                     Accuracy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    Latitude = table.Column<double>(type: "float", nullable: true),
+                    Longitude = table.Column<double>(type: "float", nullable: true),
+                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsAdminUpdated = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -457,7 +457,7 @@ namespace EssenceRealty.Data.Migrations
                 name: "Enquiries",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PropertyId = table.Column<int>(type: "int", nullable: true),
                     EnquiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -478,7 +478,7 @@ namespace EssenceRealty.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enquiries", x => x.id);
+                    table.PrimaryKey("PK_Enquiries", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Enquiries_Properties_PropertyId",
                         column: x => x.PropertyId,
@@ -493,15 +493,15 @@ namespace EssenceRealty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CrmPropertyId = table.Column<int>(type: "int", nullable: false),
+                    CrmPropertyId = table.Column<int>(type: "int", nullable: true),
                     PropertyId = table.Column<int>(type: "int", nullable: true),
                     JsonObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EssenceObjectTypes = table.Column<int>(type: "int", nullable: false),
                     EssenceObjectRequiredApprovalStatus = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -529,17 +529,16 @@ namespace EssenceRealty.Data.Migrations
                     Height = table.Column<int>(type: "int", nullable: true),
                     Filesize = table.Column<long>(type: "bigint", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PropertyId = table.Column<int>(type: "int", nullable: false),
-                    ThumbnailId = table.Column<int>(type: "int", nullable: true),
+                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PropertyId = table.Column<int>(type: "int", nullable: true),
                     Thumb1024 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Thumb180 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FloorPlanId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -555,7 +554,7 @@ namespace EssenceRealty.Data.Migrations
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -594,9 +593,9 @@ namespace EssenceRealty.Data.Migrations
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PropertyId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

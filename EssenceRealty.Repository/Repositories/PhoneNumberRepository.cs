@@ -25,7 +25,9 @@ namespace EssenceRealty.Repository.Repositories
             if (lstPhoneNumber.Count > 0)
             {
                 var lstContactStaffIds = lstPhoneNumber.Select(x => x.ContactStaffId).Distinct().ToList();
+
                 var lstDBContactStaffDetails = _dbContext.ContactStaffs.Where(x => lstContactStaffIds.Contains(x.CrmContactStaffId)).Select(x => new { Id = x.Id, CrmContactStaffId = x.CrmContactStaffId }).Distinct().ToList();
+
                 foreach (var item in lstPhoneNumber)
                 {
                     item.ContactStaffId = lstDBContactStaffDetails.Where(x => x.CrmContactStaffId == item.ContactStaffId).First().Id;
