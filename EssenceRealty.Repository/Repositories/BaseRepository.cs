@@ -60,6 +60,11 @@ namespace EssenceRealty.Repository.Repositories
             return await _dbContext.Set<T>().Where(where).ToListAsync();
         }
 
+        public async Task<T> GetAsync(Expression<Func<T, bool>> where)
+        {
+            return await _dbContext.Set<T>().Where(where).FirstOrDefaultAsync();
+        }
+
         public async Task AddRangeAsync(IList<T> entites) 
         {
             await _dbContext.AddRangeAsync(entites);

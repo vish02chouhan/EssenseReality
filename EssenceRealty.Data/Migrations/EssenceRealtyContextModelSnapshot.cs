@@ -646,14 +646,64 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PropertyFeatureGroupingId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PropertyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PropertyFeatureGroupingId");
+
                     b.HasIndex("PropertyId");
 
                     b.ToTable("PropertyFeatures");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeatureGrouping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GroupDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifieldBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertyFeatureGroupings");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeatureProperty", b =>
+                {
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyFeatureId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PropertyId", "PropertyFeatureId");
+
+                    b.HasIndex("PropertyFeatureId");
+
+                    b.ToTable("PropertyFeatureProperties");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyType", b =>
@@ -1063,9 +1113,36 @@ namespace EssenceRealty.Data.Migrations
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeature", b =>
                 {
+                    b.HasOne("EssenceRealty.Domain.Models.PropertyFeatureGrouping", "PropertyFeatureGrouping")
+                        .WithMany("PropertyFeature")
+                        .HasForeignKey("PropertyFeatureGroupingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EssenceRealty.Domain.Models.Property", null)
                         .WithMany("PropertyFeature")
                         .HasForeignKey("PropertyId");
+
+                    b.Navigation("PropertyFeatureGrouping");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeatureProperty", b =>
+                {
+                    b.HasOne("EssenceRealty.Domain.Models.PropertyFeature", "PropertyFeature")
+                        .WithMany("PropertyFeatureProperties")
+                        .HasForeignKey("PropertyFeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
+                        .WithMany("PropertyFeatureProperties")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+
+                    b.Navigation("PropertyFeature");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyType", b =>
@@ -1167,11 +1244,23 @@ namespace EssenceRealty.Data.Migrations
                     b.Navigation("PropertyContactStaffs");
 
                     b.Navigation("PropertyFeature");
+
+                    b.Navigation("PropertyFeatureProperties");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyClass", b =>
                 {
                     b.Navigation("PropertyType");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeature", b =>
+                {
+                    b.Navigation("PropertyFeatureProperties");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.PropertyFeatureGrouping", b =>
+                {
+                    b.Navigation("PropertyFeature");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.State", b =>

@@ -39,10 +39,10 @@ namespace EssenceRealty.Scheduler
 
             try
             {
-                Guid batchUniqueId = Guid.NewGuid();
-                await vaultCrmProcessor.StartProcessing(batchUniqueId);
-                await logTransactionProcessor.StartProcessing(batchUniqueId);
-
+                //Guid batchUniqueId = Guid.NewGuid();
+                //await vaultCrmProcessor.StartProcessing(batchUniqueId);
+                //await logTransactionProcessor.StartProcessing(batchUniqueId, vaultCrmProcessor);
+                await logTransactionProcessor.StartProcessing(Guid.Parse("460f889b-18b8-4067-9918-08e71c25df61"), vaultCrmProcessor);// batchUniqueId);
                 System.Threading.Thread.Sleep(300000);
             }
             catch (OperationCanceledException)

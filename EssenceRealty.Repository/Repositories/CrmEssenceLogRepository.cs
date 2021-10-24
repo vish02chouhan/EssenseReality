@@ -26,7 +26,13 @@ namespace EssenceRealty.Repository.Repositories
                                        (x.Status == LogTransactionStatus.Pending || x.Status == LogTransactionStatus.Failed) 
                                        && x.Retry < 3);
         }
-
+        public async Task<CrmEssenceLog> GetPropertyFeatureJson(Guid processingGroupId)
+        {
+            return await GetAsync(x => x.ProcessingGroupId == processingGroupId &&
+                                       (x.Status == LogTransactionStatus.Pending || x.Status == LogTransactionStatus.Failed)
+                                       && x.Retry < 3
+                                       && x.EssenceObjectTypes == EssenceObjectTypes.PropertyFeatures);
+        }
         public async Task<int> UpdateCrmEssenceLog(CrmEssenceLog crmEssenceLog)
         {
              _dbContext.Update(crmEssenceLog);

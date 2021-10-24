@@ -1,27 +1,16 @@
-﻿namespace EssenceRealty.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace EssenceRealty.Domain.Models
 {
     public class PropertyFeature : WhoFields
     {
         public int Id { get; set; }
-        /// <summary>
-        /// Gets or Sets Name
-        /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or Sets DisplayName
-        /// </summary>
         public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or Sets DataType
-        /// </summary>
         public string DataType { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Data
-        /// </summary>
         public string Data { get; set; }
-
+        public int PropertyFeatureGroupingId { get; set; }
+        public PropertyFeatureGrouping PropertyFeatureGrouping { get; set; }
+        public ICollection<PropertyFeatureProperty> PropertyFeatureProperties { get; set; }
     }
 }
