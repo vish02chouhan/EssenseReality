@@ -36,7 +36,8 @@ namespace EssenceRealty.Domain.Models
         public ICollection<PropertyFeatureProperty> PropertyFeatureProperties { get; set; }
         [NotMapped]
         public List<ContactStaff> ContactStaff { get; set; }
-        public List<PropertyFeature> PropertyFeature { get; set; }
+        [NotMapped]
+        public List<PropertyFeatureGrouping> PropertyFeatureGrouping { get; set; }
         public string Level { get; set; }
         public string UnitNumber { get; set; }
         public string Street { get; set; }

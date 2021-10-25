@@ -17,14 +17,14 @@ namespace EssenceRealty.Domain.ViewModels
         public string Description { get; set; }
         public string Status { get; set; }
         public int? YearBuilt { get; set; }
-        public int Stories { get; set; } 
-        public long? ReceptionRooms { get; set; } 
+        public int Stories { get; set; }
+        public long? ReceptionRooms { get; set; }
         public string VolumeNumber { get; set; }
         public FloorPlanViewModel FloorPlan { get; set; }
         public PropertyTypeViewModel PropertyType { get; set; }
         public ICollection<PhotoViewModel> Photo { get; set; }
         public ICollection<ContactStaffViewModel> ContactStaff { get; set; }
-        public List<PropertyFeatureViewModel> PropertyFeature { get; set; }
+        public List<PropertyFeatureGroupingViewModel> PropertyFeatureGrouping { get; set; }
         public string Level { get; set; }
         public string UnitNumber { get; set; }
         public string Street { get; set; }

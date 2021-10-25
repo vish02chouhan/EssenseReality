@@ -28,5 +28,11 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.SaveChangesAsync();
             }
         }
+        public async override Task<IReadOnlyList<PropertyFeatureGrouping>> ListAllAsync()
+        {
+            return await _dbContext.PropertyFeatureGroupings
+                        .Include(x => x.PropertyFeature)
+                        .ToListAsync();
+        }
     }
 }
