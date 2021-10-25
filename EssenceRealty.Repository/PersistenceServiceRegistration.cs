@@ -30,6 +30,9 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(IPropertyRepository), typeof(PropertyRepository));
             services.AddScoped(typeof(IPropertyContactStaffRepository), typeof(PropertyContactStaffRepository));
             services.AddScoped(typeof(IEssenceObjectRequiredApprovalRepository), typeof(EssenceObjectRequiredApprovalRepository));
+            services.AddScoped(typeof(IPropertyFeatureGroupingRepository), typeof(PropertyFeatureGroupingRepository));
+            services.AddScoped(typeof(IPropertyFeatureRepository), typeof(PropertyFeatureRepository));
+            services.AddScoped(typeof(IPropertyFeaturePropertyRepository), typeof(PropertyFeaturePropertyRepository));
 
             return services;
         }

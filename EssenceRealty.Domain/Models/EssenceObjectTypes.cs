@@ -6,6 +6,7 @@
         Contacts,
         Suburbs,
         PropertyType,
-        PropertyClass
+        PropertyClass,
+        PropertyFeatures
     }
 }

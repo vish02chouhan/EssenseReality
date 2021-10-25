@@ -17,11 +17,11 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             try
             {
-                var ss = items.SelectTokens("$..marketingUser");
-                List<ContactStaff> lstContactStaff = new List<ContactStaff>();
-                List<PhoneNumber> lstPhoneNumber = new List<PhoneNumber>();
+                var marketingUser = items.SelectTokens("$..marketingUser");
+                List<ContactStaff> lstContactStaff = new();
+                List<PhoneNumber> lstPhoneNumber = new();
 
-                foreach (var item in ss)
+                foreach (var item in marketingUser)
                 {
                     if (item != null && item["user"].HasValues)
                     {

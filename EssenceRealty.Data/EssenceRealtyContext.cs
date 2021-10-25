@@ -22,6 +22,7 @@ namespace EssenceRealty.Data
         public DbSet<PropertyType> PropertyTypes { get; set; }
         public DbSet<PropertyClass> PropertyClasses { get; set; }
         public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+        public DbSet<PropertyFeatureGrouping> PropertyFeatureGroupings { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ContactStaff> ContactStaffs { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
@@ -34,6 +35,7 @@ namespace EssenceRealty.Data
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<PropertyContactStaff> PropertyContactStaffs { get; set; }
+        public DbSet<PropertyFeatureProperty> PropertyFeatureProperties { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,6 +49,17 @@ namespace EssenceRealty.Data
                 .HasOne(bc => bc.ContactStaff)
                 .WithMany(c => c.PropertyContactStaffs)
                 .HasForeignKey(bc => bc.ContactStaffId);
+
+            modelBuilder.Entity<PropertyFeatureProperty>()
+                    .HasKey(bc => new { bc.PropertyId, bc.PropertyFeatureId });
+            modelBuilder.Entity<PropertyFeatureProperty>()
+                .HasOne(bc => bc.Property)
+                .WithMany(b => b.PropertyFeatureProperties)
+                .HasForeignKey(bc => bc.PropertyId);
+            modelBuilder.Entity<PropertyFeatureProperty>()
+                .HasOne(bc => bc.PropertyFeature)
+                .WithMany(c => c.PropertyFeatureProperties)
+                .HasForeignKey(bc => bc.PropertyFeatureId);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {

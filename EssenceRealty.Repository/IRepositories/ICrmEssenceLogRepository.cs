@@ -12,5 +12,6 @@ namespace EssenceRealty.Repository.IRepositories
         Task<CrmEssenceLog> AddCrmEssenceLog(CrmEssenceLog crmEssenceLog);
         Task<IList<CrmEssenceLog>> GetCrmEssenceLog(Guid processingGroupId);
         Task<int> UpdateCrmEssenceLog(CrmEssenceLog crmEssenceLog);
+        Task<CrmEssenceLog> GetPropertyFeatureJson(Guid processingGroupId);
     }
 }
