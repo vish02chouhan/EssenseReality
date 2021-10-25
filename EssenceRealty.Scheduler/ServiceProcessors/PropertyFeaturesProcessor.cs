@@ -54,8 +54,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         {
             var propertyFeaturePropertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyFeaturePropertyRepository>();
             await propertyFeaturePropertyRepo.UpsertPropertyFeatureProperty(lstPropertyFeature.Select(x => x)
-                        .Where(x => x != null //&& x.Data == "true"
-                        ).ToList()
+                        .Where(x => x != null && x.Data == "true").ToList()
                         .GroupBy(elem => elem.Name)
                         .Select(group => group.First()).ToList(), propertyId);
         }
