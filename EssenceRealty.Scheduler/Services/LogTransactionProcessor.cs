@@ -107,15 +107,19 @@ namespace EssenceRealty.Scheduler.Services
         {
             foreach (var item in items)
             {
-                int propertyId = Convert.ToInt32(item["id"]);
-                string propertFeatureUrl = $"https://ap-southeast-2.api.vaultre.com.au/api/v1.3/properties/{propertyId}/features";
+                int crmPropertyId = Convert.ToInt32(item["id"]);
+                string propertFeatureUrl = this.vaultServicesConfig.Value.EssenceMainObject
+                                            .Where(x => x.Name == "PropertyFeature")
+                                            .Select(y => y.Urls).FirstOrDefault().FirstOrDefault().ToString()
+                                            .Replace("propertyId", crmPropertyId.ToString());
+
                 await vaultCrmProcessor.SaveData(propertFeatureUrl, processingGroupId, "PropertyFeatures");
                 using var scope = serviceProvider.CreateScope();
                 var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
                 CrmEssenceLog essenceDataObject = await essenceLogRepo.GetPropertyFeatureJson(processingGroupId);
                 JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
                 PropertyFeaturesProcessor objPropertyFeaturesProcessor = new();
-                await objPropertyFeaturesProcessor.ProcessPropertyFeaturesData(serviceProvider, essenceDataObjectArray, propertyId);
+                await objPropertyFeaturesProcessor.ProcessPropertyFeaturesData(serviceProvider, essenceDataObjectArray, crmPropertyId);
             }
         }
     }
