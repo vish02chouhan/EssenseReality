@@ -33,6 +33,7 @@ namespace EssenceRealty.Domain.Models
         public ICollection<Photo> Photo { get; set; }
         public ICollection<EssenceObjectRequiredApproval> EssenceObjectRequiredApproval { get; set; }
         public ICollection<PropertyContactStaff> PropertyContactStaffs { get; set; }
+        public ICollection<PropertyFeatureProperty> PropertyFeatureProperties { get; set; }
         [NotMapped]
         public List<ContactStaff> ContactStaff { get; set; }
         public List<PropertyFeature> PropertyFeature { get; set; }

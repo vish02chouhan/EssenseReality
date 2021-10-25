@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class iniial : Migration
+    public partial class propfeat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,6 +154,24 @@ namespace EssenceRealty.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PropertyClasses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyFeatureGroupings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GroupDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyFeatureGroupings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -591,6 +609,7 @@ namespace EssenceRealty.Data.Migrations
                     DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PropertyFeatureGroupingId = table.Column<int>(type: "int", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -606,6 +625,36 @@ namespace EssenceRealty.Data.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PropertyFeatures_PropertyFeatureGroupings_PropertyFeatureGroupingId",
+                        column: x => x.PropertyFeatureGroupingId,
+                        principalTable: "PropertyFeatureGroupings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyFeatureProperty",
+                columns: table => new
+                {
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    PropertyFeatureId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyFeatureProperty", x => new { x.PropertyId, x.PropertyFeatureId });
+                    table.ForeignKey(
+                        name: "FK_PropertyFeatureProperty_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PropertyFeatureProperty_PropertyFeatures_PropertyFeatureId",
+                        column: x => x.PropertyFeatureId,
+                        principalTable: "PropertyFeatures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -703,6 +752,16 @@ namespace EssenceRealty.Data.Migrations
                 column: "ContactStaffId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PropertyFeatureProperty_PropertyFeatureId",
+                table: "PropertyFeatureProperty",
+                column: "PropertyFeatureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PropertyFeatures_PropertyFeatureGroupingId",
+                table: "PropertyFeatures",
+                column: "PropertyFeatureGroupingId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PropertyFeatures_PropertyId",
                 table: "PropertyFeatures",
                 column: "PropertyId");
@@ -754,7 +813,7 @@ namespace EssenceRealty.Data.Migrations
                 name: "PropertyContactStaffs");
 
             migrationBuilder.DropTable(
-                name: "PropertyFeatures");
+                name: "PropertyFeatureProperty");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -769,7 +828,13 @@ namespace EssenceRealty.Data.Migrations
                 name: "ContactStaffs");
 
             migrationBuilder.DropTable(
+                name: "PropertyFeatures");
+
+            migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "PropertyFeatureGroupings");
 
             migrationBuilder.DropTable(
                 name: "Countries");

@@ -26,11 +26,11 @@ namespace EssenceRealty.Scheduler.Services
             this.serviceProvider = serviceProvider;
         }
 
-        public async Task StartProcessing(Guid guid)
+        public async Task StartProcessing(Guid guid, VaultCrmProcessor vaultCrmProcessor)
         {
             try
             {
-                await ProcessLogData(guid);
+                await ProcessLogData(guid, vaultCrmProcessor);
             }
             catch (System.Exception)
             {
@@ -38,7 +38,7 @@ namespace EssenceRealty.Scheduler.Services
             }
         }
 
-        public async Task ProcessLogData(Guid processingGroupId)
+        public async Task ProcessLogData(Guid processingGroupId, VaultCrmProcessor vaultCrmProcessor)
         {
 
             using var scope = serviceProvider.CreateScope();
@@ -71,6 +71,7 @@ namespace EssenceRealty.Scheduler.Services
                         case EssenceObjectTypes.Property:
                             PropertyProcessor propertyProcessor = new();
                             await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray);
+                            await GetPropertFeatureFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor);
                             break;
                         default:
                             break;
@@ -101,7 +102,26 @@ namespace EssenceRealty.Scheduler.Services
                 }
             }
         }
-        
+
+        private async Task GetPropertFeatureFromCRM(JArray items, Guid processingGroupId, VaultCrmProcessor vaultCrmProcessor)
+        {
+            foreach (var item in items)
+            {
+                int crmPropertyId = Convert.ToInt32(item["id"]);
+                string propertFeatureUrl = this.vaultServicesConfig.Value.EssenceMainObject
+                                            .Where(x => x.Name == "PropertyFeature")
+                                            .Select(y => y.Urls).FirstOrDefault().FirstOrDefault().ToString()
+                                            .Replace("propertyId", crmPropertyId.ToString());
+
+                await vaultCrmProcessor.SaveData(propertFeatureUrl, processingGroupId, "PropertyFeatures");
+                using var scope = serviceProvider.CreateScope();
+                var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
+                CrmEssenceLog essenceDataObject = await essenceLogRepo.GetPropertyFeatureJson(processingGroupId);
+                JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
+                PropertyFeaturesProcessor objPropertyFeaturesProcessor = new();
+                await objPropertyFeaturesProcessor.ProcessPropertyFeaturesData(serviceProvider, essenceDataObjectArray, crmPropertyId);
+            }
+        }
     }
 }
 

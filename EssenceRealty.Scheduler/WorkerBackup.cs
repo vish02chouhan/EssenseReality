@@ -40,7 +40,7 @@ namespace EssenceRealty.Scheduler
 
             Guid batchUniqueId = Guid.NewGuid();
             await vaultCrmProcessor.StartProcessing(batchUniqueId);
-            await logTransactionProcessor.StartProcessing(batchUniqueId); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
+            await logTransactionProcessor.StartProcessing(batchUniqueId,vaultCrmProcessor); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
 
         }
 
