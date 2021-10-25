@@ -144,7 +144,8 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("JsonObjectBatch")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("ntext")
+                        .HasColumnName("JsonObjectBatch");
 
                     b.Property<int>("JsonObjectBatchItems")
                         .HasColumnType("int");

@@ -72,5 +72,22 @@ namespace EssenceRealty.Web.API.Controllers
                 Data = mapper.Map<PropertyViewModel>(property)
             });
         }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<EssenceResponse<PropertyViewModel>>> Post(PropertySearchRequest propertySearchRequest)
+        {
+            var result = await propertyRepository.SearchAsync(propertySearchRequest);
+
+            var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result);
+
+            return Ok(new EssenceResponse<IEnumerable<PropertyViewModel>>
+            {
+                Data = propertyViewModel
+            });
+
+
+        }
+
     }
+
 }

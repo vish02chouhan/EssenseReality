@@ -1,18 +1,18 @@
+using EssenceRealty.Scheduler.Configurations;
+using EssenceRealty.Scheduler.ExternalServices;
 using EssenceRealty.Scheduler.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace EssenceRealty.Scheduler
 {
-    public class Worker : BackgroundService
+    public class Worker : IHostedService, IDisposable
     {
-
-        private readonly IHostApplicationLifetime _hostApplicationLifetime;
-
         private readonly ILogger<Worker> _logger;
         private readonly VaultCrmProcessor vaultCrmProcessor;
         private readonly LogTransactionProcessor logTransactionProcessor;
@@ -20,66 +20,52 @@ namespace EssenceRealty.Scheduler
 
         public Worker(ILogger<Worker> logger,
             VaultCrmProcessor vaultCrmProcessor,
-            LogTransactionProcessor logTransactionProcessor,
-             IHostApplicationLifetime hostApplicationLifetime)
+            LogTransactionProcessor logTransactionProcessor)
         {
             _logger = logger;
             this.vaultCrmProcessor = vaultCrmProcessor;
             this.logTransactionProcessor = logTransactionProcessor;
         }
 
-
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            stoppingToken.Register(() =>
-            {
-                _logger.LogInformation("Ending score processing.");
-            });
-
-            try
-            {
-                Guid batchUniqueId = Guid.NewGuid();
-                await vaultCrmProcessor.StartProcessing(batchUniqueId);
-                await logTransactionProcessor.StartProcessing(batchUniqueId, vaultCrmProcessor);
-                //await logTransactionProcessor.StartProcessing(Guid.Parse("460f889b-18b8-4067-9918-08e71c25df61"), vaultCrmProcessor);// batchUniqueId);
-                System.Threading.Thread.Sleep(300000);
-            }
-            catch (OperationCanceledException)
-            {
-                // Swallow this since we expect this to occur when shutdown has been signalled.
-                _logger.OperationCancelledExceptionOccurred();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unhandled exception was thrown.");
-            }
-            finally
-            {
-                _hostApplicationLifetime.StopApplication();
-            }
+            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(60), TimeSpan.FromMinutes(5));
+            return Task.CompletedTask;
         }
 
-        public override async Task StopAsync(CancellationToken cancellationToken)
+        private async void OnTimer(object state)
         {
-            var sw = Stopwatch.StartNew();
+            _logger.LogInformation("OnTimer event called");
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-            await base.StopAsync(cancellationToken);
+            Guid batchUniqueId = Guid.NewGuid();
+            await vaultCrmProcessor.StartProcessing(batchUniqueId);
+            await logTransactionProcessor.StartProcessing(batchUniqueId); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
 
-            _logger.LogInformation("Completed shutdown in {Milliseconds}ms.", sw.ElapsedMilliseconds);
-        }
-    }
-
-    public static class LoggerExtensions
-    {
-        public static class EventIds
-        {
-            public static readonly EventId ExceptionCaught = new EventId(1000, "ExceptionCaught");
-            public static readonly EventId OperationCancelledExceptionCaught = new EventId(1001, "OperationCancelledExceptionCaught");
         }
 
-        public static void ExceptionOccurred(this ILogger logger, Exception ex) => logger.Log(LogLevel.Error, EventIds.ExceptionCaught, ex, "An exception occurred and was caught.");
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("StopAsync Called");
+            _timer.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
 
-        public static void OperationCancelledExceptionOccurred(this ILogger logger) => logger.Log(LogLevel.Information, EventIds.OperationCancelledExceptionCaught, "A task/operation cancelled exception was caught.");
+        public void Dispose()
+        {
+            _logger.LogInformation("Dispose Called");
+            _timer?.Dispose();
+        }
+
     }
 }
+
+//Commands
+
+//    dotnet publish -r win-x64 -o c:\publish\win-service /p:PublishSingleFile = true /p:DebugType = None
+
+//    sc create EssenceDataProcessor binPath=C:\publish\win-service\EssenceRealty.Scheduler.exe start = delayed-auto
+
+//    sc delete
+
+// sc create TenniseDataProcessor binPath=C:\publish\win-service\TennisBookings.ScoreProcessor.exe start= delayed-auto

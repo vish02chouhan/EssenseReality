@@ -22,5 +22,6 @@ namespace EssenceRealty.Scheduler.Configurations
         public string Name { get; set; }
         public bool IsRequiredToProcess { get; set; }
         public string[] Urls { get; set; }
+        public int RunsOnDay { get; set; }
     }
 }
