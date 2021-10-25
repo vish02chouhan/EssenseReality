@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class iniial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,7 +104,7 @@ namespace EssenceRealty.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProcessingGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    JsonObjectBatch = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JsonObjectBatch = table.Column<string>(type: "ntext", nullable: true),
                     EndPointUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PageNumber = table.Column<int>(type: "int", nullable: false),
                     TotalItems = table.Column<int>(type: "int", nullable: false),

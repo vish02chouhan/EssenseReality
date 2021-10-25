@@ -39,6 +39,11 @@ namespace EssenceRealty.Scheduler.Services
                         continue;
                     }
 
+                    if(essenceMainObject.RunsOnDay != DateTime.Now.Day && essenceMainObject.RunsOnDay !=0)
+                    {
+                        continue;
+                    }
+
                     foreach (var url in essenceMainObject.Urls)
                     {
                         try

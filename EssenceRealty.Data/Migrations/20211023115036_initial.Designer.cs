@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211022064834_iniial")]
-    partial class iniial
+    [Migration("20211023115036_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,7 +146,8 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("JsonObjectBatch")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("ntext")
+                        .HasColumnName("JsonObjectBatch");
 
                     b.Property<int>("JsonObjectBatchItems")
                         .HasColumnType("int");

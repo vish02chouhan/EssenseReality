@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using EssenceRealty.Domain.ViewModels;
 
 namespace EssenceRealty.Repository.Repositories
 {
@@ -132,5 +133,65 @@ namespace EssenceRealty.Repository.Repositories
 
             return data;
         }
+
+        public async Task<IEnumerable<Property>> SearchAsync(PropertySearchRequest propertySearchRequestViewModel)
+        {
+            IQueryable<Property> query = _dbContext.Properties;
+
+            if (propertySearchRequestViewModel.PropertyTypeId != null)
+            {
+               query = _dbContext.Properties.Where(x => propertySearchRequestViewModel.PropertyTypeId.Contains(x.PropertyTypeId));
+            }
+
+            if (propertySearchRequestViewModel.BedsMin != null && propertySearchRequestViewModel.BedsMax != null)
+            {
+                query = query.Where(x => x.Bed >= propertySearchRequestViewModel.BedsMin && x.Bed <= propertySearchRequestViewModel.BedsMax);
+            }
+
+            if (propertySearchRequestViewModel.BedsMin != null && propertySearchRequestViewModel.BedsMax == null)
+            {
+                query = query.Where(x => x.Bed >= propertySearchRequestViewModel.BedsMin);
+            }
+
+            if (propertySearchRequestViewModel.BedsMin == null && propertySearchRequestViewModel.BedsMax != null)
+            {
+                query = query.Where(x => x.Bed <= propertySearchRequestViewModel.BedsMin);
+            }
+            //Price check
+            if (propertySearchRequestViewModel.PriceMin != null && propertySearchRequestViewModel.PriceMax != null)
+            {
+                query = query.Where(x => x.SearchPrice >= propertySearchRequestViewModel.PriceMin && x.SearchPrice <= propertySearchRequestViewModel.PriceMax);
+            }
+
+            if (propertySearchRequestViewModel.PriceMin != null && propertySearchRequestViewModel.PriceMax == null)
+            {
+                query = query.Where(x => x.SearchPrice >= propertySearchRequestViewModel.PriceMin);
+            }
+
+            if (propertySearchRequestViewModel.PriceMin == null && propertySearchRequestViewModel.PriceMax != null)
+            {
+                query = query.Where(x => x.SearchPrice <= propertySearchRequestViewModel.PriceMax);
+            }
+
+           var data = await query.Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)                     
+                       .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
+                       //.Include(x => x.PropertyFeature)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
+                       .ToListAsync();
+
+            foreach (var item in data)
+            {
+                item.ContactStaff = await _dbContext.PropertyContactStaffs
+                                  .Where(x => x.PropertyId == item.Id)
+                                  .Include(x => x.ContactStaff).ThenInclude(y => y.PhoneNumbers)
+                                  .Select(x => x.ContactStaff).ToListAsync();
+
+            }
+
+            return data;
+        }
+
     }
 }

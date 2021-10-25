@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EssenceRealty.Domain.Models
 {
@@ -7,6 +8,7 @@ namespace EssenceRealty.Domain.Models
     {
         public int Id { get; set; }
         public Guid ProcessingGroupId { get; set; }
+        [Column("JsonObjectBatch", TypeName = "ntext")]
         public string JsonObjectBatch {  get; set; }
         public string EndPointUrl {  get; set; }
         public int PageNumber {  get; set; }
