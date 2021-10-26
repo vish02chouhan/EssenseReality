@@ -63,13 +63,13 @@ namespace EssenceRealty.Web.API.Controllers
         public async Task<ActionResult<EssenceResponse<PropertyViewModel>>> Put(PropertyViewModel propertyViewModel)
         {
 
-            var property = mapper.Map<Property>(propertyViewModel);
-
-             await propertyRepository.UpdateAsync(property);
+            Property property = mapper.Map<Property>(propertyViewModel);
+            
+            var objProperty = await propertyRepository.UpdateProperty(property);
 
             return Ok(new EssenceResponse<PropertyViewModel>
             {
-                Data = mapper.Map<PropertyViewModel>(property)
+                Data = mapper.Map<PropertyViewModel>(objProperty)
             });
         }
 

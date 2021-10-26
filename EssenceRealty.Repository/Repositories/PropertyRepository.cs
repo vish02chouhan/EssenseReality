@@ -195,5 +195,98 @@ namespace EssenceRealty.Repository.Repositories
             return data;
         }
 
+        public async Task<Property> UpdateProperty(Property objProperty)
+        {
+
+            var lstDBPropertyContactStaff = _dbContext.PropertyContactStaffs.AsNoTracking().Where(x => x.PropertyId == objProperty.Id).ToList();
+            List<PropertyContactStaff> lstPropertyContactStaffInserted = GetPropertyContactInsertList(objProperty, lstDBPropertyContactStaff);
+            List<PropertyContactStaff> lstPropertyContactStaffDeleted = GetPropertyContactDeleteList(objProperty, lstDBPropertyContactStaff);
+            var lstDBPropertyFeatureProperty = _dbContext.PropertyFeatureProperties.AsNoTracking().Where(x => x.PropertyId == objProperty.Id).ToList();
+            var lstPropertyFeatures = objProperty.PropertyFeatureGrouping.Select(x => x.PropertyFeature).ToList();
+            List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = GetPropertyFeaturePropertyInsertList(lstPropertyFeatures, lstDBPropertyFeatureProperty);
+            List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = GetPropertyFeaturePropertyDeleteList(lstPropertyFeatures, lstDBPropertyFeatureProperty);
+
+
+            
+            _dbContext.PropertyContactStaffs.AddRange(lstPropertyContactStaffInserted);
+            _dbContext.PropertyContactStaffs.RemoveRange(lstPropertyContactStaffDeleted);
+            _dbContext.PropertyFeatureProperties.AddRange(lstPropertyFeaturePropertyInserted);
+            _dbContext.PropertyFeatureProperties.RemoveRange(lstPropertyFeaturePropertyIDeleted);
+            _dbContext.Entry(objProperty).State = EntityState.Modified;
+            _dbContext.Properties.Update(objProperty);
+            await _dbContext.SaveChangesAsync();
+            return objProperty;
+        }
+        private List<PropertyContactStaff> GetPropertyContactInsertList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
+        {
+            List<PropertyContactStaff> lstPropertyContactStaffInserted = new();
+            foreach (var item in objProperty.ContactStaff)
+            {
+                if (lstDBPropertyContactStaff.FindIndex(x => x.ContactStaffId == item.Id) < 0)
+                {
+                    PropertyContactStaff objPropertyContactStaff = new()
+                    {
+                        ContactStaffId = item.Id,
+                        PropertyId = objProperty.Id
+                    };
+                    lstPropertyContactStaffInserted.Add(objPropertyContactStaff);
+                }
+            }
+            return lstPropertyContactStaffInserted;
+        }
+        private List<PropertyContactStaff> GetPropertyContactDeleteList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
+        {
+            List<PropertyContactStaff> lstPropertyContactStaffDeleted = new();
+            foreach (var item in lstDBPropertyContactStaff)
+            {
+                if (objProperty.ContactStaff.FindIndex(x => x.Id == item.ContactStaffId) < 0)
+                {
+                    PropertyContactStaff objPropertyContactStaff = new()
+                    {
+                        ContactStaffId = item.ContactStaffId,
+                        PropertyId = objProperty.Id
+                    };
+                    lstPropertyContactStaffDeleted.Add(objPropertyContactStaff);
+                }
+            }
+            return lstPropertyContactStaffDeleted;
+        }
+        private List<PropertyFeatureProperty> GetPropertyFeaturePropertyInsertList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty)
+        {
+            List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = new();
+            foreach (var propertyFeatures in lstPropertyFeatures)
+            {
+                foreach (var item in propertyFeatures)
+                {
+                    if (lstDBPropertyFeatureProperty.FindIndex(x => x.PropertyFeatureId == item.Id) < 0)
+                    {
+                        PropertyFeatureProperty objPropertyFeatureProperty = new()
+                        {
+                            PropertyFeatureId = item.Id,
+                            PropertyId = propertyFeatures.FirstOrDefault().Id
+                        };
+                        lstPropertyFeaturePropertyInserted.Add(objPropertyFeatureProperty);
+                    }
+                }
+            }
+            return lstPropertyFeaturePropertyInserted;
+        }
+        private List<PropertyFeatureProperty> GetPropertyFeaturePropertyDeleteList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty)
+        {
+            List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = new();
+            foreach (var item in lstDBPropertyFeatureProperty)
+            {
+                if(!lstPropertyFeatures.Any(x => x.Any(y => y.Id == item.PropertyFeatureId)))
+                {
+                    PropertyFeatureProperty objPropertyFeatureProperty = new()
+                    {
+                        PropertyFeatureId = item.PropertyFeatureId,
+                        PropertyId = item.PropertyId
+                    };
+                    lstPropertyFeaturePropertyIDeleted.Add(objPropertyFeatureProperty);
+                }
+            }
+            return lstPropertyFeaturePropertyIDeleted;
+        }
     }
 }
