@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace EssenceRealty.Domain.Models
+namespace EssenceRealty.Domain.ViewModels
 {
-    public class Enquiry
+    public class EnquiryViewModel
     {
         public int Id { get; set; }
         //public Property Property { get; set; }
@@ -23,14 +23,3 @@ namespace EssenceRealty.Domain.Models
         public string Mobile { get; set; }
     }
 }
-  //"categories": [
-  //  {
-  //    "id": 0
-  //  }
-  //],
-  //"metaData": [
-  //  {
-  //    "key": "string",
-  //    "value": "string"
-  //  }
-  //]
