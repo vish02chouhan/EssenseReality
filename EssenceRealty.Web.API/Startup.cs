@@ -26,7 +26,8 @@ namespace EssenceRealty.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.Configure<ERConfiguration>(Configuration.GetSection("ERImagePath"));
+            services.Configure<EssenceApiConfig>(Configuration.GetSection("ERConfiguration"));
+
             services.AddControllers();
 
             services.AddPersistenceServices(Configuration);

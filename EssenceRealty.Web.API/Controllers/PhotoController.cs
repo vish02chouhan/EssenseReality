@@ -15,6 +15,8 @@ using System.IO;
 using AutoMapper.Configuration;
 using Microsoft.Extensions.Options;
 using System.Drawing;
+using EssenceRealty.Web.API.Helper;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -26,15 +28,17 @@ namespace EssenceRealty.Web.API.Controllers
         private readonly ILogger<PhotoController> _logger;
         private readonly IPhotoRepository PhotoRepository;
         private readonly IMapper mapper;
-        private readonly ERConfiguration _config;
+        private readonly IWebHostEnvironment environment;
+        private readonly EssenceApiConfig essenceApiConfig;
 
         public PhotoController(ILogger<PhotoController> logger, IPhotoRepository PhotoRepository,
-                                IMapper mapper, IOptions<ERConfiguration> config)
+                                IMapper mapper, IOptions<EssenceApiConfig> config, IWebHostEnvironment environment)
         {
             _logger = logger;
             this.PhotoRepository = PhotoRepository;
             this.mapper = mapper;
-            _config = config.Value;
+            this.environment = environment;
+            essenceApiConfig = config.Value;
         }
 
         [HttpPost]
@@ -46,65 +50,8 @@ namespace EssenceRealty.Web.API.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    var extension = Path.GetExtension(formFile.FileName);
 
-                    var imageId = Guid.NewGuid().ToString().Replace("-", "");
-
-                    string imageName = $"{imageId}{extension}";
-
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\properties", PropertyId.ToString());
-                    //var path = Path.Combine(@"/Users/vivekverma/Documents/ER_Photos", PropertyId.ToString());
-
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-
-                    var filePath = Path.Combine(path , imageName);
-
-                
-
-                    using (var stream = System.IO.File.Create(filePath)) {
-                      
-                        await formFile.CopyToAsync(stream);
-                    
-                    }
-
-                    using var image = Image.FromStream(formFile.OpenReadStream());
-                    int imageWidth, imageHeight = 0;
-                    imageWidth = image.Width;
-                    imageHeight = image.Height;
-
-                    var thumb1024 = image.GetThumbnailImage(963, 558, () => false, IntPtr.Zero);
-                    var thumb1024FilePath = Path.Combine(path, "thumb1024" + imageName);
-                    thumb1024.Save(thumb1024FilePath);
-
-                    var thumb180 = image.GetThumbnailImage(180, 104, () => false, IntPtr.Zero);
-                    var thumb180FilePath = Path.Combine(path, "thumb180" + imageName);
-                    thumb180.Save(thumb180FilePath);
-
-                    var serverUrl = "http://20.37.253.197/essencerealty";
-
-                    filePath = filePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\","/").Replace("wwwroot","");
-                    thumb1024FilePath = thumb1024FilePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\", "/").Replace("wwwroot", "");
-                    thumb180FilePath = thumb180FilePath.Replace(Directory.GetCurrentDirectory(), serverUrl).Replace("\\", "/").Replace("wwwroot", "");
-
-
-                    PhotoViewModel photoViewModel = new()
-                    {
-                        Filesize =(int)formFile.Length,
-                        Height = imageHeight,
-                        Width = imageWidth,
-                        Published = true,
-                        Type = formFile.ContentType,
-                        Filename = imageName,
-                        UserFilename = formFile.FileName,
-                        Thumb1024 = thumb1024FilePath,
-                        Id = 0,
-                        PropertyId = PropertyId,
-                        Thumb180 = thumb180FilePath,
-                        Url = filePath
-                    };
+                    PhotoViewModel photoViewModel = await ImageProcessor.ProcessPropertyImage(formFile, PropertyId, essenceApiConfig, environment);
                     lstPhotoViewModel.Add(photoViewModel);
                 }
             }

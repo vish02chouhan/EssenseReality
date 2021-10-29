@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211024113453_propfeatures")]
-    partial class propfeatures
+    [Migration("20211027044117_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,7 +146,8 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("JsonObjectBatch")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("ntext")
+                        .HasColumnName("JsonObjectBatch");
 
                     b.Property<int>("JsonObjectBatchItems")
                         .HasColumnType("int");
@@ -255,9 +256,6 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("OriginalId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PropertyReference")
                         .HasColumnType("nvarchar(max)");
 
@@ -277,8 +275,6 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("Enquiries");
                 });
@@ -651,14 +647,9 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<int>("PropertyFeatureGroupingId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PropertyFeatureGroupingId");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("PropertyFeatures");
                 });
@@ -1021,15 +1012,6 @@ namespace EssenceRealty.Data.Migrations
                     b.Navigation("CrmEssenceLog");
                 });
 
-            modelBuilder.Entity("EssenceRealty.Domain.Models.Enquiry", b =>
-                {
-                    b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId");
-
-                    b.Navigation("Property");
-                });
-
             modelBuilder.Entity("EssenceRealty.Domain.Models.EssenceObjectRequiredApproval", b =>
                 {
                     b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
@@ -1120,10 +1102,6 @@ namespace EssenceRealty.Data.Migrations
                         .HasForeignKey("PropertyFeatureGroupingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("EssenceRealty.Domain.Models.Property", null)
-                        .WithMany("PropertyFeature")
-                        .HasForeignKey("PropertyId");
 
                     b.Navigation("PropertyFeatureGrouping");
                 });
@@ -1244,8 +1222,6 @@ namespace EssenceRealty.Data.Migrations
                     b.Navigation("Photo");
 
                     b.Navigation("PropertyContactStaffs");
-
-                    b.Navigation("PropertyFeature");
 
                     b.Navigation("PropertyFeatureProperties");
                 });
