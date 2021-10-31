@@ -52,6 +52,7 @@ namespace EssenceRealty.Web.API.Controllers
                 {
 
                     PhotoViewModel photoViewModel = await ImageProcessor.ProcessPropertyImage(formFile, PropertyId, essenceApiConfig, environment);
+
                     lstPhotoViewModel.Add(photoViewModel);
                 }
             }
@@ -68,19 +69,24 @@ namespace EssenceRealty.Web.API.Controllers
         [HttpDelete]
         public async Task Delete(PhotoViewModel photoViewModel)
         {
-            
-            //if (System.IO.File.Exists(photoViewModel.Url))
-            //{
-            //    System.IO.File.Delete(photoViewModel.Url);
-            //}
-            //if (System.IO.File.Exists(photoViewModel.Thumb1024))
-            //{
-            //    System.IO.File.Delete(photoViewModel.Thumb1024);
-            //}
-            //if (System.IO.File.Exists(photoViewModel.Thumb180))
-            //{
-            //    System.IO.File.Delete(photoViewModel.Thumb180);
-            //}
+            var mainPhotoPath = photoViewModel.Url.Replace(essenceApiConfig.ServerUrl, environment.WebRootPath);
+            if (System.IO.File.Exists(mainPhotoPath))
+            {
+                System.IO.File.Delete(mainPhotoPath);
+            }
+
+            var thumb1024PhotoPath = photoViewModel.Thumb1024.Replace(essenceApiConfig.ServerUrl, environment.WebRootPath);
+            if (System.IO.File.Exists(thumb1024PhotoPath))
+            {
+                System.IO.File.Delete(thumb1024PhotoPath);
+            }
+
+            var thumb180PhotoPath = photoViewModel.Thumb180.Replace(essenceApiConfig.ServerUrl, environment.WebRootPath);
+
+            if (System.IO.File.Exists(thumb180PhotoPath))
+            {
+                System.IO.File.Delete(thumb180PhotoPath);
+            }
             var photo = mapper.Map<Photo>(photoViewModel);
             await PhotoRepository.DeleteAsync(photo);
             
