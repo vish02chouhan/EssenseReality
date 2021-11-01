@@ -12,6 +12,7 @@ using EssenceRealty.Web.API.Model;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -25,13 +26,15 @@ namespace EssenceRealty.Web.API.Controllers
         private readonly IEnquiryRepository enquiryRepository;
         private readonly IMapper mapper;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly EssenceApiConfig essenceApiConfig;
         public EnquiryController(ILogger<EnquiryController> logger, IEnquiryRepository enquiryRepository,
-            IMapper mapper, IHttpClientFactory clientFactory)
+            IMapper mapper, IHttpClientFactory clientFactory, IOptions<EssenceApiConfig> config)
         {
             _logger = logger;
             this.enquiryRepository = enquiryRepository;
             this.mapper = mapper;
             _clientFactory = clientFactory;
+            essenceApiConfig = config.Value;
         }
 
         [HttpGet]
@@ -63,29 +66,32 @@ namespace EssenceRealty.Web.API.Controllers
         [HttpPost]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> Post(EnquiryViewModel enquiryViewModel)
         {
-
-            var enquiry = mapper.Map<Enquiry>(enquiryViewModel);
-
-            await enquiryRepository.AddAsync(enquiry);
-
-            var client = _clientFactory.CreateClient("vault");
-
-            var enquiryJson = new StringContent(
-                                JsonSerializer.Serialize(enquiry),
-                                Encoding.UTF8,
-                                "application/json");
-
-            using var httpResponse =
-                await client.PostAsync("/enquiries", enquiryJson);
-
-            httpResponse.EnsureSuccessStatusCode();
-
-            var enquiryViewModelResult = mapper.Map<EnquiryViewModel>(enquiry);
-
-            return Ok(new EssenceResponse<EnquiryViewModel>
+            try
             {
-                Data = enquiryViewModelResult
-            });
+                var enquiry = mapper.Map<Enquiry>(enquiryViewModel);
+
+                await enquiryRepository.AddAsync(enquiry);
+
+                var client = _clientFactory.CreateClient("vault");
+
+                var enquiryJson = new StringContent(JsonSerializer.Serialize(enquiry));
+
+                using var httpResponse =
+                    await client.PostAsync(essenceApiConfig.EnquiryUrl, enquiryJson);
+
+                httpResponse.EnsureSuccessStatusCode();
+
+                var enquiryViewModelResult = mapper.Map<EnquiryViewModel>(enquiry);
+
+                return Ok(new EssenceResponse<EnquiryViewModel>
+                {
+                    Data = enquiryViewModelResult
+                });
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
   

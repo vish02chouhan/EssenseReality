@@ -34,7 +34,7 @@ namespace EssenceRealty.Web.API
             services.AddPersistenceServices(Configuration);
             services.AddHttpClient("vault", options =>
             {
-                options.BaseAddress = new Uri(Configuration.GetSection("VaultCrmService:Url").Value);
+                options.BaseAddress = new Uri(Configuration.GetSection("ERConfiguration:vaultUrl").Value);
                 options.DefaultRequestHeaders.Add("ApiKey", "2YlnaCvpeL63JTNtjOyG55GYcKNwfpbZ1qwYIWSa");//Environment.GetEnvironmentVariable("VAULT_API_KEY");
                 options.DefaultRequestHeaders.Add("BearerToken", "fkyqnqciqnpxkdaxvyddwojnnvxnepqaspcxmooh");//Environment.GetEnvironmentVariable("VAULT_BEARER_TOKEN")
 

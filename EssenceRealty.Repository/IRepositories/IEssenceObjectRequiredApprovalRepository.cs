@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IEssenceObjectRequiredApprovalRepository
+    public interface IEssenceObjectRequiredApprovalRepository:IAsyncRepository<EssenceObjectRequiredApproval>
     {
         Task UpsertPropertys(List<EssenceObjectRequiredApproval> lstEssenceObjectRequiredApproval);
     }
