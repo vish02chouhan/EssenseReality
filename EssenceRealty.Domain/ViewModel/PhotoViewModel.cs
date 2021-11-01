@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EssenceRealty.Domain.ViewModels
 {
@@ -19,6 +18,4 @@ namespace EssenceRealty.Domain.ViewModels
         public string Thumb180 { get; set; }
         public int PropertyId { get; set; }
     }
-
-
 }

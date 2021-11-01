@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /EssenceRealty.Web.API/wwwroot/images/properties/1
+/EssenceRealty.Web.API/wwwroot/files/properties/1

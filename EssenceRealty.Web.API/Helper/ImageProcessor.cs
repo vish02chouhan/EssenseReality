@@ -16,7 +16,7 @@ namespace EssenceRealty.Web.API.Helper
             var extension = Path.GetExtension(formFile.FileName);
             var imageId = Guid.NewGuid().ToString().Replace("-", "");
             string imageName = $"{imageId}{extension}";
-            var imagePath = Path.Combine( essenceApiConfig.ERImagePath, propertyId.ToString());
+            var imagePath = Path.Combine( essenceApiConfig.ErImagePath, propertyId.ToString());
             var imageFullPath = Path.Combine(environment.WebRootPath, imagePath);
 
             if (!Directory.Exists(imageFullPath))
@@ -75,6 +75,36 @@ namespace EssenceRealty.Web.API.Helper
                 PropertyId = propertyId,
                 Thumb180 = thumb180Url.Replace("\\", "/"),
                 Url = orignalImageUrl.Replace("\\", "/"),
+            };
+        }
+
+        public static async Task<FloorPlanFilesViewModel> ProcessFloorPlanFile(IFormFile formFile, int propertyId, EssenceApiConfig essenceApiConfig, IWebHostEnvironment environment)
+        {
+            var extension = Path.GetExtension(formFile.FileName);
+            var fileId = Guid.NewGuid().ToString().Replace("-", "");
+            string fileName = $"{fileId}{extension}";
+            var filePath = Path.Combine(essenceApiConfig.ErFilePath, propertyId.ToString());
+            var fileDirectoryPath = Path.Combine(environment.WebRootPath, filePath);
+
+            if (!Directory.Exists(fileDirectoryPath))
+            {
+                Directory.CreateDirectory(fileDirectoryPath);
+            }
+
+            var fileFullPath = Path.Combine(fileDirectoryPath, fileName);
+
+            using (var stream = File.Create(fileFullPath))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            return new()
+            {
+                Filesize = (int)formFile.Length,
+                Type = formFile.ContentType,
+                Filename = fileName,
+                UserFilename = formFile.FileName,
+                Url = fileFullPath.Replace(environment.WebRootPath,essenceApiConfig.ServerUrl).Replace("\\", "/"),
             };
         }
     }
