@@ -8,6 +8,8 @@ namespace EssenceRealty.Web.API
         public string Thumb1024 { get; set; }
         public string Thumb180 { get; set; }
         public string ServerUrl { get; set; }
+        public string VaultUrl { get; set; }
+        public string EnquiryUrl { get; set; }
 
     }
 
