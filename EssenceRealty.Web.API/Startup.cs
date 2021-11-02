@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using EssenceRealty.Web.API.Model;
+using System;
 
 namespace EssenceRealty.Web.API
 {
@@ -31,6 +32,13 @@ namespace EssenceRealty.Web.API
             services.AddControllers();
 
             services.AddPersistenceServices(Configuration);
+            services.AddHttpClient("vault", options =>
+            {
+                options.BaseAddress = new Uri(Configuration.GetSection("ERConfiguration:vaultUrl").Value);
+                options.DefaultRequestHeaders.Add("ApiKey", "2YlnaCvpeL63JTNtjOyG55GYcKNwfpbZ1qwYIWSa");//Environment.GetEnvironmentVariable("VAULT_API_KEY");
+                options.DefaultRequestHeaders.Add("BearerToken", "fkyqnqciqnpxkdaxvyddwojnnvxnepqaspcxmooh");//Environment.GetEnvironmentVariable("VAULT_BEARER_TOKEN")
+
+            });
 
             services.AddAutoMapper(typeof(Startup));
 

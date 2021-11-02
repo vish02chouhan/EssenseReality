@@ -11,6 +11,7 @@ namespace EssenceRealty.Repository.IRepositories
     {
         Task UpsertProperties(List<Property> lstProperty);
         Task<IEnumerable<Property>> GelAll();
-        Task<Property> UpdateProperty(Property objProperty);
+        Task<Property> UpdateProperty(Property objProperty, bool isAdmin = false);
+        Task<Property> GetPropertyByCRMID(int? crmPropertyId);
     }
 }

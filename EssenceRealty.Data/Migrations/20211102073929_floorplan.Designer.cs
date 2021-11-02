@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211101050221_initial")]
-    partial class initial
+    [Migration("20211102073929_floorplan")]
+    partial class floorplan
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
