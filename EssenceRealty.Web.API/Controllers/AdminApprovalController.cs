@@ -63,33 +63,40 @@ namespace EssenceRealty.Web.API.Controllers
         public async Task<ActionResult> Put(int id, bool isApproved)
         {
             EssenceObjectRequiredApproval objEssenceObjectRequiredApproval = await essenceObjectRequiredApprovalRepository.GetByIdAsync(id);
-            objEssenceObjectRequiredApproval.ModifiedDate = System.DateTime.Now;
-            Property objProperty = JsonSerializer.Deserialize<Property>(objEssenceObjectRequiredApproval.JsonObject);
-
-            Property objDBProperty = await propertyRepository.GetPropertyByCRMID(objProperty.CrmPropertyId);
-
-            Property objUpdatedProperty = new();
-            if (isApproved)
+            if (objEssenceObjectRequiredApproval.EssenceObjectRequiredApprovalStatus == EssenceObjectRequiredApprovalStatus.Pending)
             {
-                objUpdatedProperty = objProperty;
-                objUpdatedProperty.Id = objDBProperty.Id;
-                objUpdatedProperty.IsAdminUpdated = false;
-                objUpdatedProperty.ModifiedDate = System.DateTime.Now;
-                objEssenceObjectRequiredApproval.EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Approved;
+                objEssenceObjectRequiredApproval.ModifiedDate = System.DateTime.Now;
+                Property objProperty = JsonSerializer.Deserialize<Property>(objEssenceObjectRequiredApproval.JsonObject);
+
+                Property objDBProperty = await propertyRepository.GetPropertyByCRMID(objProperty.CrmPropertyId);
+
+                Property objUpdatedProperty = new();
+                if (isApproved)
+                {
+                    objUpdatedProperty = objProperty;
+                    objUpdatedProperty.Id = objDBProperty.Id;
+                    objUpdatedProperty.IsAdminUpdated = false;
+                    objUpdatedProperty.ModifiedDate = System.DateTime.Now;
+                    objEssenceObjectRequiredApproval.EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Approved;
+                }
+                else
+                {
+                    objUpdatedProperty = objDBProperty;
+                    objUpdatedProperty.Inserted = objProperty.Inserted;
+                    objUpdatedProperty.Modified = objProperty.Modified;
+                    objUpdatedProperty.IsAdminUpdated = true;
+                    objUpdatedProperty.ModifiedDate = System.DateTime.Now;
+                    objEssenceObjectRequiredApproval.EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Rejected;
+                }
+                await propertyRepository.UpdateProperty(objUpdatedProperty, true);
+                await essenceObjectRequiredApprovalRepository.UpdateAsync(objEssenceObjectRequiredApproval);
+
+                return Ok();
             }
             else
             {
-                objUpdatedProperty = objDBProperty;
-                objUpdatedProperty.Inserted = objProperty.Inserted;
-                objUpdatedProperty.Modified = objProperty.Modified;
-                objUpdatedProperty.IsAdminUpdated = true;
-                objUpdatedProperty.ModifiedDate = System.DateTime.Now;
-                objEssenceObjectRequiredApproval.EssenceObjectRequiredApprovalStatus = EssenceObjectRequiredApprovalStatus.Rejected;
+                return Ok("No Pending action on this Property");
             }
-            await propertyRepository.UpdateProperty(objUpdatedProperty);
-            await essenceObjectRequiredApprovalRepository.UpdateAsync(objEssenceObjectRequiredApproval);
-
-            return Ok();
         }
     }
   

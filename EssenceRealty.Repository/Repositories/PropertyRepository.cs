@@ -1,4 +1,4 @@
-﻿using EssenceRealty.Repository.IRepositories;
+using EssenceRealty.Repository.IRepositories;
 using EssenceRealty.Data;
 using EssenceRealty.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,8 @@ namespace EssenceRealty.Repository.Repositories
         public PropertyRepository(EssenceRealtyContext dbContext) : base(dbContext)
         {
         }
-        public async Task UpsertPropertys(List<Property> lstProperty)
+
+        public async Task UpsertProperties(List<Property> lstProperty)
         {
             var lstPropertyIds = lstProperty.Select(x => x.CrmPropertyId).ToList();
             var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))
@@ -67,6 +68,7 @@ namespace EssenceRealty.Repository.Repositories
                 await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
             }
         }
+
         public EssenceObjectRequiredApproval GetEssenceObject(Property item)
         {
             return new()
@@ -89,6 +91,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
+                       .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
@@ -101,6 +104,7 @@ namespace EssenceRealty.Repository.Repositories
 
             return data;
         }
+
         public async Task<Property> GetPropertyByCRMID(int? crmPropertyId)
         {
             var data = await _dbContext.Properties.Where(x => x.CrmPropertyId == crmPropertyId)
@@ -120,18 +124,21 @@ namespace EssenceRealty.Repository.Repositories
 
             return data;
         }
+
         public async Task<Property> Add(Property property)
         {
             await _dbContext.Properties.AddAsync(property);    
             
             return property;
         }
+
         public override async Task<Property> GetByIdAsync(int id)
         {
             var data = await _dbContext.Properties.Where(x => x.Id == id)
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
+                       .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
@@ -145,6 +152,7 @@ namespace EssenceRealty.Repository.Repositories
 
             return data;
         }
+
         public async Task<IEnumerable<Property>> SearchAsync(PropertySearchRequest propertySearchRequestViewModel)
         {
             IQueryable<Property> query = _dbContext.Properties;
@@ -186,7 +194,8 @@ namespace EssenceRealty.Repository.Repositories
 
            var data = await query.Include(x => x.Photo)
                        .Include(x => x.Country)
-                       .Include(x => x.Suburb)                     
+                       .Include(x => x.Suburb)
+                       .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
@@ -201,36 +210,39 @@ namespace EssenceRealty.Repository.Repositories
 
             return data;
         }
-        public async Task<Property> UpdateProperty(Property objProperty)
+
+        public async Task<Property> UpdateProperty(Property objProperty, bool isAdmin=false)
         {
-            if (objProperty.ContactStaff != null)
+            if (isAdmin)
             {
-                foreach (var item in objProperty.ContactStaff)
+                if (objProperty.ContactStaff != null)
                 {
-                    item.Id = _dbContext.ContactStaffs.Where(x => x.CrmContactStaffId == item.CrmContactStaffId).AsNoTracking().FirstOrDefault().Id;
+                    foreach (var item in objProperty.ContactStaff)
+                    {
+                        item.Id = _dbContext.ContactStaffs.Where(x => x.CrmContactStaffId == item.CrmContactStaffId).AsNoTracking().FirstOrDefault().Id;
+                    }
                 }
+                var lstDBPropertyContactStaff = _dbContext.PropertyContactStaffs.Where(x => x.PropertyId == objProperty.Id).AsNoTracking().ToList();
+                List<PropertyContactStaff> lstPropertyContactStaffInserted = GetPropertyContactInsertList(objProperty, lstDBPropertyContactStaff);
+                List<PropertyContactStaff> lstPropertyContactStaffDeleted = GetPropertyContactDeleteList(objProperty, lstDBPropertyContactStaff);
+
+                _dbContext.PropertyContactStaffs.RemoveRange(lstPropertyContactStaffDeleted);
+                _dbContext.PropertyContactStaffs.AddRange(lstPropertyContactStaffInserted);
             }
-            var lstDBPropertyContactStaff = _dbContext.PropertyContactStaffs.Where(x => x.PropertyId == objProperty.Id).AsNoTracking().ToList();
-            List<PropertyContactStaff> lstPropertyContactStaffInserted = GetPropertyContactInsertList(objProperty, lstDBPropertyContactStaff);
-            List<PropertyContactStaff> lstPropertyContactStaffDeleted = GetPropertyContactDeleteList(objProperty, lstDBPropertyContactStaff);
-
-            _dbContext.PropertyContactStaffs.RemoveRange(lstPropertyContactStaffDeleted);
-            _dbContext.PropertyContactStaffs.AddRange(lstPropertyContactStaffInserted);
-
             var lstDBPropertyFeatureProperty = _dbContext.PropertyFeatureProperties.AsNoTracking().Where(x => x.PropertyId == objProperty.Id).ToList();
             var lstPropertyFeatures = objProperty.PropertyFeatureGrouping?.Select(x => x.PropertyFeature).ToList();
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = GetPropertyFeaturePropertyInsertList(lstPropertyFeatures, lstDBPropertyFeatureProperty, objProperty.Id);
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = GetPropertyFeaturePropertyDeleteList(lstPropertyFeatures, lstDBPropertyFeatureProperty);
-
-
-
             _dbContext.PropertyFeatureProperties.AddRange(lstPropertyFeaturePropertyInserted);
             _dbContext.PropertyFeatureProperties.RemoveRange(lstPropertyFeaturePropertyIDeleted);
+
             _dbContext.Entry(objProperty).State = EntityState.Modified;
             _dbContext.Properties.Update(objProperty);
+
             await _dbContext.SaveChangesAsync();
-            return objProperty;
+            return await GetByIdAsync(objProperty.Id);
         }
+
         private List<PropertyContactStaff> GetPropertyContactInsertList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
         {
             List<PropertyContactStaff> lstPropertyContactStaffInserted = new();
@@ -251,6 +263,7 @@ namespace EssenceRealty.Repository.Repositories
             }
             return lstPropertyContactStaffInserted;
         }
+
         private List<PropertyContactStaff> GetPropertyContactDeleteList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
         {
             List<PropertyContactStaff> lstPropertyContactStaffDeleted = new();
@@ -271,6 +284,7 @@ namespace EssenceRealty.Repository.Repositories
             }
             return lstPropertyContactStaffDeleted;
         }
+
         private List<PropertyFeatureProperty> GetPropertyFeaturePropertyInsertList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty, int propertyId)
         {
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = new();
@@ -294,6 +308,7 @@ namespace EssenceRealty.Repository.Repositories
             }
             return lstPropertyFeaturePropertyInserted;
         }
+
         private List<PropertyFeatureProperty> GetPropertyFeaturePropertyDeleteList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty)
         {
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = new();
@@ -301,7 +316,7 @@ namespace EssenceRealty.Repository.Repositories
             { 
                 foreach (var item in lstDBPropertyFeatureProperty)
                 {
-                    if (!lstPropertyFeatures.Any(x => x.Any(y => y.Id == item.PropertyFeatureId)))
+                    if (lstPropertyFeatures == null || !lstPropertyFeatures.Any(x => x.Any(y => y.Id == item.PropertyFeatureId)))
                     {
                         PropertyFeatureProperty objPropertyFeatureProperty = new()
                         {
@@ -311,7 +326,7 @@ namespace EssenceRealty.Repository.Repositories
                         lstPropertyFeaturePropertyIDeleted.Add(objPropertyFeatureProperty);
                     }
                 }
-        }
+            }
             return lstPropertyFeaturePropertyIDeleted;
         }
     }

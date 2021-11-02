@@ -9,9 +9,9 @@ namespace EssenceRealty.Repository.IRepositories
 {
     public interface IPropertyRepository:IAsyncRepository<Property>, IAsyncSearch<Property, PropertySearchRequest>
     {
-        Task UpsertPropertys(List<Property> lstProperty);
+        Task UpsertProperties(List<Property> lstProperty);
         Task<IEnumerable<Property>> GelAll();
-        Task<Property> UpdateProperty(Property objProperty);
+        Task<Property> UpdateProperty(Property objProperty, bool isAdmin = false);
         Task<Property> GetPropertyByCRMID(int? crmPropertyId);
     }
 }

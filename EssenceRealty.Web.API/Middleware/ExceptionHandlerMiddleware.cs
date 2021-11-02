@@ -58,7 +58,7 @@ namespace EssenceRealty.Web.API.Middleware
 
             if (result == string.Empty)
             {
-                result = JsonConvert.SerializeObject(new { error = exception.Message });
+                result = JsonConvert.SerializeObject(new { error = exception.Message + exception.InnerException?.Message });
             }
 
             return context.Response.WriteAsync(result);

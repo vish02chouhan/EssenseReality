@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211027044117_initial")]
-    partial class initial
+    [Migration("20211102073929_floorplan")]
+    partial class floorplan
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -330,9 +330,68 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
+
                     b.ToTable("FloorPlans");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.FloorPlanFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Filename")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("Filesize")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("FloorPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Inserted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifieldBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserFilename")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Width")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FloorPlanId");
+
+                    b.ToTable("FloorPlanFiles");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.PhoneNumber", b =>
@@ -383,9 +442,6 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<long?>("Filesize")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("FloorPlanId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("Height")
                         .HasColumnType("int");
 
@@ -426,8 +482,6 @@ namespace EssenceRealty.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FloorPlanId");
 
                     b.HasIndex("PropertyId");
 
@@ -479,9 +533,6 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<long?>("FloorAreaValue")
                         .HasColumnType("bigint");
-
-                    b.Property<int?>("FloorPlanId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("Inserted")
                         .HasColumnType("datetime2");
@@ -555,8 +606,6 @@ namespace EssenceRealty.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("FloorPlanId");
 
                     b.HasIndex("PropertyTypeId");
 
@@ -1021,6 +1070,24 @@ namespace EssenceRealty.Data.Migrations
                     b.Navigation("Property");
                 });
 
+            modelBuilder.Entity("EssenceRealty.Domain.Models.FloorPlan", b =>
+                {
+                    b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
+                        .WithOne("FloorPlan")
+                        .HasForeignKey("EssenceRealty.Domain.Models.FloorPlan", "PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("EssenceRealty.Domain.Models.FloorPlanFile", b =>
+                {
+                    b.HasOne("EssenceRealty.Domain.Models.FloorPlan", null)
+                        .WithMany("FloorPlanFiles")
+                        .HasForeignKey("FloorPlanId");
+                });
+
             modelBuilder.Entity("EssenceRealty.Domain.Models.PhoneNumber", b =>
                 {
                     b.HasOne("EssenceRealty.Domain.Models.ContactStaff", "ContactStaff")
@@ -1032,10 +1099,6 @@ namespace EssenceRealty.Data.Migrations
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.Photo", b =>
                 {
-                    b.HasOne("EssenceRealty.Domain.Models.FloorPlan", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("FloorPlanId");
-
                     b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
                         .WithMany("Photo")
                         .HasForeignKey("PropertyId");
@@ -1051,10 +1114,6 @@ namespace EssenceRealty.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EssenceRealty.Domain.Models.FloorPlan", "FloorPlan")
-                        .WithMany()
-                        .HasForeignKey("FloorPlanId");
-
                     b.HasOne("EssenceRealty.Domain.Models.PropertyType", "PropertyType")
                         .WithMany()
                         .HasForeignKey("PropertyTypeId")
@@ -1068,8 +1127,6 @@ namespace EssenceRealty.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-
-                    b.Navigation("FloorPlan");
 
                     b.Navigation("PropertyType");
 
@@ -1212,12 +1269,14 @@ namespace EssenceRealty.Data.Migrations
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.FloorPlan", b =>
                 {
-                    b.Navigation("Photos");
+                    b.Navigation("FloorPlanFiles");
                 });
 
             modelBuilder.Entity("EssenceRealty.Domain.Models.Property", b =>
                 {
                     b.Navigation("EssenceObjectRequiredApproval");
+
+                    b.Navigation("FloorPlan");
 
                     b.Navigation("Photo");
 

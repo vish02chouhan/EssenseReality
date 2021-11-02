@@ -43,7 +43,7 @@ namespace EssenceRealty.Repository.Repositories
             return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public async virtual Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
@@ -52,6 +52,11 @@ namespace EssenceRealty.Repository.Repositories
         public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveChanges()
+        {
             await _dbContext.SaveChangesAsync();
         }
 

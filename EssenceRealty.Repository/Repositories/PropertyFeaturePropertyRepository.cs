@@ -21,8 +21,9 @@ namespace EssenceRealty.Repository.Repositories
             {
                 var lstPropertyFeatureName = lstPropertyFeature.Select(x => x.Name).ToList();
                 var propertyId = _dbContext.Properties.Where(x => x.CrmPropertyId == crmPropertyId).Select(x => x.Id).FirstOrDefault();
-                var lstDBPropertyFeatureDetails = _dbContext.PropertyFeatures.Where(x => lstPropertyFeatureName.Contains(x.Name))
-                                        .Select(x => new { Id = x.Id, Name = x.Name }).ToList();
+                var lstDBPropertyFeatureDetails = _dbContext.PropertyFeatures
+                    .Where(x => lstPropertyFeatureName.Contains(x.Name))
+                    .Select(x => new { Id = x.Id, Name = x.Name }).ToList();
 
                 List<PropertyFeatureProperty> lstPropertyFeatureProperty = new();
 

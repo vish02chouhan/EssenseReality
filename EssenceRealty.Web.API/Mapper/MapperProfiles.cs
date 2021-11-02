@@ -18,6 +18,7 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<ContactStaff, ContactStaffViewModel>();
             CreateMap<Photo, PhotoViewModel>();
             CreateMap<FloorPlan, FloorPlanViewModel>();
+            CreateMap<FloorPlanFile, FloorPlanFilesViewModel>();
             CreateMap<PropertyFeature, PropertyFeatureViewModel>();
             CreateMap<PhoneNumber, PhoneNumberViewModel>();
             CreateMap<PropertyFeatureGrouping, PropertyFeatureGroupingViewModel>();
@@ -35,6 +36,7 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<ContactStaffViewModel, ContactStaff>();
             CreateMap<PhotoViewModel, Photo>();
             CreateMap<FloorPlanViewModel, FloorPlan>();
+            CreateMap<FloorPlanFilesViewModel, FloorPlanFile>();
             CreateMap<PropertyFeatureViewModel, PropertyFeature>();
             CreateMap<PropertyFeatureGroupingViewModel, PropertyFeatureGrouping>();
             CreateMap<PhoneNumberViewModel, PhoneNumber>();

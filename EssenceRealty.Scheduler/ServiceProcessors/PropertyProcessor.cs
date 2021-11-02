@@ -187,7 +187,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         private async Task UpsertPropertyData(IServiceScope scope, List<Property> lstProperty)
         {
             var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
-            await propertyRepo.UpsertPropertys(lstProperty.Select(x => x)
+            await propertyRepo.UpsertProperties(lstProperty.Select(x => x)
                         .Where(x => x != null && x.CrmPropertyId > 0).ToList()
                         .GroupBy(elem => elem.CrmPropertyId)
                         .Select(group => group.First()).ToList());

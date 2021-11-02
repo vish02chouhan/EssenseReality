@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class floorplan : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,19 +149,6 @@ namespace EssenceRealty.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Enquiries", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FloorPlans",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FloorPlans", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -473,7 +460,6 @@ namespace EssenceRealty.Data.Migrations
                     Stories = table.Column<int>(type: "int", nullable: true),
                     ReceptionRooms = table.Column<long>(type: "bigint", nullable: true),
                     VolumeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FloorPlanId = table.Column<int>(type: "int", nullable: true),
                     SaleLifeId = table.Column<int>(type: "int", nullable: true),
                     LeaseLifeId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -505,12 +491,6 @@ namespace EssenceRealty.Data.Migrations
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Properties_FloorPlans_FloorPlanId",
-                        column: x => x.FloorPlanId,
-                        principalTable: "FloorPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Properties_PropertyTypes_PropertyTypeId",
                         column: x => x.PropertyTypeId,
@@ -553,6 +533,26 @@ namespace EssenceRealty.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FloorPlans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PropertyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FloorPlans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FloorPlans_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photos",
                 columns: table => new
                 {
@@ -572,7 +572,6 @@ namespace EssenceRealty.Data.Migrations
                     PropertyId = table.Column<int>(type: "int", nullable: true),
                     Thumb1024 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Thumb180 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FloorPlanId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -581,12 +580,6 @@ namespace EssenceRealty.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Photos_FloorPlans_FloorPlanId",
-                        column: x => x.FloorPlanId,
-                        principalTable: "FloorPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Photos_Properties_PropertyId",
                         column: x => x.PropertyId,
@@ -643,6 +636,37 @@ namespace EssenceRealty.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FloorPlanFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FloorPlanId = table.Column<int>(type: "int", nullable: true),
+                    Width = table.Column<int>(type: "int", nullable: true),
+                    Filename = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserFilename = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Filesize = table.Column<long>(type: "bigint", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FloorPlanFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FloorPlanFiles_FloorPlans_FloorPlanId",
+                        column: x => x.FloorPlanId,
+                        principalTable: "FloorPlans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -693,14 +717,20 @@ namespace EssenceRealty.Data.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FloorPlanFiles_FloorPlanId",
+                table: "FloorPlanFiles",
+                column: "FloorPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FloorPlans_PropertyId",
+                table: "FloorPlans",
+                column: "PropertyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_ContactStaffId",
                 table: "PhoneNumbers",
                 column: "ContactStaffId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photos_FloorPlanId",
-                table: "Photos",
-                column: "FloorPlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_PropertyId",
@@ -711,11 +741,6 @@ namespace EssenceRealty.Data.Migrations
                 name: "IX_Properties_CountryId",
                 table: "Properties",
                 column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Properties_FloorPlanId",
-                table: "Properties",
-                column: "FloorPlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_PropertyTypeId",
@@ -780,6 +805,9 @@ namespace EssenceRealty.Data.Migrations
                 name: "EssenceObjectRequiredApprovals");
 
             migrationBuilder.DropTable(
+                name: "FloorPlanFiles");
+
+            migrationBuilder.DropTable(
                 name: "PhoneNumbers");
 
             migrationBuilder.DropTable(
@@ -801,28 +829,28 @@ namespace EssenceRealty.Data.Migrations
                 name: "CrmEssenceLogs");
 
             migrationBuilder.DropTable(
-                name: "ContactStaffs");
+                name: "FloorPlans");
 
             migrationBuilder.DropTable(
-                name: "Properties");
+                name: "ContactStaffs");
 
             migrationBuilder.DropTable(
                 name: "PropertyFeatures");
 
             migrationBuilder.DropTable(
-                name: "Countries");
+                name: "Properties");
 
             migrationBuilder.DropTable(
-                name: "FloorPlans");
+                name: "PropertyFeatureGroupings");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "PropertyTypes");
 
             migrationBuilder.DropTable(
                 name: "Suburbs");
-
-            migrationBuilder.DropTable(
-                name: "PropertyFeatureGroupings");
 
             migrationBuilder.DropTable(
                 name: "PropertyClasses");
