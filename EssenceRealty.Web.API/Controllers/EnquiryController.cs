@@ -37,11 +37,10 @@ namespace EssenceRealty.Web.API.Controllers
             essenceApiConfig = config.Value;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll()
+        [HttpGet("{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll(int pageNumber, int pageSize)
         {
-            var result = await enquiryRepository.ListAllAsync();
-
+            var result = await enquiryRepository.GetPagedReponseAsync(pageNumber, pageSize);
             var enquiryViewModel = mapper.Map<IEnumerable<EnquiryViewModel>>(result);
 
             return Ok(new EssenceResponse<IEnumerable<EnquiryViewModel>>
@@ -73,6 +72,7 @@ namespace EssenceRealty.Web.API.Controllers
                 await enquiryRepository.AddAsync(enquiry);
 
                 var client = _clientFactory.CreateClient("vault");
+                enquiry.Source = essenceApiConfig.EnquirySource;
 
                 var enquiryJson = new StringContent(JsonSerializer.Serialize(enquiry));
 
