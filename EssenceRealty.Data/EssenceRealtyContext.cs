@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Data
 {
-    public class EssenceRealtyContext: IdentityDbContext
+    public class EssenceRealtyContext: IdentityDbContext<ApplicationUser>
     {
         public EssenceRealtyContext(DbContextOptions<EssenceRealtyContext> options)
             : base(options)

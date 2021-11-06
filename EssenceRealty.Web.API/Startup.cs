@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using EssenceRealty.Web.API.Model;
+using EssenceRealty.Data.Identity;
 
 namespace EssenceRealty.Web.API
 {
@@ -31,6 +32,7 @@ namespace EssenceRealty.Web.API
             services.AddControllers();
 
             services.AddPersistenceServices(Configuration);
+            services.AddIdentityServices(Configuration);
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -61,12 +63,12 @@ namespace EssenceRealty.Web.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/essencerealty/swagger/v1/swagger.json", "EssenceRealty.Web.API v1"));
             }
           
-
             //   app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseStaticFiles();
+
             app.UseCustomExceptionHandler();
 
             app.UseCors("Open");
