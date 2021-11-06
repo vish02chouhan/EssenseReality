@@ -39,6 +39,20 @@ namespace EssenceRealty.Repository.Repositories
                 item.PropertyTypeId = lstDBPropertyTypeDetails.Where(x => x.CrmPropertyTypeId == item.PropertyTypeId).First().Id;
             }
 
+            //commented, since Admin approval flow is no more required
+            //await UpsertPropertyNeedApproval(lstPropertyIds, lstProperty);
+            //lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
+
+            if (lstProperty.Count > 0)
+            {
+                await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
+            }
+        }
+
+        private async Task UpsertPropertyNeedApproval(List<int?> lstPropertyIds, List<Property> lstProperty)
+        {
+            var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))
+                                    .Select(x => new { CrmPropertyId = x.CrmPropertyId, Modified = x.Modified, IsAdminUpdated = x.IsAdminUpdated }).ToList();
             var propertyNeedsApprovals = lstProperty.FindAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
 
             lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
@@ -62,10 +76,6 @@ namespace EssenceRealty.Repository.Repositories
                     }
                 }
                 await _dbContext.SaveChangesAsync();
-            }
-            if (lstProperty.Count > 0)
-            {
-                await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
             }
         }
 

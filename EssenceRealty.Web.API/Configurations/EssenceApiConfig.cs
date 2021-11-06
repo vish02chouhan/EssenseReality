@@ -11,7 +11,7 @@ namespace EssenceRealty.Web.API
         public string ServerUrl { get; set; }
         public string VaultUrl { get; set; }
         public string EnquiryUrl { get; set; }
-
+        public string EnquirySource { get; set; }
     }
 
 }

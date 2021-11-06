@@ -5,8 +5,9 @@ namespace EssenceRealty.Domain.ViewModels
     public class EnquiryViewModel
     {
         public int Id { get; set; }
-        //public Property Property { get; set; }
+        public int? PropertyId { get; set; }
         public DateTime EnquiryDate { get; set; }
+        public string EnquiryType { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
         public string OriginalId { get; set; }
