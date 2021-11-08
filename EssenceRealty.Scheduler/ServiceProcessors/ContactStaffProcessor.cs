@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EssenceRealty.Data.Identity.Contract;
+using EssenceRealty.Data.Identity.Models;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
@@ -99,6 +101,33 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         .Where(x => x != null && x.ContactStaffId > 0).ToList()
                         .GroupBy(elem => elem.ContactStaffId)
                         .Select(group => group.First()).ToList());
+        }
+
+        public async Task AddRegistredUser(IServiceScope scope, List<ContactStaff> lstContactStaff)
+        {
+            var authenticationService = scope.ServiceProvider.GetRequiredService<IAuthenticationService>();
+            foreach (var item in lstContactStaff)
+            {
+                var request = new RegistrationRequest
+                {
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    UserName = item.Email,
+                    Password = $"{item.FirstName}_{item.Email}"
+                };
+                try
+                {
+                    await authenticationService.RegisterAsync(request);
+                }
+                catch
+                {
+                }
+           
+            }
+
+        
+
         }
     }
 }

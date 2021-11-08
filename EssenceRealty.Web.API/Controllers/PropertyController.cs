@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EssenceRealty.Domain.Exceptions;
 using EssenceRealty.Web.API.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -60,6 +61,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<PropertyViewModel>>> Put(PropertyViewModel propertyViewModel)
         {
 

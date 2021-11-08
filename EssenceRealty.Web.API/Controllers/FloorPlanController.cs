@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using System.Drawing;
 using EssenceRealty.Web.API.Helper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -41,6 +42,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Post(List<IFormFile> files,int propertyId, string description)
         {
            var existingFloorPlan = await  floorPlanRepository.GetByPropertyIdAsync(propertyId);
@@ -81,6 +83,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task Delete(int id)
         {
 
@@ -105,6 +108,7 @@ namespace EssenceRealty.Web.API.Controllers
 
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Put(List<IFormFile> files, int id, int propertyId, string description)
         {
             var existingFloorPlan = await floorPlanRepository.GetByIdAsync(id);

@@ -4,14 +4,16 @@ using EssenceRealty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    partial class EssenceRealtyContextModelSnapshot : ModelSnapshot
+    [Migration("20211107045941_appuser")]
+    partial class appuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,9 +309,6 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<DateTime>("EnquiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EnquiryType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -327,9 +326,6 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<string>("OriginalId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("PropertyReference")
                         .HasColumnType("nvarchar(max)");

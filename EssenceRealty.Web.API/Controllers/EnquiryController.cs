@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -38,6 +39,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpGet("{pageNumber}/{pageSize}")]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll(int pageNumber, int pageSize)
         {
             var result = await enquiryRepository.GetPagedReponseAsync(pageNumber, pageSize);
@@ -50,6 +52,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> Get(int id)
         {
             var result = await enquiryRepository.GetByIdAsync(id);

@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace EssenceRealty.Web.API
 {
     public class EssenceApiConfig
@@ -12,6 +14,8 @@ namespace EssenceRealty.Web.API
         public string VaultUrl { get; set; }
         public string EnquiryUrl { get; set; }
         public string EnquirySource { get; set; }
+        public string EssenceEmailSendGrid {  get; set; } = Environment.GetEnvironmentVariable("EssenceEmailSendGrid");
+
     }
 
 }
