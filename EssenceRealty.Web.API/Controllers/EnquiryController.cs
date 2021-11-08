@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -75,13 +76,29 @@ namespace EssenceRealty.Web.API.Controllers
                 await enquiryRepository.AddAsync(enquiry);
 
                 var client = _clientFactory.CreateClient("vault");
-                enquiry.Source = essenceApiConfig.EnquirySource;
 
-                var enquiryJson = new StringContent(JsonSerializer.Serialize(enquiry));
+                var enquiryToVault = new
+                {
+                    enquiryDate = enquiry.EnquiryDate,
+                    subject = enquiry.Subject,
+                    body = enquiry.Body,
+                    originalId = enquiry.OriginalId,
+                    propertyReference = enquiry.PropertyReference,
+                    source = essenceApiConfig.EnquirySource,
+                    saleLifeId = enquiry.SaleLifeId,
+                    leaseLifeId = enquiry.LeaseLifeId,
+                    userId = enquiry.UserId,
+                    fullName = enquiry.FullName,
+                    firstName = enquiry.FirstName,
+                    lastName = enquiry.LastName,
+                    email = enquiry.Email,
+                    telephone = enquiry.Telephone,
+                    mobile = enquiry.Mobile
+                };
+                var enquiryToVaultContent = new StringContent(JsonConvert.SerializeObject(enquiryToVault), Encoding.UTF8, "application/json");
 
                 using var httpResponse =
-                    await client.PostAsync(essenceApiConfig.EnquiryUrl, enquiryJson);
-
+                    await client.PostAsync(essenceApiConfig.EnquiryUrl, enquiryToVaultContent);
                 httpResponse.EnsureSuccessStatusCode();
 
                 var enquiryViewModelResult = mapper.Map<EnquiryViewModel>(enquiry);

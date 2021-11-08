@@ -38,8 +38,9 @@ namespace EssenceRealty.Web.API
             services.AddHttpClient("vault", options =>
             {
                 options.BaseAddress = new Uri(Configuration.GetSection("ERConfiguration:vaultUrl").Value);
-                options.DefaultRequestHeaders.Add("ApiKey", "2YlnaCvpeL63JTNtjOyG55GYcKNwfpbZ1qwYIWSa");//Environment.GetEnvironmentVariable("VAULT_API_KEY");
-                options.DefaultRequestHeaders.Add("BearerToken", "fkyqnqciqnpxkdaxvyddwojnnvxnepqaspcxmooh");//Environment.GetEnvironmentVariable("VAULT_BEARER_TOKEN")
+                options.DefaultRequestHeaders.Add("accept", "application/json");
+                options.DefaultRequestHeaders.Add("X-Api-Key", "2YlnaCvpeL63JTNtjOyG55GYcKNwfpbZ1qwYIWSa");//Environment.GetEnvironmentVariable("VAULT_API_KEY");
+                options.DefaultRequestHeaders.Add("Authorization", "Bearer " + "fkyqnqciqnpxkdaxvyddwojnnvxnepqaspcxmooh");//Environment.GetEnvironmentVariable("VAULT_BEARER_TOKEN")
 
             });
 
