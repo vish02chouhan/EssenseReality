@@ -21,5 +21,12 @@ namespace EssenceRealty.Repository.Repositories
             await _dbContext.EssenceObjectRequiredApprovals.UpsertRange(lstEssenceObjectRequiredApproval).On(x=> x.CrmPropertyId).RunAsync();
             await _dbContext.SaveChangesAsync();
         }
+
+        public async override Task<IReadOnlyList<EssenceObjectRequiredApproval>> ListAllAsync()
+        {
+            return await _dbContext.EssenceObjectRequiredApprovals
+                        .Where(x => x.EssenceObjectRequiredApprovalStatus == EssenceObjectRequiredApprovalStatus.Pending)
+                        .AsNoTracking().ToListAsync();
+        }
     }
 }

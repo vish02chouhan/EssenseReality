@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211101050221_initial")]
-    partial class initial
+    [Migration("20211106135011_enquiry")]
+    partial class enquiry
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,6 +238,9 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<DateTime>("EnquiryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EnquiryType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -255,6 +258,9 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<string>("OriginalId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PropertyReference")
                         .HasColumnType("nvarchar(max)");

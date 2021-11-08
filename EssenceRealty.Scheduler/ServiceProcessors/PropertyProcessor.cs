@@ -41,7 +41,9 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 
                     foreach (var item in items)
                     {
-                        
+                        List<Photo> lstPropertyPhotos = new();
+                        List<ContactStaff> lstPropertyContactStaffs = new();
+
                         if (item != null && item["address"].HasValues && item["address"]["country"].HasValues)
                         {
                             lstCountry.Add(ExtractCountryData(item["address"]["country"]));
@@ -50,32 +52,37 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         {
                             foreach (var photo in item["photos"])
                             {
-                                lstPhoto.Add(ExtractPhotoData(photo, checkNullForInt(item["id"]?.ToString())));
+                                lstPropertyPhotos.Add(ExtractPhotoData(photo, checkNullForInt(item["id"]?.ToString())));
                             }
                         }
                         if (item != null && item["contactStaff"].HasValues)
                         {
                             foreach (var contactStaff in item["contactStaff"])
                             {
-                                List<PhoneNumber> lstPhnNumber = new();
-                                foreach (var phoneNumber in contactStaff["phoneNumbers"])
+                                if (!lstPropertyContactStaffs.Exists(x => x.CrmContactStaffId.ToString() == contactStaff["id"].ToString()))
                                 {
-                                    lstPhnNumber.Add(contactStaffProcessor.ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(contactStaff["id"])));
+                                    List<PhoneNumber> lstPhnNumber = new();
+                                    foreach (var phoneNumber in contactStaff["phoneNumbers"])
+                                    {
+                                        lstPhnNumber.Add(contactStaffProcessor.ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(contactStaff["id"])));
+                                    }
+                                    ContactStaff objContactStaff = contactStaffProcessor.ExtractContactStaffData(contactStaff);
+                                    objContactStaff.PhoneNumbers = lstPhnNumber;
+                                    lstPropertyContactStaffs.Add(objContactStaff);
+                                    lstPhoneNumbers.AddRange(lstPhnNumber);
                                 }
-                                ContactStaff objContactStaff = contactStaffProcessor.ExtractContactStaffData(contactStaff);
-                                objContactStaff.PhoneNumbers = lstPhnNumber;
-                                lstContactStaff.Add(objContactStaff);
-                                lstPhoneNumbers.AddRange(lstPhnNumber);
                             }
                         }
                         Property objProperty = new();
                         objProperty = ExtractPropertyData(item);
                         objProperty.Country = lstCountry.Find(x => x.CrmCountryId == objProperty.CountryId);
-                        objProperty.Photo = lstPhoto;
+                        objProperty.Photo = lstPropertyPhotos;
                         objProperty.Suburb = lstSubHurbs.Find(x => x.CrmSuburbId == objProperty.SuburbId);
                         objProperty.PropertyType = lstpropertyType.Find(x => x.CrmPropertyTypeId == objProperty.PropertyTypeId);
-                        objProperty.ContactStaff = lstContactStaff;
+                        objProperty.ContactStaff = lstPropertyContactStaffs;
                         lstProperty.Add(objProperty);
+                        lstPhoto.AddRange(lstPropertyPhotos);
+                        lstContactStaff.AddRange(lstPropertyContactStaffs);
                     }
                     
                     using var scope = serviceProvider.CreateScope();

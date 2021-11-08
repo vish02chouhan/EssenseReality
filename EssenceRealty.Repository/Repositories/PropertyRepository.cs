@@ -1,4 +1,4 @@
-﻿using EssenceRealty.Repository.IRepositories;
+using EssenceRealty.Repository.IRepositories;
 using EssenceRealty.Data;
 using EssenceRealty.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +39,20 @@ namespace EssenceRealty.Repository.Repositories
                 item.PropertyTypeId = lstDBPropertyTypeDetails.Where(x => x.CrmPropertyTypeId == item.PropertyTypeId).First().Id;
             }
 
+            //commented, since Admin approval flow is no more required
+            //await UpsertPropertyNeedApproval(lstPropertyIds, lstProperty);
+            //lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
+
+            if (lstProperty.Count > 0)
+            {
+                await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
+            }
+        }
+
+        private async Task UpsertPropertyNeedApproval(List<int?> lstPropertyIds, List<Property> lstProperty)
+        {
+            var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))
+                                    .Select(x => new { CrmPropertyId = x.CrmPropertyId, Modified = x.Modified, IsAdminUpdated = x.IsAdminUpdated }).ToList();
             var propertyNeedsApprovals = lstProperty.FindAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
 
             lstProperty.RemoveAll(x => lstDBPropertyDetails.Exists(y => x.CrmPropertyId == y.CrmPropertyId && y.IsAdminUpdated == true));
@@ -62,10 +76,6 @@ namespace EssenceRealty.Repository.Repositories
                     }
                 }
                 await _dbContext.SaveChangesAsync();
-            }
-            if (lstProperty.Count > 0)
-            {
-                await _dbContext.Properties.UpsertRange(lstProperty).On(x => x.CrmPropertyId).RunAsync();
             }
         }
 
@@ -98,9 +108,28 @@ namespace EssenceRealty.Repository.Repositories
                        .ToListAsync();
             foreach (var item in data)
             {
-
                 item.ContactStaff = item.PropertyContactStaffs.Select(x => x.ContactStaff).Distinct().ToList();
                 item.PropertyFeatureGrouping = item.PropertyFeatureProperties.Select(x => x.PropertyFeature.PropertyFeatureGrouping).Distinct().ToList();
+            }
+
+            return data;
+        }
+
+        public async Task<Property> GetPropertyByCRMID(int? crmPropertyId)
+        {
+            var data = await _dbContext.Properties.Where(x => x.CrmPropertyId == crmPropertyId)
+                       .Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
+                       .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
+                       .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .AsNoTracking().SingleOrDefaultAsync();
+
+            if (data != null)
+            {
+                data.ContactStaff = data.PropertyContactStaffs.Select(x => x.ContactStaff).Distinct().ToList();
+                data.PropertyFeatureGrouping = data.PropertyFeatureProperties.Select(x => x.PropertyFeature.PropertyFeatureGrouping).Distinct().ToList();
             }
 
             return data;
@@ -113,7 +142,7 @@ namespace EssenceRealty.Repository.Repositories
             return property;
         }
 
-        public async override Task<Property> GetByIdAsync(int id)
+        public override async Task<Property> GetByIdAsync(int id)
         {
             var data = await _dbContext.Properties.Where(x => x.Id == id)
                        .Include(x => x.Photo)
@@ -192,41 +221,54 @@ namespace EssenceRealty.Repository.Repositories
             return data;
         }
 
-        public async Task<Property> UpdateProperty(Property objProperty)
+        public async Task<Property> UpdateProperty(Property objProperty, bool isAdmin=false)
         {
+            if (isAdmin)
+            {
+                if (objProperty.ContactStaff != null)
+                {
+                    foreach (var item in objProperty.ContactStaff)
+                    {
+                        item.Id = _dbContext.ContactStaffs.Where(x => x.CrmContactStaffId == item.CrmContactStaffId).AsNoTracking().FirstOrDefault().Id;
+                    }
+                }
+                var lstDBPropertyContactStaff = _dbContext.PropertyContactStaffs.Where(x => x.PropertyId == objProperty.Id).AsNoTracking().ToList();
+                List<PropertyContactStaff> lstPropertyContactStaffInserted = GetPropertyContactInsertList(objProperty, lstDBPropertyContactStaff);
+                List<PropertyContactStaff> lstPropertyContactStaffDeleted = GetPropertyContactDeleteList(objProperty, lstDBPropertyContactStaff);
 
-            //var lstDBPropertyContactStaff = _dbContext.PropertyContactStaffs.AsNoTracking().Where(x => x.PropertyId == objProperty.Id).ToList();
-            //List<PropertyContactStaff> lstPropertyContactStaffInserted = GetPropertyContactInsertList(objProperty, lstDBPropertyContactStaff);
-            //List<PropertyContactStaff> lstPropertyContactStaffDeleted = GetPropertyContactDeleteList(objProperty, lstDBPropertyContactStaff);
-            //_dbContext.PropertyContactStaffs.AddRange(lstPropertyContactStaffInserted);
-            //_dbContext.PropertyContactStaffs.RemoveRange(lstPropertyContactStaffDeleted);
-
+                _dbContext.PropertyContactStaffs.RemoveRange(lstPropertyContactStaffDeleted);
+                _dbContext.PropertyContactStaffs.AddRange(lstPropertyContactStaffInserted);
+            }
             var lstDBPropertyFeatureProperty = _dbContext.PropertyFeatureProperties.AsNoTracking().Where(x => x.PropertyId == objProperty.Id).ToList();
-            var lstPropertyFeatures = objProperty.PropertyFeatureGrouping.Select(x => x.PropertyFeature).ToList();
-            List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = GetPropertyFeaturePropertyInsertList(lstPropertyFeatures, lstDBPropertyFeatureProperty,objProperty.Id);
-
+            var lstPropertyFeatures = objProperty.PropertyFeatureGrouping?.Select(x => x.PropertyFeature).ToList();
+            List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = GetPropertyFeaturePropertyInsertList(lstPropertyFeatures, lstDBPropertyFeatureProperty, objProperty.Id);
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = GetPropertyFeaturePropertyDeleteList(lstPropertyFeatures, lstDBPropertyFeatureProperty);
-
             _dbContext.PropertyFeatureProperties.AddRange(lstPropertyFeaturePropertyInserted);
             _dbContext.PropertyFeatureProperties.RemoveRange(lstPropertyFeaturePropertyIDeleted);
+
             _dbContext.Entry(objProperty).State = EntityState.Modified;
             _dbContext.Properties.Update(objProperty);
+
             await _dbContext.SaveChangesAsync();
             return await GetByIdAsync(objProperty.Id);
         }
+
         private List<PropertyContactStaff> GetPropertyContactInsertList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
         {
             List<PropertyContactStaff> lstPropertyContactStaffInserted = new();
-            foreach (var item in objProperty.ContactStaff)
+            if (objProperty.ContactStaff != null)
             {
-                if (lstDBPropertyContactStaff.FindIndex(x => x.ContactStaffId == item.Id) < 0)
+                foreach (var item in objProperty.ContactStaff)
                 {
-                    PropertyContactStaff objPropertyContactStaff = new()
+                    if (lstDBPropertyContactStaff.FindIndex(x => x.ContactStaffId == item.Id) < 0)
                     {
-                        ContactStaffId = item.Id,
-                        PropertyId = objProperty.Id
-                    };
-                    lstPropertyContactStaffInserted.Add(objPropertyContactStaff);
+                        PropertyContactStaff objPropertyContactStaff = new()
+                        {
+                            ContactStaffId = item.Id,
+                            PropertyId = objProperty.Id
+                        };
+                        lstPropertyContactStaffInserted.Add(objPropertyContactStaff);
+                    }
                 }
             }
             return lstPropertyContactStaffInserted;
@@ -235,60 +277,67 @@ namespace EssenceRealty.Repository.Repositories
         private List<PropertyContactStaff> GetPropertyContactDeleteList(Property objProperty, List<PropertyContactStaff> lstDBPropertyContactStaff)
         {
             List<PropertyContactStaff> lstPropertyContactStaffDeleted = new();
-            foreach (var item in lstDBPropertyContactStaff)
+            if (lstDBPropertyContactStaff != null)
             {
-                if (objProperty.ContactStaff.FindIndex(x => x.Id == item.ContactStaffId) < 0)
+                foreach (var item in lstDBPropertyContactStaff)
                 {
-                    PropertyContactStaff objPropertyContactStaff = new()
+                    if (objProperty.ContactStaff.FindIndex(x => x.Id == item.ContactStaffId) < 0)
                     {
-                        ContactStaffId = item.ContactStaffId,
-                        PropertyId = objProperty.Id
-                    };
-                    lstPropertyContactStaffDeleted.Add(objPropertyContactStaff);
+                        PropertyContactStaff objPropertyContactStaff = new()
+                        {
+                            ContactStaffId = item.ContactStaffId,
+                            PropertyId = objProperty.Id
+                        };
+                        lstPropertyContactStaffDeleted.Add(objPropertyContactStaff);
+                    }
                 }
             }
             return lstPropertyContactStaffDeleted;
         }
 
-        #region Private Method
         private List<PropertyFeatureProperty> GetPropertyFeaturePropertyInsertList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty, int propertyId)
         {
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyInserted = new();
-            foreach (var propertyFeatures in lstPropertyFeatures)
+            if (lstPropertyFeatures != null)
             {
-                foreach (var item in propertyFeatures)
+                foreach (var propertyFeatures in lstPropertyFeatures)
                 {
-                    if (lstDBPropertyFeatureProperty.FindIndex(x => x.PropertyFeatureId == item.Id) < 0)
+                    foreach (var item in propertyFeatures)
                     {
-                        PropertyFeatureProperty objPropertyFeatureProperty = new()
+                        if (lstDBPropertyFeatureProperty.FindIndex(x => x.PropertyFeatureId == item.Id) < 0)
                         {
-                            PropertyFeatureId = item.Id,
-                            PropertyId = propertyId
-                        };
-                        lstPropertyFeaturePropertyInserted.Add(objPropertyFeatureProperty);
+                            PropertyFeatureProperty objPropertyFeatureProperty = new()
+                            {
+                                PropertyFeatureId = item.Id,
+                                PropertyId = propertyId
+                            };
+                            lstPropertyFeaturePropertyInserted.Add(objPropertyFeatureProperty);
+                        }
                     }
                 }
             }
             return lstPropertyFeaturePropertyInserted;
         }
+
         private List<PropertyFeatureProperty> GetPropertyFeaturePropertyDeleteList(List<ICollection<PropertyFeature>> lstPropertyFeatures, List<PropertyFeatureProperty> lstDBPropertyFeatureProperty)
         {
             List<PropertyFeatureProperty> lstPropertyFeaturePropertyIDeleted = new();
-            foreach (var item in lstDBPropertyFeatureProperty)
-            {
-                if(!lstPropertyFeatures.Any(x => x.Any(y => y.Id == item.PropertyFeatureId)))
+            if (lstDBPropertyFeatureProperty != null)
+            { 
+                foreach (var item in lstDBPropertyFeatureProperty)
                 {
-                    PropertyFeatureProperty objPropertyFeatureProperty = new()
+                    if (lstPropertyFeatures == null || !lstPropertyFeatures.Any(x => x.Any(y => y.Id == item.PropertyFeatureId)))
                     {
-                        PropertyFeatureId = item.PropertyFeatureId,
-                        PropertyId = item.PropertyId
-                    };
-                    lstPropertyFeaturePropertyIDeleted.Add(objPropertyFeatureProperty);
+                        PropertyFeatureProperty objPropertyFeatureProperty = new()
+                        {
+                            PropertyFeatureId = item.PropertyFeatureId,
+                            PropertyId = item.PropertyId
+                        };
+                        lstPropertyFeaturePropertyIDeleted.Add(objPropertyFeatureProperty);
+                    }
                 }
             }
             return lstPropertyFeaturePropertyIDeleted;
         }
-
-        #endregion
     }
 }

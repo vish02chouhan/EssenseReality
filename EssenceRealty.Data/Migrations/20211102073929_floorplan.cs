@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class floorplan : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
