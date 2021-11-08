@@ -30,6 +30,8 @@ namespace EssenceRealty.Data.Identity
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
 
+            services.AddTransient<IEmailService, EmailService>();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

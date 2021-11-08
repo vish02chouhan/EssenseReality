@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using System.Drawing;
 using EssenceRealty.Web.API.Helper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -42,6 +43,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<PhotoViewModel>>> Post(List<IFormFile> files,int PropertyId)
         {
             long size = files.Sum(f => f.Length);
@@ -67,6 +69,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task Delete(PhotoViewModel photoViewModel)
         {
             var mainPhotoPath = photoViewModel.Url.Replace(essenceApiConfig.ServerUrl, environment.WebRootPath);

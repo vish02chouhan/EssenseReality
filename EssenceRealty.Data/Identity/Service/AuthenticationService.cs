@@ -11,6 +11,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace EssenceRealty.Data.Identity.Service
 {
@@ -18,15 +20,18 @@ namespace EssenceRealty.Data.Identity.Service
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailService _emailService;
         private readonly JwtSettings _jwtSettings;
 
         public AuthenticationService(UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
@@ -99,6 +104,68 @@ namespace EssenceRealty.Data.Identity.Service
             }
         }
 
+        public async Task<bool> ResetPassword(ResetPasswordRequest model)
+        {
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                throw new BadHttpRequestException("User does not exists");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ForgotPassword(ForgotPasswordRequest model)
+        {
+   
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                // Don't reveal that the user does not exist or is not confirmed
+                throw new BadHttpRequestException("User does not exists");
+            }
+
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+            // Send an email with this link
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var callbackUrl = "http://20.37.253.197/essence-admin/resetpassword/"+code;
+            Email email = new Email
+            {
+                Body = "Please reset your password by clicking here: <a href =" + callbackUrl + ">link</a>",
+                Subject = "Reset Password",
+                To = model.Email
+            };
+
+            var response = await _emailService.SendEmail(email);
+
+
+            return true;
+        }
+
+        public async Task<bool> ChangePassword(ChangePasswordRequest model, ClaimsPrincipal user)
+        {
+            var applicationUser = await GetCurrentUserAsync(user);
+
+            if (applicationUser != null)
+            {
+                var result = await _userManager.ChangePasswordAsync(applicationUser, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(applicationUser, isPersistent: false);
+                    return true;
+                }
+                return false;
+            }
+
+            return false;
+        }
+
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
@@ -131,6 +198,11 @@ namespace EssenceRealty.Data.Identity.Service
                 expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
                 signingCredentials: signingCredentials);
             return jwtSecurityToken;
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync(ClaimsPrincipal user)
+        {
+            return _userManager.GetUserAsync(user);
         }
     }
 }

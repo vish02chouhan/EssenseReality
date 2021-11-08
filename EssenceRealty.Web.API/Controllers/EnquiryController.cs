@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EssenceRealty.Web.API.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -31,6 +32,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll()
         {
             var result = await enquiryRepository.ListAllAsync();
@@ -44,6 +46,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> Get(int id)
         {
             var result = await enquiryRepository.GetByIdAsync(id);
