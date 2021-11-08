@@ -202,7 +202,13 @@ namespace EssenceRealty.Repository.Repositories
                 query = query.Where(x => x.SearchPrice <= propertySearchRequestViewModel.PriceMax);
             }
 
-           var data = await query.Include(x => x.Photo)
+
+            if (!string.IsNullOrEmpty(propertySearchRequestViewModel.SearchText))
+            {
+                query = query.Where(x => x.DisplayAddress.Contains(propertySearchRequestViewModel.SearchText));
+            }
+
+            var data = await query.Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
                        .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)

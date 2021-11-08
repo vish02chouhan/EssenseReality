@@ -21,38 +21,6 @@ namespace EssenceRealty.Data.Identity.Service
             return Execute(sendGridApiKey, email.Subject, email.Body, email.To);
         }
 
-        public async Task<bool> Execute1(string apiKey, string subject, string message, string email)
-        {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("vivekv0288@gmail.com", "Password Recovery"),
-                Subject = subject,
-                PlainTextContent = null,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
-
-            // Disable click tracking.
-            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
-            msg.SetClickTracking(false, false);
-
-            var response = await client.SendEmailAsync(msg);
-
-            return response.IsSuccessStatusCode;
-        }
-        public async Task<bool> Execute2(string apiKey, string subject, string message, string email)
-        {
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("test@example.com", "Example User");
-            var to = new EmailAddress(email, "Example User");
-            var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg);
-
-            return true;
-        }
         public async Task<bool> Execute(string apiKey, string subject, string message, string email)
         {
             if (!Configuration.Default.ApiKey.ContainsKey("api-key"))
@@ -62,12 +30,12 @@ namespace EssenceRealty.Data.Identity.Service
           
 
             var apiInstance = new TransactionalEmailsApi();
-            var senderName = "John Doe";
-            var senderEmail = "example@example.com";
+            var senderName = "Essence Realty";
+            var senderEmail = "admin@essencerealty.com";
             var sender = new SendSmtpEmailSender(senderName, senderEmail);
 
             string toEmail = email;
-            string toName = "John Doe";
+            string toName = email;
             SendSmtpEmailTo smtpEmailTo = new SendSmtpEmailTo(toEmail, toName);
             List<SendSmtpEmailTo> to = new List<SendSmtpEmailTo>();
             to.Add(smtpEmailTo);
@@ -81,7 +49,7 @@ namespace EssenceRealty.Data.Identity.Service
                 CreateSmtpEmail result = await apiInstance.SendTransacEmailAsync(sendSmtpEmail);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
