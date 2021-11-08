@@ -13,6 +13,7 @@ namespace EssenceRealty.Domain.ViewModels
         public int? BedsMax { get; set; }
         public float? PriceMin { get; set; }
         public float? PriceMax { get; set; }
-                  
+        public string SearchText { get; set; }
+
     }
 }
