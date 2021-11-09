@@ -29,7 +29,7 @@ namespace EssenceRealty.Scheduler
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(60), TimeSpan.FromMinutes(5));
+            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(5));
             return Task.CompletedTask;
         }
 
