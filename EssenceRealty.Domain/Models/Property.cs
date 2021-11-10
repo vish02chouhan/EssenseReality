@@ -53,6 +53,6 @@ namespace EssenceRealty.Domain.Models
         public DateTime? Inserted { get; set; }
         public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
-
+        public string PropertyTranasctionType { get; set; }
     }
 }
