@@ -34,6 +34,6 @@ namespace EssenceRealty.Domain.ViewModels
         public string Accuracy { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-
+        public string PropertyTranasctionType { get; set; }
     }
 }
