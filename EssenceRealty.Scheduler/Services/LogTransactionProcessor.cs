@@ -70,7 +70,7 @@ namespace EssenceRealty.Scheduler.Services
                             break;
                         case EssenceObjectTypes.Property:
                             PropertyProcessor propertyProcessor = new();
-                            await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray);
+                            await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray, essenceDataObject.EndPointUrl);
                             await GetPropertFeatureFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor);
                             break;
                         default:
@@ -116,10 +116,12 @@ namespace EssenceRealty.Scheduler.Services
                 await vaultCrmProcessor.SaveData(propertFeatureUrl, processingGroupId, "PropertyFeatures");
                 using var scope = serviceProvider.CreateScope();
                 var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
-                CrmEssenceLog essenceDataObject = await essenceLogRepo.GetPropertyFeatureJson(processingGroupId);
+                CrmEssenceLog essenceDataObject = await essenceLogRepo.GetPropertyFeatureJson(processingGroupId, crmPropertyId);
                 JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
                 PropertyFeaturesProcessor objPropertyFeaturesProcessor = new();
                 await objPropertyFeaturesProcessor.ProcessPropertyFeaturesData(serviceProvider, essenceDataObjectArray, crmPropertyId);
+                essenceDataObject.Status = LogTransactionStatus.Processed;
+                await essenceLogRepo.UpdateCrmEssenceLog(essenceDataObject);
             }
         }
     }

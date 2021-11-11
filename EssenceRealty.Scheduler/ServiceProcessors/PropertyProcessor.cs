@@ -13,7 +13,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 {
     public class PropertyProcessor
     {
-        public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items)
+        public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items, string endPointURL)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                             }
                         }
                         Property objProperty = new();
-                        objProperty = ExtractPropertyData(item);
+                        objProperty = ExtractPropertyData(item, endPointURL);
                         objProperty.Country = lstCountry.Find(x => x.CrmCountryId == objProperty.CountryId);
                         objProperty.Photo = lstPropertyPhotos;
                         objProperty.Suburb = lstSubHurbs.Find(x => x.CrmSuburbId == objProperty.SuburbId);
@@ -108,7 +108,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 throw;
             }
         }
-        private Property ExtractPropertyData(JToken item)
+        private Property ExtractPropertyData(JToken item, string endPointURL)
         {
             return new()
             {
@@ -126,10 +126,10 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 Status = item["status"]?.ToString(),
                 YearBuilt = checkNullForInt(item["yearBuilt"]?.ToString()),
                 Stories = 0,//item["stories"]
-                ReceptionRooms = checkNullForInt(item["ReceptionRooms"]?.ToString()),
-                VolumeNumber = item["VolumeNumber"]?.ToString(),
-                SaleLifeId = checkNullForInt(item["SaleLifeId"]?.ToString()),
-                LeaseLifeId = checkNullForInt(item["LeaseLifeId"]?.ToString()),
+                ReceptionRooms = checkNullForInt(item["receptionRooms"]?.ToString()),
+                VolumeNumber = item["volumeNumber"]?.ToString(),
+                SaleLifeId = checkNullForInt(item["saleLifeId"]?.ToString()),
+                LeaseLifeId = checkNullForInt(item["leaseLifeId"]?.ToString()),
                 IsActive = true,
                 IsDeleted = false,
                 Inserted = Convert.ToDateTime(item["inserted"]),
@@ -145,11 +145,14 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
                 Accuracy = item["geolocation"]["accuracy"]?.ToString(),
                 PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
-                CreatedBy = "ContactStaffProcessor",
+                CreatedBy = ERConstants.PROPERTY_PROCESSOR,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
-                ModifieldBy = "ContactStaffProcessor"
-            };
+                ModifieldBy = ERConstants.PROPERTY_PROCESSOR,
+                PropertyTranasctionType = endPointURL.Contains("sale/available") == true ? "SALE"
+                                    : endPointURL.Contains("sale/sold") == true ? "SOLD"
+                                    : endPointURL.Contains("lease") == true ? "LEASE" : ""
+        };
         }
         private Country ExtractCountryData(JToken address)
         {
