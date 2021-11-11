@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EssenceRealty.Data.Identity.Contract;
 using EssenceRealty.Data.Identity.Models;
+using EssenceRealty.Scheduler.Helper;
+using Serilog;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
@@ -44,7 +46,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex.Message);
                 throw;
             }
         }
@@ -93,6 +95,8 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         .Where(x => x != null && x.CrmContactStaffId > 0).ToList()
                         .GroupBy(elem => elem.CrmContactStaffId)
                         .Select(group => group.First()).ToList());
+
+            await AddRegistredUser(scope, lstContactStaff);
         }
         public async Task UpsertPhoneNumberData(IServiceScope scope, List<PhoneNumber> lstPhoneNumber)
         {
@@ -114,7 +118,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     LastName = item.LastName,
                     Email = item.Email,
                     UserName = item.Email,
-                    Password = $"{item.FirstName}_{item.Email}"
+                    Password = $"{item.FirstName.FirstCharToUpper()}@123"
                 };
                 try
                 {

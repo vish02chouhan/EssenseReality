@@ -1,11 +1,12 @@
+using EssenceRealty.Data.Identity;
 using EssenceRealty.Repository;
 using EssenceRealty.Scheduler.Configurations;
-using EssenceRealty.Scheduler.ExternalServices;
 using EssenceRealty.Scheduler.Services;
-using EssenceRealty.Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 
 namespace EssenceRealty.Scheduler
@@ -14,6 +15,15 @@ namespace EssenceRealty.Scheduler
     {
         public static void Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json")
+           .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -30,6 +40,7 @@ namespace EssenceRealty.Scheduler
                     //      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
                     services.AddPersistenceServices(hostContext.Configuration);
+                    services.AddIdentityServices(hostContext.Configuration);
 
                     services.AddVaultApiClient(options => {
                         options.BaseAddress = hostContext.Configuration.GetSection("VaultCrmService:Url").Value;
@@ -40,6 +51,7 @@ namespace EssenceRealty.Scheduler
 
                     services.AddSingleton<VaultCrmProcessor, VaultCrmProcessor>();
                     services.AddSingleton<LogTransactionProcessor, LogTransactionProcessor>();
+           
                     services.AddHostedService<Worker>();
                 });
     }

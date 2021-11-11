@@ -95,7 +95,7 @@ namespace EssenceRealty.Data.Identity.Service
                 }
                 else
                 {
-                    throw new Exception($"{result.Errors}");
+                    throw new Exception(Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors));
                 }
             }
             else

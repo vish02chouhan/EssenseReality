@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace EssenceRealty.Scheduler
 {
@@ -29,14 +30,14 @@ namespace EssenceRealty.Scheduler
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(5));
+            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(60));
             return Task.CompletedTask;
         }
 
         private async void OnTimer(object state)
         {
-            _logger.LogInformation("OnTimer event called");
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            Log.Information("OnTimer event called");
+            Log.Information("Worker running at: {time}", DateTimeOffset.Now);
 
             Guid batchUniqueId = Guid.NewGuid();
             await vaultCrmProcessor.StartProcessing(batchUniqueId);
@@ -46,14 +47,14 @@ namespace EssenceRealty.Scheduler
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("StopAsync Called");
+            Log.Information("StopAsync Called");
             _timer.Change(Timeout.Infinite, 0);
             return Task.CompletedTask;
         }
 
         public void Dispose()
         {
-            _logger.LogInformation("Dispose Called");
+             Log.Information("Dispose Called");
             _timer?.Dispose();
         }
 
