@@ -45,6 +45,7 @@ namespace EssenceRealty.Domain.Models
         public int CountryId { get; set; }
         public Country Country { get; set; }
         public int SuburbId { get; set; }
+        public string SoiUrl { get; set; }
         public Suburb Suburb { get; set; }
         public string Accuracy { get; set; }
         public double? Latitude { get; set; }

@@ -172,6 +172,11 @@ namespace EssenceRealty.Repository.Repositories
                query = _dbContext.Properties.Where(x => propertySearchRequestViewModel.PropertyTypeId.Contains(x.PropertyTypeId));
             }
 
+            if (propertySearchRequestViewModel.PropertyTransactionType != null)
+            {
+                query = _dbContext.Properties.Where(x => propertySearchRequestViewModel.PropertyTransactionType.Contains(x.PropertyTranasctionType));
+            }
+
             if (propertySearchRequestViewModel.BedsMin != null && propertySearchRequestViewModel.BedsMax != null)
             {
                 query = query.Where(x => x.Bed >= propertySearchRequestViewModel.BedsMin && x.Bed <= propertySearchRequestViewModel.BedsMax);

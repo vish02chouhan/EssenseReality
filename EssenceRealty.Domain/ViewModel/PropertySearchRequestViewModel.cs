@@ -14,6 +14,6 @@ namespace EssenceRealty.Domain.ViewModels
         public float? PriceMin { get; set; }
         public float? PriceMax { get; set; }
         public string SearchText { get; set; }
-
+        public string[] PropertyTransactionType { get; set; }
     }
 }

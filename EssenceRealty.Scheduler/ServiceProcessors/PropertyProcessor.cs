@@ -115,6 +115,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 Id = 0,
                 CrmPropertyId = checkNullForInt(item["id"]?.ToString()),
                 DisplayAddress = item["displayAddress"]?.ToString(),
+                SoiUrl = item["soiUrl"]?.ToString(),
                 Bath = checkNullForInt(item["bath"]?.ToString()),
                 Bed = checkNullForInt(item["bed"]?.ToString()),
                 Carports = checkNullForInt(item["carports"]?.ToString()),

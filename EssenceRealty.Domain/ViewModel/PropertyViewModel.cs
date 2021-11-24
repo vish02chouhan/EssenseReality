@@ -29,6 +29,7 @@ namespace EssenceRealty.Domain.ViewModels
         public string UnitNumber { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
+        public string SoiUrl { get; set; }
         public CountryViewModel Country { get; set; }
         public SuburbViewModel Suburb { get; set; }
         public string Accuracy { get; set; }
