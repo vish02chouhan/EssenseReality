@@ -8,6 +8,7 @@ namespace EssenceRealty.Domain.ViewModels
         public IEnumerable<FloorPlanFilesViewModel> FloorPlanFiles { get; set; }
         public string Description { get; set; }
         public int PropertyId { get; set; }
+        public bool IsActive { get; set; }
     }
 
 }

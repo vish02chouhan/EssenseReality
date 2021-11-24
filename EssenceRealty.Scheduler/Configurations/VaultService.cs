@@ -23,5 +23,14 @@ namespace EssenceRealty.Scheduler.Configurations
         public bool IsRequiredToProcess { get; set; }
         public string[] Urls { get; set; }
         public int RunsOnDay { get; set; }
+        public QueryString QueryString { get; set; }
+    }
+
+    public class QueryString
+    {
+        public bool Enable { get; set; }   
+        public List<string> Sale { get; set; }
+        public List<string> Lease { get; set; }
+        public List<string> PublishedOnPortals { get; set; }
     }
 }

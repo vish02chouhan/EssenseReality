@@ -48,7 +48,7 @@ namespace EssenceRealty.Scheduler.Services
                     {
                         try
                         {
-                            await SaveData(url, guid, essenceMainObject.Name);
+                            await SaveData(url, guid, essenceMainObject.Name, essenceMainObject.QueryString);
                         }
                         catch (Exception)
                         {
@@ -65,18 +65,24 @@ namespace EssenceRealty.Scheduler.Services
             }
         }
 
-        public async Task SaveData(string url, Guid guid, string objectTypeName)
+        public async Task SaveData(string url, Guid guid, string objectTypeName, QueryString queryString = null)
         {
-            int pageNumber = 1;
-            string urlNameForDb = url;
+            int pageNumber = 1;        
+
             url = url + "?pagesize=" + pageSize;
+
+            if (objectTypeName == EssenceObjectTypes.Property.ToString() && queryString.Enable )
+            {
+                url = GenerateQueryString(url, queryString);
+            }
+      
 
             using var scope = serviceProvider.CreateScope();
             var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
 
             while (!string.IsNullOrEmpty(url))
             {
-                              
+
                 var data = await vaultApiClient.GetEssenceData(url);
                 JObject json = JObject.Parse(data);
                 JArray items = (JArray)json["items"];
@@ -86,7 +92,7 @@ namespace EssenceRealty.Scheduler.Services
                     ProcessingGroupId = guid,
                     JsonObjectBatch = json["items"].ToString(),
                     JsonObjectBatchItems = items.Count,
-                    EndPointUrl = urlNameForDb,
+                    EndPointUrl = url,
                     RecivedDateTime = DateTime.Now,
                     ProcessedDateTime = null,
                     PageNumber = pageNumber,
@@ -94,12 +100,39 @@ namespace EssenceRealty.Scheduler.Services
                     Status = LogTransactionStatus.Pending,
                     EssenceObjectTypes = (EssenceObjectTypes)Enum.Parse(typeof(EssenceObjectTypes), objectTypeName, true),
                 };
-               
+
                 await essenceLogRepo.AddCrmEssenceLog(crmEssenceLog);
 
                 pageNumber++;
                 url = json["urls"]["next"].ToString();
             }
+        }
+
+        private static string GenerateQueryString(string url, QueryString queryString)
+        {
+
+                if (url.Contains("/lease/"))
+                {
+                    if (queryString.Lease != null && queryString.Lease.Count > 0)
+                    {
+                        url += "&status=" + string.Join(",", queryString.Lease);
+                    }
+
+                }
+                else if (url.Contains("/sale/"))
+                {
+                    if (queryString.Sale != null && queryString.Sale.Count > 0)
+                    {
+                        url += "&status=" + string.Join(",", queryString.Sale);
+                    }
+                }
+
+                if (queryString.PublishedOnPortals != null && queryString.PublishedOnPortals.Count > 0)
+                {
+                    url += "&publishedOnPortals=" + string.Join(",", queryString.PublishedOnPortals);
+                }
+
+            return url;
         }
     }
 }
