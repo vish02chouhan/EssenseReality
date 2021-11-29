@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
+using Microsoft.Extensions.Options;
 
 namespace EssenceRealty.Scheduler
 {
@@ -17,20 +18,23 @@ namespace EssenceRealty.Scheduler
         private readonly ILogger<Worker> _logger;
         private readonly VaultCrmProcessor vaultCrmProcessor;
         private readonly LogTransactionProcessor logTransactionProcessor;
+        private readonly VaultServicesConfig vaultServicesConfig;
         private Timer _timer;
 
         public Worker(ILogger<Worker> logger,
             VaultCrmProcessor vaultCrmProcessor,
-            LogTransactionProcessor logTransactionProcessor)
+            LogTransactionProcessor logTransactionProcessor,
+            IOptions<VaultServicesConfig> vaultServicesConfig)
         {
             _logger = logger;
             this.vaultCrmProcessor = vaultCrmProcessor;
             this.logTransactionProcessor = logTransactionProcessor;
+            this.vaultServicesConfig = vaultServicesConfig.Value;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(60));
+            _timer = new Timer(OnTimer, cancellationToken, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(vaultServicesConfig.SchedulerInterval));
             return Task.CompletedTask;
         }
 

@@ -14,6 +14,7 @@ namespace EssenceRealty.Scheduler.Configurations
         public int PageSize { get; set; }
 
         public int Priority { get; set; }
+        public int SchedulerInterval { get; set; }
         public EssenceMainObject[] EssenceMainObject { get; set; }
     }
 
