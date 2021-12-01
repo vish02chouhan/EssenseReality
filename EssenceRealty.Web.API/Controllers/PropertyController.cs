@@ -38,8 +38,6 @@ namespace EssenceRealty.Web.API.Controllers
         {
             var result = await propertyRepository.GelAll();
 
-            var result1 = await photoRepository.GetByIdAsync(1);
-
             var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result);
 
             return Ok(new EssenceResponse<IEnumerable<PropertyViewModel>>
