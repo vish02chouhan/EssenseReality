@@ -1,4 +1,5 @@
-﻿using EssenceRealty.Domain.Models;
+﻿using EssenceRealty.Domain.Enums;
+using EssenceRealty.Domain.Models;
 
 namespace EssenceRealty.Domain.ViewModels
 {

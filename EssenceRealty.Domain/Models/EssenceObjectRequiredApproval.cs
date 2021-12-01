@@ -1,4 +1,6 @@
-﻿namespace EssenceRealty.Domain.Models
+﻿using EssenceRealty.Domain.Enums;
+
+namespace EssenceRealty.Domain.Models
 {
     public class EssenceObjectRequiredApproval : WhoFields
     {

@@ -21,13 +21,15 @@ namespace EssenceRealty.Web.API.Controllers
 
         private readonly ILogger<PropertyController> _logger;
         private readonly IPropertyRepository propertyRepository;
+        private readonly IPhotoRepository photoRepository;
         private readonly IMapper mapper;
 
         public PropertyController(ILogger<PropertyController> logger, IPropertyRepository propertyRepository,
-            IMapper mapper)
+           IPhotoRepository photoRepository, IMapper mapper)
         {
             _logger = logger;
             this.propertyRepository = propertyRepository;
+            this.photoRepository = photoRepository;
             this.mapper = mapper;
         }
 
@@ -35,6 +37,8 @@ namespace EssenceRealty.Web.API.Controllers
         public async Task<ActionResult<EssenceResponse<IEnumerable<PropertyViewModel>>>> GetAll()
         {
             var result = await propertyRepository.GelAll();
+
+            var result1 = await photoRepository.GetByIdAsync(1);
 
             var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result);
 
