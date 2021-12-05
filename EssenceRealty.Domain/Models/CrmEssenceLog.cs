@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EssenceRealty.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 

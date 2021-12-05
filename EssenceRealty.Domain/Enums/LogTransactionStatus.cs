@@ -1,4 +1,4 @@
-﻿namespace EssenceRealty.Domain.Models
+﻿namespace EssenceRealty.Domain.Enums
 {
     public enum LogTransactionStatus
     {

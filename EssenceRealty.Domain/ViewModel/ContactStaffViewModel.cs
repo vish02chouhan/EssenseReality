@@ -19,6 +19,11 @@ namespace EssenceRealty.Domain.ViewModels
         public DateTime? Modified { get; set; }
         public string Thumb_360PhotoURL { get; set; }
         public string OriginalPhotoURL { get; set; }
+        public string About { get; set; }
+        public string Specialities { get; set; }
+        public string FacebookProfile { get; set; }
+        public string InstagramProfile { get; set; }
+        public string LinkedinProfile { get; set; }
         public ICollection<PhoneNumberViewModel> PhoneNumbers { get; set; }
 
     }
