@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using EssenceRealty.Domain.Enums;
 
 namespace EssenceRealty.Scheduler.Services
 {

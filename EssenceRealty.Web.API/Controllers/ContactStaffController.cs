@@ -73,6 +73,23 @@ namespace EssenceRealty.Web.API.Controllers
                 Data = contactStaffViewModelResult
             });
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<EssenceResponse<ContactStaffViewModel>>> Post(ContactStaffViewModel contactStaffViewModel)
+        {
+
+            var contactStaff = mapper.Map<ContactStaff>(contactStaffViewModel);
+
+            await contactStaffRepository.UpdateAsync(contactStaff);
+
+            var contactStaffViewModelResult = mapper.Map<ContactStaffViewModel>(contactStaff);
+
+            return Ok(new EssenceResponse<ContactStaffViewModel>
+            {
+                Data = contactStaffViewModelResult
+            });
+        }
     }
   
 }

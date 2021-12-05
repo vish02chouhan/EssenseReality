@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EssenceRealty.Domain.Enums;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
@@ -152,11 +153,30 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 ModifieldBy = ERConstants.PROPERTY_PROCESSOR,
-                PropertyTranasctionType = endPointURL.Contains("sale/available") == true ? "SALE"
-                                    : endPointURL.Contains("sale/sold") == true ? "SOLD"
-                                    : endPointURL.Contains("lease") == true ? "LEASE" : ""
-        };
+                PropertyTranasctionType = CalculateStatus(endPointURL, item["status"]?.ToString())
+            };
         }
+
+        public string CalculateStatus(string endPointURL, string status)
+        {
+            if (endPointURL.Contains("/sale"))
+            {
+                return status.ToString().ToUpper() == PropertyStatus.UnConditional.ToString().ToUpper()
+                    ? PropertTransactionType.Sold.ToString()
+                    : PropertTransactionType.Sale.ToString();
+
+            }
+
+            else if ((endPointURL.Contains("/lease")))
+            {
+                return status.ToString().ToUpper() == PropertyStatus.Appraisal.ToString().ToUpper() ? PropertTransactionType.Leased.ToString()
+                    : PropertTransactionType.Lease.ToString();
+
+            }
+
+            return string.Empty;         
+        }
+
         private Country ExtractCountryData(JToken address)
         {
             Country objCountry = JsonConvert.DeserializeObject<Country>(address.ToString());

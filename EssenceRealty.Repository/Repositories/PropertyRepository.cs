@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EssenceRealty.Domain.ViewModels;
+using EssenceRealty.Domain.Enums;
 
 namespace EssenceRealty.Repository.Repositories
 {

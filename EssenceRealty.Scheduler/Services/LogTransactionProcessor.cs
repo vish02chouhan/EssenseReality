@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using EssenceRealty.Scheduler.ServiceProcessors;
+using EssenceRealty.Domain.Enums;
 
 namespace EssenceRealty.Scheduler.Services
 {
