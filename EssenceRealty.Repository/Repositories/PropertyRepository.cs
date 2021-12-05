@@ -55,7 +55,6 @@ namespace EssenceRealty.Repository.Repositories
             var propertiestoDelete = _dbContext.Properties.Where(x => x.CrmPropertyId > 0 && x.IsActive == true && !lstVaultPropertyId.Contains(x.CrmPropertyId)).ToList();
             if (propertiestoDelete.Count > 0)
             {
-                //var properties = _dbContext.Properties.Where(x => lstVaultPropertyId.Contains(x.CrmPropertyId));
                 propertiestoDelete.ForEach(x => x.IsActive = false);
                 _dbContext.Properties.UpdateRange(propertiestoDelete);
                 await _dbContext.SaveChangesAsync();
@@ -110,7 +109,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IEnumerable<Property>> GelAll()
         {
-          var data = await  _dbContext.Properties
+          var data = await  _dbContext.Properties.Where(x => x.IsActive == true)
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
@@ -178,7 +177,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IEnumerable<Property>> SearchAsync(PropertySearchRequest propertySearchRequestViewModel)
         {
-            IQueryable<Property> query = _dbContext.Properties;
+            IQueryable<Property> query = _dbContext.Properties.Where(x => x.IsActive == true);
 
             if (propertySearchRequestViewModel.PropertyTypeId != null)
             {

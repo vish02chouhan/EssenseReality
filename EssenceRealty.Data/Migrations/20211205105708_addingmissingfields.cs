@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class sourlAdded : Migration
+    public partial class addingmissingfields : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,11 @@ namespace EssenceRealty.Data.Migrations
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Thumb_360PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginalPhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Specialities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacebookProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InstagramProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LinkedinProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
