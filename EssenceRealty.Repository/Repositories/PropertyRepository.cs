@@ -50,6 +50,17 @@ namespace EssenceRealty.Repository.Repositories
             }
         }
 
+        public async Task UpdatePropertyNotExistsInCRM(List<int?> lstVaultPropertyId)
+        {
+            var propertiestoDelete = _dbContext.Properties.Where(x => x.CrmPropertyId > 0 && x.IsActive == true && !lstVaultPropertyId.Contains(x.CrmPropertyId)).ToList();
+            if (propertiestoDelete.Count > 0)
+            {
+                propertiestoDelete.ForEach(x => x.IsActive = false);
+                _dbContext.Properties.UpdateRange(propertiestoDelete);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
         private async Task UpsertPropertyNeedApproval(List<int?> lstPropertyIds, List<Property> lstProperty)
         {
             var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))
@@ -98,7 +109,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IEnumerable<Property>> GelAll()
         {
-          var data = await  _dbContext.Properties
+          var data = await  _dbContext.Properties.Where(x => x.IsActive == true)
                        .Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
@@ -166,7 +177,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async Task<IEnumerable<Property>> SearchAsync(PropertySearchRequest propertySearchRequestViewModel)
         {
-            IQueryable<Property> query = _dbContext.Properties;
+            IQueryable<Property> query = _dbContext.Properties.Where(x => x.IsActive == true);
 
             if (propertySearchRequestViewModel.PropertyTypeId != null)
             {

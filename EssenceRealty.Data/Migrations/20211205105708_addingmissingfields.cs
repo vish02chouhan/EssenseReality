@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EssenceRealty.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class addingmissingfields : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,11 @@ namespace EssenceRealty.Data.Migrations
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Thumb_360PhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OriginalPhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Specialities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacebookProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InstagramProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LinkedinProfile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -475,12 +480,14 @@ namespace EssenceRealty.Data.Migrations
                     StreetNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     SuburbId = table.Column<int>(type: "int", nullable: false),
+                    SoiUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Accuracy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: true),
                     Longitude = table.Column<double>(type: "float", nullable: true),
                     Inserted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsAdminUpdated = table.Column<bool>(type: "bit", nullable: false),
+                    PropertyTranasctionType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifieldBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -543,6 +550,7 @@ namespace EssenceRealty.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

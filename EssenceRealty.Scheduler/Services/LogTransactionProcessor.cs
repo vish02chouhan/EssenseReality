@@ -45,6 +45,7 @@ namespace EssenceRealty.Scheduler.Services
             using var scope = serviceProvider.CreateScope();
             var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
             IList<CrmEssenceLog> essenceDataObjects = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
+            List<int?> lstVaultPropertyId = new();
             foreach (var essenceDataObject in essenceDataObjects)
             {
                 try
@@ -71,7 +72,7 @@ namespace EssenceRealty.Scheduler.Services
                             break;
                         case EssenceObjectTypes.Property:
                             PropertyProcessor propertyProcessor = new();
-                            await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray, essenceDataObject.EndPointUrl);
+                            lstVaultPropertyId.AddRange(await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray, essenceDataObject.EndPointUrl));
                             await GetPropertFeatureFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor);
                             break;
                         default:
@@ -102,6 +103,16 @@ namespace EssenceRealty.Scheduler.Services
 
                 }
             }
+            if(lstVaultPropertyId.Count > 0)
+            {
+                await UpdatePropertyNotExistsInCRM(lstVaultPropertyId);
+            }
+        }
+
+        private async Task UpdatePropertyNotExistsInCRM(List<int?> lstVaultPropertyId)
+        {
+            PropertyProcessor propertyProcessor = new();
+            await propertyProcessor.UpdatePropertyNotExistsInCRM(this.serviceProvider , lstVaultPropertyId);
         }
 
         private async Task GetPropertFeatureFromCRM(JArray items, Guid processingGroupId, VaultCrmProcessor vaultCrmProcessor)
