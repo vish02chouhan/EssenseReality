@@ -49,6 +49,18 @@ namespace EssenceRealty.Repository.Repositories
             }
         }
 
+        public async Task UpdatePropertyNotExistsInCRM(List<int?> lstVaultPropertyId)
+        {
+            var propertiestoDelete = _dbContext.Properties.Where(x => x.CrmPropertyId > 0 && x.IsActive == true && !lstVaultPropertyId.Contains(x.CrmPropertyId)).ToList();
+            if (propertiestoDelete.Count > 0)
+            {
+                //var properties = _dbContext.Properties.Where(x => lstVaultPropertyId.Contains(x.CrmPropertyId));
+                propertiestoDelete.ForEach(x => x.IsActive = false);
+                _dbContext.Properties.UpdateRange(propertiestoDelete);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
         private async Task UpsertPropertyNeedApproval(List<int?> lstPropertyIds, List<Property> lstProperty)
         {
             var lstDBPropertyDetails = _dbContext.Properties.Where(x => lstPropertyIds.Contains(x.CrmPropertyId))

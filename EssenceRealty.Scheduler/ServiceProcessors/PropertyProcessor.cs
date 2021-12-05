@@ -13,7 +13,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 {
     public class PropertyProcessor
     {
-        public async Task ProcessPropertyData(IServiceProvider serviceProvider, JArray items, string endPointURL)
+        public async Task<List<int?>> ProcessPropertyData(IServiceProvider serviceProvider, JArray items, string endPointURL)
         {
             try
             {
@@ -100,7 +100,9 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     await contactStaffProcessor.UpsertContactStaffData(scope, lstContactStaff);
                     await contactStaffProcessor.UpsertPhoneNumberData(scope, lstPhoneNumbers);
                     await UpsertPropertyContactStaffData(scope, lstProperty);
+                    return lstProperty.Select(x => x.CrmPropertyId).ToList();
                 }
+                return new List<int?>();
             }
             catch (Exception ex)
             {
@@ -232,6 +234,12 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             }
             return Convert.ToDouble(value);
         }
-         
+        public async Task UpdatePropertyNotExistsInCRM(IServiceProvider serviceProvider, List<int?> lstVaultPropertyId)
+        {
+
+            using var scope = serviceProvider.CreateScope();
+            var propertyRepo = scope.ServiceProvider.GetRequiredService<IPropertyRepository>();
+            await propertyRepo.UpdatePropertyNotExistsInCRM(lstVaultPropertyId);
+        }
     }
 }

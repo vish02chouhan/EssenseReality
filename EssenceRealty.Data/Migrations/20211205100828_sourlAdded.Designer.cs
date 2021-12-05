@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211108064337_dbchanges")]
-    partial class dbchanges
+    [Migration("20211205100828_sourlAdded")]
+    partial class sourlAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -407,6 +407,9 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
@@ -644,6 +647,9 @@ namespace EssenceRealty.Data.Migrations
                     b.Property<string>("ModifieldBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PropertyTranasctionType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
 
@@ -655,6 +661,9 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<float?>("SearchPrice")
                         .HasColumnType("real");
+
+                    b.Property<string>("SoiUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");

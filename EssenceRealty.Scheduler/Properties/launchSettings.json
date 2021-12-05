@@ -4,7 +4,9 @@
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development",
+        "VAULT_API_KEY": "2YlnaCvpeL63JTNtjOyG55GYcKNwfpbZ1qwYIWSa",
+        "VAULT_BEARER_TOKEN": "fkyqnqciqnpxkdaxvyddwojnnvxnepqaspcxmooh"
       }
     }
   }
