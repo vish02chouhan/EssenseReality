@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EssenceRealty.Data.Identity.Contract;
 using EssenceRealty.Data.Identity.Models;
-using EssenceRealty.Scheduler.Helper;
 using Serilog;
+using EssenceRealty.Domain.Helper;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
