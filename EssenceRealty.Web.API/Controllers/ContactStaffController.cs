@@ -78,10 +78,14 @@ namespace EssenceRealty.Web.API.Controllers
         [Authorize]
         public async Task<ActionResult<EssenceResponse<ContactStaffViewModel>>> Post(ContactStaffViewModel contactStaffViewModel)
         {
+            if(contactStaffViewModel == null || contactStaffViewModel.Id > 0)
+            {
+                return BadRequest();
+            }
 
             var contactStaff = mapper.Map<ContactStaff>(contactStaffViewModel);
 
-            await contactStaffRepository.UpdateAsync(contactStaff);
+            await contactStaffRepository.AddAsync(contactStaff);
 
             var contactStaffViewModelResult = mapper.Map<ContactStaffViewModel>(contactStaff);
 
