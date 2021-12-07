@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EssenceRealty.Scheduler.Helper
+namespace EssenceRealty.Domain.Helper
 {
     public static class StringExtensions
     {
