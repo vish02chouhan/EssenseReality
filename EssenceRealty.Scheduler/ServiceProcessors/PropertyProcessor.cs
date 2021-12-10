@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EssenceRealty.Domain.Enums;
+using System.Reflection;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
@@ -45,27 +46,28 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                         List<Photo> lstPropertyPhotos = new();
                         List<ContactStaff> lstPropertyContactStaffs = new();
 
-                        if (item != null && item["address"].HasValues && item["address"]["country"].HasValues)
+                        dynamic data = JsonConvert.DeserializeObject(item.ToString());
+                        if (data != null && data.address != null && data.address.country != null)
                         {
-                            lstCountry.Add(ExtractCountryData(item["address"]["country"]));
+                            lstCountry.Add(ExtractCountryData(data.address.country));
                         }
-                        if (item != null && item["photos"].HasValues)
+                        if (data != null && data.photos != null)
                         {
-                            foreach (var photo in item["photos"])
+                            foreach (var photo in data.photos)
                             {
-                                lstPropertyPhotos.Add(ExtractPhotoData(photo, checkNullForInt(item["id"]?.ToString())));
+                                lstPropertyPhotos.Add(ExtractPhotoData(photo, checkNullForInt(data.id?.ToString())));
                             }
                         }
-                        if (item != null && item["contactStaff"].HasValues)
+                        if (data != null && data.contactStaff != null)
                         {
-                            foreach (var contactStaff in item["contactStaff"])
+                            foreach (var contactStaff in data.contactStaff)
                             {
-                                if (!lstPropertyContactStaffs.Exists(x => x.CrmContactStaffId.ToString() == contactStaff["id"].ToString()))
+                                if (!lstPropertyContactStaffs.Exists(x => x.CrmContactStaffId.ToString() == contactStaff.id.ToString()))
                                 {
                                     List<PhoneNumber> lstPhnNumber = new();
-                                    foreach (var phoneNumber in contactStaff["phoneNumbers"])
+                                    foreach (var phoneNumber in contactStaff.phoneNumbers)
                                     {
-                                        lstPhnNumber.Add(contactStaffProcessor.ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(contactStaff["id"])));
+                                        lstPhnNumber.Add(contactStaffProcessor.ExtractPhoneNumberData(phoneNumber, Convert.ToInt32(contactStaff.id)));
                                     }
                                     ContactStaff objContactStaff = contactStaffProcessor.ExtractContactStaffData(contactStaff);
                                     objContactStaff.PhoneNumbers = lstPhnNumber;
@@ -113,48 +115,28 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         }
         private Property ExtractPropertyData(JToken item, string endPointURL)
         {
-            return new()
+            try
             {
-                Id = 0,
-                CrmPropertyId = checkNullForInt(item["id"]?.ToString()),
-                DisplayAddress = item["displayAddress"]?.ToString(),
-                SoiUrl = item["soiUrl"]?.ToString(),
-                Bath = checkNullForInt(item["bath"]?.ToString()),
-                Bed = checkNullForInt(item["bed"]?.ToString()),
-                Carports = checkNullForInt(item["carports"]?.ToString()),
-                FloorAreaValue = checkNullForInt(item["floorArea"]["value"]?.ToString()),
-                FloorAreaUnit = item["floorArea"]["units"]?.ToString(),
-                SearchPrice = (float)checkNullForDouble(item["searchPrice"]?.ToString()),
-                DisplayPrice = (float)checkNullForDouble(item["displayPrice"]?.ToString()),
-                Description = item["description"]?.ToString(),
-                Status = item["status"]?.ToString(),
-                YearBuilt = checkNullForInt(item["yearBuilt"]?.ToString()),
-                Stories = 0,//item["stories"]
-                ReceptionRooms = checkNullForInt(item["receptionRooms"]?.ToString()),
-                VolumeNumber = item["volumeNumber"]?.ToString(),
-                SaleLifeId = checkNullForInt(item["saleLifeId"]?.ToString()),
-                LeaseLifeId = checkNullForInt(item["leaseLifeId"]?.ToString()),
-                IsActive = true,
-                IsDeleted = false,
-                Inserted = Convert.ToDateTime(item["inserted"]),
-                Modified = Convert.ToDateTime(item["modified"]),
-                IsAdminUpdated = false,
-                CountryId = checkNullForInt(item["address"]["country"]["id"]?.ToString()),
-                Level = item["address"]["level"]?.ToString(),
-                Street = item["address"]["street"]?.ToString(),
-                StreetNumber = item["address"]["streetNumber"]?.ToString(),
-                SuburbId = checkNullForInt(item["address"]["suburb"]["id"]?.ToString()),
-                UnitNumber = item["address"]["unitNumber"]?.ToString(),
-                Latitude = checkNullForDouble(item["geolocation"]["latitude"]?.ToString()),
-                Longitude = checkNullForDouble(item["geolocation"]["longitude"]?.ToString()),
-                Accuracy = item["geolocation"]["accuracy"]?.ToString(),
-                PropertyTypeId = checkNullForInt(item["type"]["id"]?.ToString()),
-                CreatedBy = ERConstants.PROPERTY_PROCESSOR,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                ModifieldBy = ERConstants.PROPERTY_PROCESSOR,
-                PropertyTranasctionType = CalculateStatus(endPointURL, item["status"]?.ToString())
-            };
+                JsonProcessor<Property> objJsonProcessor = new();
+                Property objProperty = (Property)objJsonProcessor.ExtractData<Property>(item);
+                objProperty.CrmPropertyId = objProperty.Id;
+                objProperty.Id = 0;
+                dynamic data = JsonConvert.DeserializeObject(item.ToString());
+                objProperty.CountryId = checkNullForInt(data.address.country.id?.ToString());
+                objProperty.SuburbId = checkNullForInt(data.address.suburb.id?.ToString());
+                objProperty.FloorAreaUnit = data.floorArea.units?.ToString();
+                objProperty.FloorAreaValue = checkNullForInt(data.floorArea.value?.ToString());
+                objProperty.IsActive = true;
+                objProperty.PropertyTypeId = checkNullForInt(data.type.id?.ToString());
+                objProperty.PropertyTranasctionType = CalculateStatus(endPointURL, data.status?.ToString());
+                objProperty.CreatedBy = ERConstants.PROPERTY_PROCESSOR;
+                objProperty.ModifieldBy = ERConstants.PROPERTY_PROCESSOR;
+                return objProperty;
+            }
+            catch (Exception ew)
+            {
+                throw ew;
+            }
         }
 
         public string CalculateStatus(string endPointURL, string status)
@@ -183,8 +165,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             objCountry.CrmCountryId = objCountry.Id;
             objCountry.Id = 0;
             objCountry.CreatedBy = ERConstants.PROPERTY_PROCESSOR;
-            objCountry.CreatedDate = DateTime.Now;
-            objCountry.ModifiedDate = DateTime.Now;
             objCountry.ModifieldBy = ERConstants.PROPERTY_PROCESSOR;
             return objCountry;
         }
@@ -197,8 +177,6 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
             objPhoto.Thumb1024 = photo["thumbnails"]["thumb_1024"]?.ToString();
             objPhoto.Thumb180 = photo["thumbnails"]["thumb_180"]?.ToString();
             objPhoto.CreatedBy = ERConstants.PROPERTY_PROCESSOR;
-            objPhoto.CreatedDate = DateTime.Now;
-            objPhoto.ModifiedDate = DateTime.Now;
             objPhoto.ModifieldBy = ERConstants.PROPERTY_PROCESSOR;
             return objPhoto;
         }
