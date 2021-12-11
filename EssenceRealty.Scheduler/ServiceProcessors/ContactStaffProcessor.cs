@@ -52,41 +52,24 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
         }
         public ContactStaff ExtractContactStaffData(JToken item)
         {
-            return new()
-            {
-                Id = 0,
-                CrmContactStaffId = Convert.ToInt32(item["id"]),
-                //AdminAccess = null,
-                Email = item["email"]?.ToString(),
-                FirstName = item["firstName"]?.ToString(),
-                Inserted = null,
-                //LastLogin = null,
-                LastName = item["lastName"]?.ToString(),
-                Modified = null,
-                Position = item["position"]?.ToString(),
-                Role = item["role"]?.ToString(),
-                StaffTypeId = 0,
-                Username = null,
-                WebsiteUrl = null,
-                OriginalPhotoURL = item["photo"].SelectToken("original")?.ToString(),
-                Thumb_360PhotoURL = item["photo"].SelectToken("thumb_360")?.ToString(),
-                CreatedBy = ERConstants.CONTACTSTAFF_PROCESSOR,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                ModifieldBy = ERConstants.CONTACTSTAFF_PROCESSOR
-            };
-
+            JsonProcessor<ContactStaff> objJsonProcessor = new();
+            ContactStaff objContactStaff = (ContactStaff)objJsonProcessor.ExtractData<ContactStaff>(item);
+            objContactStaff.CrmContactStaffId = objContactStaff.Id;
+            objContactStaff.Id = 0;
+            dynamic data = JsonConvert.DeserializeObject(item.ToString());
+            objContactStaff.OriginalPhotoURL = data.photo.original?.ToString();
+            objContactStaff.Thumb_360PhotoURL = data.photo.thumb_360?.ToString();
+            objContactStaff.CreatedBy = ERConstants.CONTACTSTAFF_PROCESSOR;
+            objContactStaff.ModifieldBy = ERConstants.CONTACTSTAFF_PROCESSOR;
+            return objContactStaff;
         }
         public PhoneNumber ExtractPhoneNumberData(JToken item, int ContactStaffId)
         {
-            return new()
-            {
-                Id = 0,
-                ContactStaffId = ContactStaffId,
-                Number = item["number"]?.ToString(),
-                Type = item["type"]?.ToString(),
-                TypeCode = item["typeCode"]?.ToString()
-            };
+            JsonProcessor<PhoneNumber> objJsonProcessor = new();
+            PhoneNumber objPhoneNumber = (PhoneNumber)objJsonProcessor.ExtractData<PhoneNumber>(item);
+            objPhoneNumber.Id = 0;
+            objPhoneNumber.ContactStaffId = ContactStaffId;
+            return objPhoneNumber;
         }
         public async Task UpsertContactStaffData(IServiceScope scope, List<ContactStaff> lstContactStaff)
         {

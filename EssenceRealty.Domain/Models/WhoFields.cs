@@ -8,9 +8,9 @@ namespace EssenceRealty.Domain.Models
 {
    public abstract class WhoFields
     {
-        public string CreatedBy { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public string CreatedBy { get; set; } 
+        public DateTime? CreatedDate { get; set; } = System.DateTime.Now;
         public string ModifieldBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; } = System.DateTime.Now;
     }
 }

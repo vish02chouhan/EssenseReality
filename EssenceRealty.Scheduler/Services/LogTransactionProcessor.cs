@@ -74,6 +74,7 @@ namespace EssenceRealty.Scheduler.Services
                             PropertyProcessor propertyProcessor = new();
                             lstVaultPropertyId.AddRange(await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray, essenceDataObject.EndPointUrl));
                             await GetPropertFeatureFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor);
+                            await GetOpenHomeFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor, essenceDataObject.EndPointUrl);
                             break;
                         default:
                             break;
@@ -134,6 +135,39 @@ namespace EssenceRealty.Scheduler.Services
                 await objPropertyFeaturesProcessor.ProcessPropertyFeaturesData(serviceProvider, essenceDataObjectArray, crmPropertyId);
                 essenceDataObject.Status = LogTransactionStatus.Processed;
                 await essenceLogRepo.UpdateCrmEssenceLog(essenceDataObject);
+            }
+        }
+
+        private async Task GetOpenHomeFromCRM(JArray items, Guid processingGroupId, VaultCrmProcessor vaultCrmProcessor, string endPointURL)
+        {
+            foreach (var item in items)
+            {
+                dynamic data = JsonConvert.DeserializeObject(item.ToString());
+                
+                PropertyProcessor objPropertyProcessor = new();
+                string propertyTranasctionType = objPropertyProcessor.CalculateStatus(endPointURL, data.status?.ToString());
+                if (propertyTranasctionType.ToUpper() != PropertTransactionType.Sold.ToString().ToUpper())
+                {
+                    int? lifeID = propertyTranasctionType.ToUpper() == PropertTransactionType.Sale.ToString().ToUpper() ? data.saleLifeId : data.leaseLifeId;
+                    int crmPropertyId = Convert.ToInt32(data.id);
+
+                    string openHomeUrl = this.vaultServicesConfig.Value.EssenceMainObject
+                                                .Where(x => x.Name == "OpenHome")
+                                                .Select(y => y.Urls).FirstOrDefault().FirstOrDefault().ToString()
+                                                .Replace("propertyId", crmPropertyId.ToString());
+                    openHomeUrl = openHomeUrl.Replace("propertyTransactionType", propertyTranasctionType.ToLower());
+                    openHomeUrl = openHomeUrl.Replace("lifeId", lifeID.ToString());
+
+                    await vaultCrmProcessor.SaveData(openHomeUrl, processingGroupId, "OpenHome");
+                    using var scope = serviceProvider.CreateScope();
+                    var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
+                    CrmEssenceLog essenceDataObject = await essenceLogRepo.GetOpenHomeJson(processingGroupId, crmPropertyId);
+                    JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
+                    OpenHomeProcessor objOpenHomeProcessor = new();
+                    await objOpenHomeProcessor.ProcessOpenHomeData(serviceProvider, essenceDataObjectArray, crmPropertyId);
+                    essenceDataObject.Status = LogTransactionStatus.Processed;
+                    await essenceLogRepo.UpdateCrmEssenceLog(essenceDataObject);
+                }
             }
         }
     }

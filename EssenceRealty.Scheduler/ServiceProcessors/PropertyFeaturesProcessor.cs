@@ -61,32 +61,22 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 
         public PropertyFeatureGrouping ExtractPropertyFeatureGroupingData(JToken item)
         {
-            return new()
-            {
-                Id = 0,
-                GroupName = item["groupName"]?.ToString(),
-                GroupDisplayName = item["groupDisplayName"]?.ToString(),
-                CreatedBy = ERConstants.PROPERTY_FEATURE_PROCESSOR,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                ModifieldBy = ERConstants.PROPERTY_FEATURE_PROCESSOR
-            };
+            JsonProcessor<PropertyFeatureGrouping> objJsonProcessor = new();
+            PropertyFeatureGrouping objPropertyFeature = (PropertyFeatureGrouping)objJsonProcessor.ExtractData<PropertyFeatureGrouping>(item);
+            objPropertyFeature.Id = 0;
+            objPropertyFeature.CreatedBy = ERConstants.PROPERTY_FEATURE_PROCESSOR;
+            objPropertyFeature.ModifieldBy = ERConstants.PROPERTY_FEATURE_PROCESSOR;
+            return objPropertyFeature;
         }
         public PropertyFeature ExtractPropertyFeatureData(JToken item)
         {
-            return new()
-            {
-                Id = 0,
-                Name = item["name"]?.ToString(),
-                DisplayName = item["displayName"]?.ToString(),
-                DataType = item["dataType"]?.ToString(),
-                Data = item["data"]?.ToString(),
-                PropertyFeatureGroupingId = 0,
-                CreatedBy = ERConstants.PROPERTY_FEATURE_PROCESSOR,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                ModifieldBy = ERConstants.PROPERTY_FEATURE_PROCESSOR
-            };
+            JsonProcessor <PropertyFeature> objJsonProcessor = new();
+            PropertyFeature objPropertyFeature = (PropertyFeature)objJsonProcessor.ExtractData<PropertyFeature>(item);
+            objPropertyFeature.Id = 0;
+            objPropertyFeature.PropertyFeatureGroupingId = 0;
+            objPropertyFeature.CreatedBy = ERConstants.PROPERTY_FEATURE_PROCESSOR;
+            objPropertyFeature.ModifieldBy = ERConstants.PROPERTY_FEATURE_PROCESSOR;
+            return objPropertyFeature;
         }
         public async Task UpsertPropertyFeatureGroupingData(IServiceScope scope, List<PropertyFeatureGrouping> lstPropertyFeatureGrouping)
         {

@@ -55,5 +55,6 @@ namespace EssenceRealty.Domain.Models
         public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
         public string PropertyTranasctionType { get; set; }
+        public ICollection<OpenHome> OpenHome { get; set; }
     }
 }

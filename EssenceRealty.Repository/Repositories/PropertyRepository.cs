@@ -117,6 +117,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .Include(x => x.OpenHome)
                        .ToListAsync();
             foreach (var item in data)
             {
@@ -136,6 +137,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .Include(x => x.OpenHome)
                        .AsNoTracking().SingleOrDefaultAsync();
 
             if (data != null)
@@ -164,6 +166,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .Include(x => x.OpenHome)
                        .SingleOrDefaultAsync();
 
             if (data != null)
@@ -232,6 +235,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .Include(x => x.OpenHome)
                        .ToListAsync();
 
             foreach (var item in data)

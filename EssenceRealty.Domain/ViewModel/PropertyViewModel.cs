@@ -36,5 +36,6 @@ namespace EssenceRealty.Domain.ViewModels
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string PropertyTranasctionType { get; set; }
+        public ICollection<OpenHomeViewModel> OpenHome { get; set; }
     }
 }
