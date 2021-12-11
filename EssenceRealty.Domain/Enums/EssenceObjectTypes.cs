@@ -7,6 +7,7 @@
         Suburbs,
         PropertyType,
         PropertyClass,
-        PropertyFeatures
+        PropertyFeatures,
+        OpenHome
     }
 }

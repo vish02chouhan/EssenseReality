@@ -35,6 +35,7 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(IPropertyFeaturePropertyRepository), typeof(PropertyFeaturePropertyRepository));
             services.AddScoped(typeof(IEnquiryRepository), typeof(EnquiryRepository));
             services.AddScoped(typeof(IFloorPlanRepository), typeof(FloorPlanRepository));
+            services.AddScoped(typeof(IOpenHomeRepository), typeof(OpenHomeRepository));
 
             return services;
         }

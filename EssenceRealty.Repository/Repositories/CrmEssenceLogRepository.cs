@@ -34,6 +34,13 @@ namespace EssenceRealty.Repository.Repositories
                                        && x.Retry < 3 && x.EndPointUrl.Contains(crmPropertyId.ToString())
                                        && x.EssenceObjectTypes == EssenceObjectTypes.PropertyFeatures);
         }
+        public async Task<CrmEssenceLog> GetOpenHomeJson(Guid processingGroupId, int crmPropertyId)
+        {
+            return await GetAsync(x => x.ProcessingGroupId == processingGroupId &&
+                                       (x.Status == LogTransactionStatus.Pending || x.Status == LogTransactionStatus.Failed)
+                                       && x.Retry < 3 && x.EndPointUrl.Contains(crmPropertyId.ToString())
+                                       && x.EssenceObjectTypes == EssenceObjectTypes.OpenHome);
+        }
         public async Task<int> UpdateCrmEssenceLog(CrmEssenceLog crmEssenceLog)
         {
              _dbContext.Update(crmEssenceLog);
