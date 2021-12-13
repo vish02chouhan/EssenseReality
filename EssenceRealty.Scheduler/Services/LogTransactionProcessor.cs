@@ -44,14 +44,16 @@ namespace EssenceRealty.Scheduler.Services
 
             using var scope = serviceProvider.CreateScope();
             var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
+
             IList<CrmEssenceLog> essenceDataObjects = await essenceLogRepo.GetCrmEssenceLog(processingGroupId);
             List<int?> lstVaultPropertyId = new();
+
             foreach (var essenceDataObject in essenceDataObjects)
             {
                 try
                 {
-                    JArray essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
-                    // JArray items = (JArray)json["items"];
+                    var essenceDataObjectArray = JArray.Parse(essenceDataObject.JsonObjectBatch);
+
                     switch (essenceDataObject.EssenceObjectTypes)
                     {
                         case EssenceObjectTypes.Suburbs:
@@ -73,7 +75,9 @@ namespace EssenceRealty.Scheduler.Services
                         case EssenceObjectTypes.Property:
                             PropertyProcessor propertyProcessor = new();
                             lstVaultPropertyId.AddRange(await propertyProcessor.ProcessPropertyData(serviceProvider, essenceDataObjectArray, essenceDataObject.EndPointUrl));
+
                             await GetPropertFeatureFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor);
+
                             await GetOpenHomeFromCRM(essenceDataObjectArray, processingGroupId, vaultCrmProcessor, essenceDataObject.EndPointUrl);
                             break;
                         default:
@@ -93,10 +97,8 @@ namespace EssenceRealty.Scheduler.Services
                         CreatedBy = "ProcessLogData",
                         ErrorDescription = ex.Message,
                         JsonObject = essenceDataObject.JsonObjectBatch,
-                        //Retry = item.Retry + 1,
                         EssenceObjectTypes = essenceDataObject.EssenceObjectTypes,
                         CrmEssenceLogId = essenceDataObject.Id,
-                        //Status = LogTransactionStatus.Failed,
                         CrmEssenceLog = essenceDataObject
                     };
                     var essenceTransactionRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceTransactionRepository>();

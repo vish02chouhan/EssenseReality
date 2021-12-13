@@ -68,7 +68,7 @@ namespace EssenceRealty.Scheduler.Services
 
         public async Task SaveData(string url, Guid guid, string objectTypeName, QueryString queryString = null)
         {
-            int pageNumber = 1;        
+            var pageNumber = 1;        
 
             url = url + "?pagesize=" + pageSize;
 
@@ -77,16 +77,14 @@ namespace EssenceRealty.Scheduler.Services
                 url = GenerateQueryString(url, queryString);
             }
       
-
             using var scope = serviceProvider.CreateScope();
             var essenceLogRepo = scope.ServiceProvider.GetRequiredService<ICrmEssenceLogRepository>();
 
             while (!string.IsNullOrEmpty(url))
             {
-
                 var data = await vaultApiClient.GetEssenceData(url);
-                JObject json = JObject.Parse(data);
-                JArray items = (JArray)json["items"];
+                var json = JObject.Parse(data);
+                var items = (JArray)json["items"];
 
                 CrmEssenceLog crmEssenceLog = new()
                 {

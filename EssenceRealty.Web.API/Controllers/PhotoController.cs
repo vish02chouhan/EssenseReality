@@ -32,8 +32,7 @@ namespace EssenceRealty.Web.API.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly EssenceApiConfig essenceApiConfig;
 
-        public PhotoController(ILogger<PhotoController> logger, IPhotoRepository PhotoRepository,
-                                IMapper mapper, IOptions<EssenceApiConfig> config, IWebHostEnvironment environment)
+        public PhotoController(ILogger<PhotoController> logger, IPhotoRepository PhotoRepository, IMapper mapper, IOptions<EssenceApiConfig> config, IWebHostEnvironment environment)
         {
             _logger = logger;
             this.PhotoRepository = PhotoRepository;

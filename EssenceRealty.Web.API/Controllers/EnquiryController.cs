@@ -43,12 +43,14 @@ namespace EssenceRealty.Web.API.Controllers
         [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll(int pageNumber, int pageSize)
         {
+            var enquiryCount = enquiryRepository.GetCount();
             var result = await enquiryRepository.GetPagedReponseAsync(pageNumber, pageSize);
             var enquiryViewModel = mapper.Map<IEnumerable<EnquiryViewModel>>(result);
 
-            return Ok(new EssenceResponse<IEnumerable<EnquiryViewModel>>
+            return Ok(new EssencePaginationResponse<IEnumerable<EnquiryViewModel>>
             {
-                Data = enquiryViewModel
+                Data = enquiryViewModel,
+                TotalCount = await enquiryCount
             });
         }
 

@@ -14,5 +14,6 @@ namespace EssenceRealty.Repository.IRepositories
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size);
+        Task<int> GetCount();
     }
 }

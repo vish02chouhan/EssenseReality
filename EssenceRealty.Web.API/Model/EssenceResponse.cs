@@ -8,9 +8,4 @@ namespace EssenceRealty.Web.API.Model
 
         public List<string> Message { get; set; }
     }
-
-    public class ERConfiguration
-    {
-        public string ERImagePath { get; set; }
-    }
 }
