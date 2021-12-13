@@ -24,6 +24,7 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<PropertyFeatureGrouping, PropertyFeatureGroupingViewModel>();
             CreateMap<Enquiry, EnquiryViewModel>();
             CreateMap<EssenceObjectRequiredApproval, EssenceObjectRequiredApprovalViewModel>();
+            CreateMap<OpenHome, OpenHomeViewModel>();
 
 
 
@@ -42,6 +43,7 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<PhoneNumberViewModel, PhoneNumber>();
             CreateMap<EnquiryViewModel, Enquiry>();
             CreateMap<EssenceObjectRequiredApprovalViewModel, EssenceObjectRequiredApproval>();
+            CreateMap<OpenHomeViewModel, OpenHome>();
 
         }   
     }

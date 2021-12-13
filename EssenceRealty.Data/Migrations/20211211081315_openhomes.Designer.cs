@@ -4,14 +4,16 @@ using EssenceRealty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    partial class EssenceRealtyContextModelSnapshot : ModelSnapshot
+    [Migration("20211211081315_openhomes")]
+    partial class openhomes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -706,9 +708,6 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<long?>("ReceptionRooms")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("ReferenceID")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SaleLifeId")
                         .HasColumnType("int");

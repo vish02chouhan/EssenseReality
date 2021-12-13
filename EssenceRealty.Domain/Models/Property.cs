@@ -8,6 +8,7 @@ namespace EssenceRealty.Domain.Models
     {
         public int Id { get; set; }
         public int? CrmPropertyId { get; set; }
+        public string ReferenceID { get; set; }
         public string DisplayAddress { get; set; }
         public int? Bath { get; set; }
         public int? Bed { get; set; }
@@ -55,5 +56,6 @@ namespace EssenceRealty.Domain.Models
         public DateTime? Modified { get; set; }
         public bool IsAdminUpdated { get; set; }
         public string PropertyTranasctionType { get; set; }
+        public ICollection<OpenHome> OpenHome { get; set; }
     }
 }

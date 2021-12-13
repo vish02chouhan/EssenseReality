@@ -6,6 +6,7 @@ namespace EssenceRealty.Domain.ViewModels
     public class PropertyViewModel
     {
         public int Id { get; set; }
+        public string ReferenceID { get; set; }
         public string DisplayAddress { get; set; }
         public int Bath { get; set; }
         public int Bed { get; set; }
@@ -36,5 +37,6 @@ namespace EssenceRealty.Domain.ViewModels
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string PropertyTranasctionType { get; set; }
+        public ICollection<OpenHomeViewModel> OpenHome { get; set; }
     }
 }

@@ -8,5 +8,6 @@
         public static string CONTACTSTAFF_PROCESSOR = "ContactStaffProcessor";
         public static string PROPERTY_PROCESSOR = "PropertyProcessor";
         public static string PROPERTY_FEATURE_PROCESSOR = "PropertyFeatureProcessor";
+        public static string OPEN_HOME_PRROCESSOR = "OpenHomeProcessor";
     }
 }

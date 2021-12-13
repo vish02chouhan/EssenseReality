@@ -37,6 +37,7 @@ namespace EssenceRealty.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<PropertyContactStaff> PropertyContactStaffs { get; set; }
         public DbSet<PropertyFeatureProperty> PropertyFeatureProperties { get; set; }
+        public DbSet<OpenHome> OpenHomes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
