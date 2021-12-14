@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211211090602_refrenceID")]
-    partial class refrenceID
+    [Migration("20211214050543_dbnamechange")]
+    partial class dbnamechange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
