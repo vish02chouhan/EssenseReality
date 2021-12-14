@@ -51,19 +51,19 @@ namespace EssenceRealty.Domain.ViewModels
             builder.Append("TEL;TYPE=HOME:").AppendLine(PhoneNumbers.Where(x => x.TypeCode == "H").Select(x => x.Number).FirstOrDefault());
             builder.Append("TEL;TYPE=MOBILE:").AppendLine(PhoneNumbers.Where(x => x.TypeCode == "M").Select(x => x.Number).FirstOrDefault());
             builder.Append("URL:").AppendLine(WebsiteUrl);
-            builder.Append("EMAIL;TYPE=EMAIL").AppendLine(Email);
+            builder.Append("EMAIL;TYPE=EMAIL:").AppendLine(Email);
             builder.Append("socialProfile;TYPE=FACEBOOK:").AppendLine(FacebookProfile);
             builder.Append("socialProfile;TYPE=TWITTER:").AppendLine();
             builder.Append("socialProfile;TYPE=LINKEDIN:").AppendLine(LinkedinProfile);
             builder.Append("socialProfile;TYPE=GPLUS:").AppendLine();
             builder.Append("socialProfile;TYPE=INSTAGRAM:").AppendLine(InstagramProfile);
-            builder.Append("socialProfile;TYPE=YOUTUBE").AppendLine(Email);
+            builder.Append("socialProfile;TYPE=YOUTUBE:").AppendLine();
 
             using (WebClient webClient = new WebClient())
             {
-                byte[] data = webClient.DownloadData(OriginalPhotoURL);
+                byte[] data = webClient.DownloadData(Thumb_360PhotoURL);
                 builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:");
-                builder.AppendLine(Convert.ToBase64String(data));
+                builder.Append(Convert.ToBase64String(data));
                 builder.AppendLine(string.Empty);
             }
 

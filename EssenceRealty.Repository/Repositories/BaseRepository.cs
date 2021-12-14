@@ -35,6 +35,11 @@ namespace EssenceRealty.Repository.Repositories
             return await _dbContext.Set<T>().Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync();
         }
 
+        public async virtual Task<int> GetCount()
+        {
+            return await _dbContext.Set<T>().CountAsync();
+        }
+
         public async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
