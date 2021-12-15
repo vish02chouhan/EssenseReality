@@ -55,13 +55,13 @@ namespace EssenceRealty.Web.API.Controllers
         [HttpGet("{pageNumber}/{pageSize}")]
         public async Task<ActionResult<EssenceResponse<IEnumerable<SuburbViewModel>>>> Get(int pageNumber, int pageSize)
         {
-            var suburbsCount = subhurbRepository.GetCount();
+            var suburbsCount = await subhurbRepository.GetCount();
             var result = await subhurbRepository.GetPagedReponseAsync(pageNumber, pageSize);
 
             return Ok(new EssencePaginationResponse<IEnumerable<SuburbViewModel>>
             {
                 Data = mapper.Map<IEnumerable<SuburbViewModel>>(result), 
-                TotalCount = await suburbsCount
+                TotalCount =  suburbsCount
             });
         }
     }

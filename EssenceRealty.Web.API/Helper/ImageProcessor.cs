@@ -107,5 +107,45 @@ namespace EssenceRealty.Web.API.Helper
                 Url = fileFullPath.Replace(environment.WebRootPath,essenceApiConfig.ServerUrl).Replace("\\", "/"),
             };
         }
+
+        public static async Task<(string,string)> ProcessContactStaffImage(IFormFile formFile, int contactStaffId, EssenceApiConfig essenceApiConfig, IWebHostEnvironment environment)
+        {
+            var extension = Path.GetExtension(formFile.FileName);
+            var imageId = Guid.NewGuid().ToString().Replace("-", "");
+            string imageName = $"{imageId}{extension}";
+            var imagePath = Path.Combine(essenceApiConfig.ERContactStaffImagePath, contactStaffId.ToString());
+            var imageFullPath = Path.Combine(environment.WebRootPath, imagePath);
+
+            if (!Directory.Exists(imageFullPath))
+            {
+                Directory.CreateDirectory(imageFullPath);
+            }
+
+            var filePath = Path.Combine(imageFullPath, imageName);
+
+            using (var stream = File.Create(filePath))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            using var image = Image.FromStream(formFile.OpenReadStream());
+
+
+            var thumb180FilePath = Path.Combine(imageFullPath, essenceApiConfig.Thumb180);
+            if (!Directory.Exists(thumb180FilePath))
+            {
+                Directory.CreateDirectory(thumb180FilePath);
+            }
+            var thumb180 = image.GetThumbnailImage(180, 104, () => false, IntPtr.Zero);
+            var thumb180FilFullePath = Path.Combine(thumb180FilePath, imageName);
+            thumb180.Save(thumb180FilFullePath);
+
+            var orignalImageUrl = Path.Combine(essenceApiConfig.ServerUrl, imagePath, imageName);
+            var thumb180Url = Path.Combine(essenceApiConfig.ServerUrl, imagePath, essenceApiConfig.Thumb180, imageName);
+
+            return (thumb180Url.Replace("\\", "/"), orignalImageUrl.Replace("\\", "/"));
+
+        }
+
     }
 }
