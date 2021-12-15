@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EssenceRealty.Data.Migrations
 {
     [DbContext(typeof(EssenceRealtyContext))]
-    [Migration("20211207051845_init")]
+    [Migration("20211214045614_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -489,6 +489,44 @@ namespace EssenceRealty.Data.Migrations
                     b.ToTable("FloorPlanFiles");
                 });
 
+            modelBuilder.Entity("EssenceRealty.Domain.Models.OpenHome", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CrmOpenHomeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifieldBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("OpenHomes");
+                });
+
             modelBuilder.Entity("EssenceRealty.Domain.Models.PhoneNumber", b =>
                 {
                     b.Property<int>("Id")
@@ -670,6 +708,9 @@ namespace EssenceRealty.Data.Migrations
 
                     b.Property<long?>("ReceptionRooms")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("ReferenceID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SaleLifeId")
                         .HasColumnType("int");
@@ -1124,6 +1165,17 @@ namespace EssenceRealty.Data.Migrations
                         .HasForeignKey("FloorPlanId");
                 });
 
+            modelBuilder.Entity("EssenceRealty.Domain.Models.OpenHome", b =>
+                {
+                    b.HasOne("EssenceRealty.Domain.Models.Property", "Property")
+                        .WithMany("OpenHome")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
             modelBuilder.Entity("EssenceRealty.Domain.Models.PhoneNumber", b =>
                 {
                     b.HasOne("EssenceRealty.Domain.Models.ContactStaff", "ContactStaff")
@@ -1313,6 +1365,8 @@ namespace EssenceRealty.Data.Migrations
                     b.Navigation("EssenceObjectRequiredApproval");
 
                     b.Navigation("FloorPlan");
+
+                    b.Navigation("OpenHome");
 
                     b.Navigation("Photo");
 

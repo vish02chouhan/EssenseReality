@@ -62,8 +62,7 @@ namespace EssenceRealty.Domain.ViewModels
             using (WebClient webClient = new WebClient())
             {
                 byte[] data = webClient.DownloadData(Thumb_360PhotoURL);
-                builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:");
-                builder.Append(Convert.ToBase64String(data));
+                builder.AppendLine("PHOTO;ENCODING=BASE64;TYPE=JPEG:" + Convert.ToBase64String(data));
                 builder.AppendLine(string.Empty);
             }
 

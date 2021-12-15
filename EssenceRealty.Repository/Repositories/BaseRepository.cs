@@ -37,7 +37,7 @@ namespace EssenceRealty.Repository.Repositories
 
         public async virtual Task<int> GetCount()
         {
-            return await _dbContext.Set<T>().CountAsync();
+            return await _dbContext.Set<T>().AsNoTracking().CountAsync();
         }
 
         public async Task<T> AddAsync(T entity)

@@ -43,14 +43,14 @@ namespace EssenceRealty.Web.API.Controllers
         [Authorize]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll(int pageNumber, int pageSize)
         {
-            var enquiryCount = enquiryRepository.GetCount();
+            var enquiryCount = await enquiryRepository.GetCount();
             var result = await enquiryRepository.GetPagedReponseAsync(pageNumber, pageSize);
             var enquiryViewModel = mapper.Map<IEnumerable<EnquiryViewModel>>(result);
 
             return Ok(new EssencePaginationResponse<IEnumerable<EnquiryViewModel>>
             {
                 Data = enquiryViewModel,
-                TotalCount = await enquiryCount
+                TotalCount = enquiryCount
             });
         }
 
@@ -74,6 +74,7 @@ namespace EssenceRealty.Web.API.Controllers
             try
             {
                 var enquiry = mapper.Map<Enquiry>(enquiryViewModel);
+                enquiry.EnquiryDate = DateTime.Now;
 
                 await enquiryRepository.AddAsync(enquiry);
 
@@ -114,6 +115,21 @@ namespace EssenceRealty.Web.API.Controllers
             {
                 throw ex;
             }
+        }
+
+        [HttpPost("{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<EssencePaginationResponse<EnquiryViewModel>>> Post(int pageNumber, int pageSize, EnquirySearchRequest enquirySearchRequest)
+        {
+            var result = await enquiryRepository.SearchAsync(enquirySearchRequest, pageNumber, pageSize);
+
+            var enquiryViewModel = mapper.Map<IEnumerable<EnquiryViewModel>>(result.Item1);
+
+            return Ok(new EssencePaginationResponse<IEnumerable<EnquiryViewModel>>
+            {
+                Data = enquiryViewModel,
+                TotalCount = result.Item2
+            });
+
         }
     }
   

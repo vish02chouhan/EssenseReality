@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace EssenceRealty.Repository.IRepositories
 {
-    public interface IPropertyRepository:IAsyncRepository<Property>, IAsyncSearch<Property, PropertySearchRequest>
+    public interface IPropertyRepository:IAsyncRepository<Property>, IAsyncSearch<Property, int,PropertySearchRequest>
     {
         Task UpsertProperties(List<Property> lstProperty);
         Task<IEnumerable<Property>> GelAll();

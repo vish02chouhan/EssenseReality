@@ -15,6 +15,8 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
+
+
         public async Task UpsertPropertyContactStaffs(List<Property> lstProperty)
         {
             var lstPropertyIds = lstProperty.Select(x => x.CrmPropertyId);

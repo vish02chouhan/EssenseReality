@@ -43,7 +43,7 @@ namespace EssenceRealty.Web.API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<EssenceResponse<PhotoViewModel>>> Post(List<IFormFile> files,int PropertyId)
+        public async Task<ActionResult<EssenceResponse<PhotoViewModel>>> Post(List<IFormFile> files, int PropertyId)
         {
             long size = files.Sum(f => f.Length);
             List<PhotoViewModel> lstPhotoViewModel = new();
@@ -66,6 +66,7 @@ namespace EssenceRealty.Web.API.Controllers
                 Data = mapper.Map<List<PhotoViewModel>>(lstPhoto)
             });
         }
+
 
         [HttpDelete]
         [Authorize]

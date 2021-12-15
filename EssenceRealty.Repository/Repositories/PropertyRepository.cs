@@ -178,18 +178,18 @@ namespace EssenceRealty.Repository.Repositories
             return data;
         }
 
-        public async Task<IEnumerable<Property>> SearchAsync(PropertySearchRequest propertySearchRequestViewModel)
+        public async Task<(IEnumerable<Property>,int)> SearchAsync(PropertySearchRequest propertySearchRequestViewModel, int page, int size)
         {
             IQueryable<Property> query = _dbContext.Properties.Where(x => x.IsActive == true);
 
             if (propertySearchRequestViewModel.PropertyTypeId != null)
             {
-               query = _dbContext.Properties.Where(x => propertySearchRequestViewModel.PropertyTypeId.Contains(x.PropertyTypeId));
+                query = query.Where(x => propertySearchRequestViewModel.PropertyTypeId.Contains(x.PropertyTypeId));
             }
 
             if (propertySearchRequestViewModel.PropertyTransactionType != null)
             {
-                query = _dbContext.Properties.Where(x => propertySearchRequestViewModel.PropertyTransactionType.Contains(x.PropertyTranasctionType));
+                query = query.Where(x => propertySearchRequestViewModel.PropertyTransactionType.Contains(x.PropertyTranasctionType));
             }
 
             if (propertySearchRequestViewModel.BedsMin != null && propertySearchRequestViewModel.BedsMax != null)
@@ -228,24 +228,27 @@ namespace EssenceRealty.Repository.Repositories
                 query = query.Where(x => x.DisplayAddress.Contains(propertySearchRequestViewModel.SearchText));
             }
 
-            var data = await query.Include(x => x.Photo)
+            var data = query.Include(x => x.Photo)
                        .Include(x => x.Country)
                        .Include(x => x.Suburb)
                        .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
-                       .Include(x => x.OpenHome)
+                       .Include(x => x.OpenHome);
+
+            var dataCount = await data.CountAsync();
+            var actualData = await data.Skip((page - 1) * size).Take(size)
                        .ToListAsync();
 
-            foreach (var item in data)
+            foreach (var item in actualData)
             {
                 item.ContactStaff = item.PropertyContactStaffs.Select(x => x.ContactStaff).Distinct().ToList();
                 item.PropertyFeatureGrouping = item.PropertyFeatureProperties.Select(x => x.PropertyFeature.PropertyFeatureGrouping).Distinct().ToList();
 
             }
 
-            return data;
+            return (actualData, dataCount);
         }
 
         public async Task<Property> UpdateProperty(Property objProperty, bool isAdmin=false)

@@ -46,6 +46,21 @@ namespace EssenceRealty.Web.API.Controllers
             });
         }
 
+
+        [HttpGet("{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> GetAll(int pageNumber, int pageSize)
+        {
+            var propertyCount = await propertyRepository.GetCount();
+            var result = await propertyRepository.GetPagedReponseAsync(pageNumber, pageSize);
+            var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result);
+
+            return Ok(new EssencePaginationResponse<IEnumerable<PropertyViewModel>>
+            {
+                Data = propertyViewModel,
+                TotalCount = propertyCount
+            });
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<EssenceResponse<PropertyViewModel>>> Get(int id)
         {
@@ -77,16 +92,17 @@ namespace EssenceRealty.Web.API.Controllers
             });
         }
 
-        [HttpPost("search")]
-        public async Task<ActionResult<EssenceResponse<PropertyViewModel>>> Post(PropertySearchRequest propertySearchRequest)
+        [HttpPost("search/{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<EssencePaginationResponse<PropertyViewModel>>> Post(int pageNumber, int pageSize,PropertySearchRequest propertySearchRequest)
         {
-            var result = await propertyRepository.SearchAsync(propertySearchRequest);
+            var result = await propertyRepository.SearchAsync(propertySearchRequest, pageNumber, pageSize);
 
-            var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result);
+            var propertyViewModel = mapper.Map<IEnumerable<PropertyViewModel>>(result.Item1);
 
-            return Ok(new EssenceResponse<IEnumerable<PropertyViewModel>>
+            return Ok(new EssencePaginationResponse<IEnumerable<PropertyViewModel>>
             {
-                Data = propertyViewModel
+                Data = propertyViewModel,
+                TotalCount = result.Item2
             });
 
 

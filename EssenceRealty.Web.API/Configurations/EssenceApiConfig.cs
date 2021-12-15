@@ -8,6 +8,7 @@ namespace EssenceRealty.Web.API
     {
         public string ErFilePath { get; set; }
         public string ErImagePath { get; set; }
+        public string ERContactStaffImagePath { get; set; }
         public string Thumb1024 { get; set; }
         public string Thumb180 { get; set; }
         public string ServerUrl { get; set; }

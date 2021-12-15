@@ -53,11 +53,6 @@ namespace EssenceRealty.Web.API
                 options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "EssenceRealty.Web.API", Version = "v1" });
-            //});
-            
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -97,7 +92,7 @@ namespace EssenceRealty.Web.API
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "GloboTicket Ticket Management API",
+                    Title = "Essence Realty Management API",
 
                 });
 
