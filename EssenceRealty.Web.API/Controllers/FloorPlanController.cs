@@ -43,7 +43,7 @@ namespace EssenceRealty.Web.API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Post(List<IFormFile> files,int propertyId, string description)
+        public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Post(List<IFormFile> files,int propertyId, string description, bool isActive)
         {
            var existingFloorPlan = await  floorPlanRepository.GetByPropertyIdAsync(propertyId);
 
@@ -70,7 +70,8 @@ namespace EssenceRealty.Web.API.Controllers
             {
                 Description = description,
                 FloorPlanFiles = floorPlanFIles,
-                PropertyId = propertyId
+                PropertyId = propertyId,
+                IsActive = isActive
 
             };
 
@@ -109,7 +110,7 @@ namespace EssenceRealty.Web.API.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Put(List<IFormFile> files, int id, int propertyId, string description)
+        public async Task<ActionResult<EssenceResponse<FloorPlanViewModel>>> Put(List<IFormFile> files, int id, int propertyId, string description, bool isActive)
         {
             var existingFloorPlan = await floorPlanRepository.GetByIdAsync(id);
 
@@ -138,6 +139,7 @@ namespace EssenceRealty.Web.API.Controllers
             existingFloorPlan.Description = description;
             existingFloorPlan.FloorPlanFiles.AddRange(floorPlanFIles);
             existingFloorPlan.PropertyId = propertyId;
+            existingFloorPlan.IsActive = isActive;
 
             await floorPlanRepository.UpdateAsync(existingFloorPlan);
 

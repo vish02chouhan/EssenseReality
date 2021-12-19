@@ -29,9 +29,22 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<EssenceResponse<IEnumerable<PropertyTypeViewModel>>>> Get()
+        public async Task<ActionResult<EssenceResponse<IEnumerable<PropertyTypeViewModel>>>> GetAll()
         {
             var result = await propertyTypeRepository.ListAllAsync();
+
+            var propertyViewModel = mapper.Map<IEnumerable<PropertyTypeViewModel>>(result);
+
+            return Ok(new EssenceResponse<IEnumerable<PropertyTypeViewModel>>
+            {
+                Data = propertyViewModel
+            });
+        }
+
+        [HttpGet("propertyclass/{id}")]
+        public async Task<ActionResult<EssenceResponse<IEnumerable<PropertyTypeViewModel>>>> Get(int id)
+        {
+            var result = await propertyTypeRepository.GetManyAsync(x=> x.PropertyClass.Id == id);
 
             var propertyViewModel = mapper.Map<IEnumerable<PropertyTypeViewModel>>(result);
 
