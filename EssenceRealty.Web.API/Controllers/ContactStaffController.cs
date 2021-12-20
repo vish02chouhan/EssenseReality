@@ -77,6 +77,7 @@ namespace EssenceRealty.Web.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await contactStaffRepository.GetByIdAsync(id);
@@ -86,7 +87,7 @@ namespace EssenceRealty.Web.API.Controllers
             }
 
             var contactsProperty = await propertyContactStaffRepository.GetManyAsync(x => x.ContactStaffId == id);
-            if (contactsProperty != null || contactsProperty.Count > 0)
+            if (contactsProperty != null && contactsProperty.Count > 0)
             {
                 return BadRequest("Cannot delete. Properties exists for contact.");
             }

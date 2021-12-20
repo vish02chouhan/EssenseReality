@@ -16,6 +16,13 @@ namespace EssenceRealty.Repository.Repositories
         {
         }
 
+        public async override Task<IReadOnlyList<PropertyType>> ListAllAsync()
+        {
+
+            return await _dbContext.PropertyTypes.Include(x=>x.PropertyClass).ToListAsync();
+
+        }
+
         public async Task UpsertPropertyTypes(List<PropertyType> lstPropertyType)
         {
             var lstPropertyTypeIds = lstPropertyType.Select(x => x.CrmPropertyTypeId).Distinct().ToList();

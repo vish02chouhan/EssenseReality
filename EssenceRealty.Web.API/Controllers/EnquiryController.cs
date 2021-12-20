@@ -71,14 +71,18 @@ namespace EssenceRealty.Web.API.Controllers
         [HttpPost]
         public async Task<ActionResult<EssenceResponse<EnquiryViewModel>>> Post(EnquiryViewModel enquiryViewModel)
         {
+            string message = "";
             try
             {
+              
                 var enquiry = mapper.Map<Enquiry>(enquiryViewModel);
                 enquiry.EnquiryDate = DateTime.Now;
 
                 await enquiryRepository.AddAsync(enquiry);
 
+                message += "Data is successfully saved in database.";
                 var client = _clientFactory.CreateClient("vault");
+
 
                 var enquiryToVault = new
                 {
@@ -108,16 +112,26 @@ namespace EssenceRealty.Web.API.Controllers
 
                 return Ok(new EssenceResponse<EnquiryViewModel>
                 {
-                    Data = enquiryViewModelResult
+                    Data = enquiryViewModelResult,
+                    Message = new List<string> {message}
                 });
             }
             catch(Exception ex)
             {
-                throw ex;
+                if(message != string.Empty)
+                {
+                    message += "Error while sending enquiry to vault";
+                    return Ok(message);
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }        
             }
         }
 
         [HttpPost("{pageNumber}/{pageSize}")]
+        [Authorize]
         public async Task<ActionResult<EssencePaginationResponse<EnquiryViewModel>>> Post(int pageNumber, int pageSize, EnquirySearchRequest enquirySearchRequest)
         {
             var result = await enquiryRepository.SearchAsync(enquirySearchRequest, pageNumber, pageSize);
