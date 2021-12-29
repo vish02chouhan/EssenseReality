@@ -117,7 +117,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
-                       .Include(x => x.OpenHome)
+                       .Include(x => x.OpenHome.Where(y => y.End.Value.Date >= System.DateTime.Now.Date))
                        .ToListAsync();
             foreach (var item in data)
             {
@@ -137,7 +137,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
-                       .Include(x => x.OpenHome)
+                       .Include(x => x.OpenHome.Where(y => y.End.Value.Date >= System.DateTime.Now.Date))
                        .AsNoTracking().SingleOrDefaultAsync();
 
             if (data != null)
@@ -166,13 +166,34 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
-                       .Include(x => x.OpenHome)
+                       .Include(x => x.OpenHome.Where(y => y.End.Value.Date >= System.DateTime.Now.Date))
                        .SingleOrDefaultAsync();
 
             if (data != null)
             {
                 data.ContactStaff = data.PropertyContactStaffs.Select(x => x.ContactStaff).Distinct().ToList();
                 data.PropertyFeatureGrouping = data.PropertyFeatureProperties.Select(x => x.PropertyFeature.PropertyFeatureGrouping).Distinct().ToList();
+            }
+
+            return data;
+        }
+
+        public async override Task<IReadOnlyList<Property>> GetPagedReponseAsync(int page, int size)
+        {
+            var data = await _dbContext.Properties.Where(x => x.IsActive == true)
+                       .Include(x => x.Photo)
+                       .Include(x => x.Country)
+                       .Include(x => x.Suburb)
+                       .Include(x => x.FloorPlan).ThenInclude(y => y.FloorPlanFiles)
+                       .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
+                       .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
+                       .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
+                       .Include(x => x.OpenHome.Where(y => y.End.Value.Date >= System.DateTime.Now.Date))
+                       .Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync();
+            foreach (var item in data)
+            {
+                item.ContactStaff = item.PropertyContactStaffs.Select(x => x.ContactStaff).Distinct().ToList();
+                item.PropertyFeatureGrouping = item.PropertyFeatureProperties.Select(x => x.PropertyFeature.PropertyFeatureGrouping).Distinct().ToList();
             }
 
             return data;
@@ -235,7 +256,7 @@ namespace EssenceRealty.Repository.Repositories
                        .Include(x => x.PropertyType).ThenInclude(y => y.PropertyClass)
                        .Include(x => x.PropertyContactStaffs).ThenInclude(y => y.ContactStaff).ThenInclude(z => z.PhoneNumbers)
                        .Include(x => x.PropertyFeatureProperties).ThenInclude(y => y.PropertyFeature).ThenInclude(z => z.PropertyFeatureGrouping)
-                       .Include(x => x.OpenHome);
+                       .Include(x => x.OpenHome.Where(y => y.End.Value.Date >= System.DateTime.Now.Date));
 
             var dataCount = await data.CountAsync();
             var actualData = await data.Skip((page - 1) * size).Take(size)
