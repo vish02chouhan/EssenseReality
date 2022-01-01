@@ -11,10 +11,20 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
-    public class PropertyTypeProcessor
+    public class PropertyTypeProcessor:IProcessEssence
     {
-        public async Task ProcessPropertyTypeMasterData(IServiceProvider serviceProvider, JArray items)
+        private readonly IServiceProvider serviceProvider;
+        public PropertyTypeProcessor()
         {
+
+        }
+        PropertyTypeProcessor(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+        public async Task ProcessJsonData(CrmEssenceLog objCrmEssenceLog)
+        {
+            var items = JArray.Parse(objCrmEssenceLog.JsonObjectBatch);
             try
             {
                 var lstPropertyTypes = ExtractPropertyTypeData(items);
@@ -22,7 +32,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                 var lstPropertyClass = ExtractPropertyClassData(lstPropertyTypes);
 
                 using var scope = serviceProvider.CreateScope();
-                PropertyClassProcessor propertyClassProcessor = new();
+                PropertyClassProcessor propertyClassProcessor = new(this.serviceProvider);
                 await propertyClassProcessor.UpsertPropertyClassData(scope, lstPropertyClass);
                 await UpsertPropertyTypeData(scope, lstPropertyTypes);
             }

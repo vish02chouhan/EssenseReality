@@ -13,10 +13,20 @@ using System.Reflection;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
-    public class PropertyProcessor
+    public class PropertyProcessor:IProcessEssence
     {
-        public async Task<List<int?>> ProcessPropertyData(IServiceProvider serviceProvider, JArray items, string endPointURL)
+        private readonly IServiceProvider serviceProvider;
+        public PropertyProcessor()
         {
+
+        }
+        PropertyProcessor(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+        public async Task ProcessJsonData(CrmEssenceLog objCrmEssenceLog)
+        {
+            var items = JArray.Parse(objCrmEssenceLog.JsonObjectBatch);
             try
             {
                 if (items.HasValues)
@@ -30,7 +40,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
 
                     var suburbArray = new JArray();
                     suburbArray.Add(items.Children().Select(x => x["address"]["suburb"]));
-                    SuburbProcessor suburbProcessor = new();
+                    SuburbsProcessor suburbProcessor = new(this.serviceProvider);
                     var lstSubHurbs = suburbProcessor.ExtractSuburbStateData(suburbArray);
 
                     var propertTypeArray = new JArray();
@@ -39,7 +49,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     var lstpropertyType = propertTypeProcessor.ExtractPropertyTypeData(propertTypeArray);
                     var lstpropertClass = propertTypeProcessor.ExtractPropertyClassData(lstpropertyType);
 
-                    ContactStaffProcessor contactStaffProcessor = new();
+                    ContactsProcessor contactStaffProcessor = new(this.serviceProvider);
 
                     foreach (var item in items)
                     {
@@ -77,7 +87,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                             }
                         }
                         Property objProperty = new();
-                        objProperty = ExtractPropertyData(item, endPointURL);
+                        objProperty = ExtractPropertyData(item, objCrmEssenceLog.EndPointUrl);
                         objProperty.Country = lstCountry.Find(x => x.CrmCountryId == objProperty.CountryId);
                         objProperty.Photo = lstPropertyPhotos;
                         objProperty.Suburb = lstSubHurbs.Find(x => x.CrmSuburbId == objProperty.SuburbId);
@@ -92,7 +102,7 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     await suburbProcessor.UpsertStateData(scope, lstSubHurbs);
                     await suburbProcessor.UpsertSubhurbData(scope, lstSubHurbs);
 
-                    PropertyClassProcessor propertyClassProcessor = new();
+                    PropertyClassProcessor propertyClassProcessor = new(this.serviceProvider);
                     await propertyClassProcessor.UpsertPropertyClassData(scope, lstpropertClass);
                     
                     await propertTypeProcessor.UpsertPropertyTypeData(scope, lstpropertyType);
@@ -103,9 +113,9 @@ namespace EssenceRealty.Scheduler.ServiceProcessors
                     await contactStaffProcessor.UpsertContactStaffData(scope, lstContactStaff);
                     await contactStaffProcessor.UpsertPhoneNumberData(scope, lstPhoneNumbers);
                     await UpsertPropertyContactStaffData(scope, lstProperty);
-                    return lstProperty.Select(x => x.CrmPropertyId).ToList();
+                    //return lstProperty.Select(x => x.CrmPropertyId).ToList();
                 }
-                return new List<int?>();
+                //return new List<int?>();
             }
             catch (Exception ex)
             {

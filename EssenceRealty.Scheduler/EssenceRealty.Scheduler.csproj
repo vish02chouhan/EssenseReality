@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-EssenceRealty.Scheduler-3A69460E-A495-49FA-BC3F-7CDC14BE57D3</UserSecretsId>
-    <OutputType>exe</OutputType>
+    <!--<OutputType>Exe</OutputType>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>-->
   </PropertyGroup>
 
   <ItemGroup>

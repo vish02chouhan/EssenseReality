@@ -40,9 +40,9 @@ namespace EssenceRealty.Scheduler
             Log.Information("OnTimer event called");
             Log.Information("Worker running at: {time}", DateTimeOffset.Now);
 
-            Guid batchUniqueId = Guid.NewGuid();
-            await vaultCrmProcessor.StartProcessing(batchUniqueId);
-            await logTransactionProcessor.StartProcessing(batchUniqueId,vaultCrmProcessor); //Guid.Parse("13AD1F0E-87CA-4B7C-8189-113BC9636C74"));// batchUniqueId);
+            //Guid batchUniqueId = Guid.NewGuid();
+            //await vaultCrmProcessor.StartProcessing(batchUniqueId);
+            await logTransactionProcessor.StartProcessing(Guid.Parse("2f849ac7-6544-4bc7-82e6-aaad6dc46ff2"));// batchUniqueId);
 
         }
 

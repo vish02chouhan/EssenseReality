@@ -11,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
-    public class SuburbProcessor
+    public class SuburbsProcessor:IProcessEssence
     {
-        public async Task ProcessSubhurbMasterData(IServiceProvider serviceProvider, JArray items)
+        private readonly IServiceProvider serviceProvider;
+        public SuburbsProcessor(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
+        }
+        public async Task ProcessJsonData(CrmEssenceLog objCrmEssenceLog)
+        {
+            var items = JArray.Parse(objCrmEssenceLog.JsonObjectBatch);
             try
             {
                 var lstSubHurbs = ExtractSuburbStateData(items);

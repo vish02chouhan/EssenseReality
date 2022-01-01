@@ -1,6 +1,7 @@
 using EssenceRealty.Data.Identity;
 using EssenceRealty.Repository;
 using EssenceRealty.Scheduler.Configurations;
+using EssenceRealty.Scheduler.ServiceProcessors;
 using EssenceRealty.Scheduler.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +53,11 @@ namespace EssenceRealty.Scheduler
                     services.AddSingleton<VaultCrmProcessor, VaultCrmProcessor>();
 
                     services.AddSingleton<LogTransactionProcessor, LogTransactionProcessor>();
-           
+                    services.AddSingleton<IProcessEssence, SuburbsProcessor>();
+                    services.AddSingleton<IProcessEssence, PropertyTypeProcessor>();
+                    services.AddSingleton<IProcessEssence, PropertyClassProcessor>();
+                    services.AddSingleton<IProcessEssence, ContactsProcessor>();
+                    services.AddSingleton<IProcessEssence, PropertyProcessor>();
                     services.AddHostedService<Worker>();
                 });
     }

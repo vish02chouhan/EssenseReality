@@ -41,7 +41,7 @@ namespace EssenceRealty.Scheduler
             {
                 Guid batchUniqueId = Guid.NewGuid();
                 await vaultCrmProcessor.StartProcessing(batchUniqueId);
-                await logTransactionProcessor.StartProcessing(batchUniqueId,vaultCrmProcessor);
+                await logTransactionProcessor.StartProcessing(batchUniqueId);
 
                 System.Threading.Thread.Sleep(300000);
             }

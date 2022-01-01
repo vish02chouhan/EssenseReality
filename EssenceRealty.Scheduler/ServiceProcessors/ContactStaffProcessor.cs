@@ -15,10 +15,16 @@ using EssenceRealty.Domain.Helper;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
-    public class ContactStaffProcessor
+    public class ContactsProcessor:IProcessEssence
     {
-        public async Task ProcessContactStaffData(IServiceProvider serviceProvider, JArray items)
+        private readonly IServiceProvider serviceProvider;
+        public ContactsProcessor(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
+        }
+        public async Task ProcessJsonData(CrmEssenceLog objCrmEssenceLog)
+        {
+            var items = JArray.Parse(objCrmEssenceLog.JsonObjectBatch);
             try
             {
                 var marketingUser = items.SelectTokens("$..marketingUser");

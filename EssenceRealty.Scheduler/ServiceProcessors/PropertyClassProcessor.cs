@@ -11,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace EssenceRealty.Scheduler.ServiceProcessors
 {
-    public class PropertyClassProcessor
+    public class PropertyClassProcessor:IProcessEssence
     {
-        public async Task ProcessPropertyClassMasterData(IServiceProvider serviceProvider, JArray items)
+        private readonly IServiceProvider serviceProvider;
+        public PropertyClassProcessor(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
+        }
+        public async Task ProcessJsonData(CrmEssenceLog objCrmEssenceLog)
+        {
+            var items = JArray.Parse(objCrmEssenceLog.JsonObjectBatch);
             try
             {
                 var lstPropertyClass = ExtractPropertyClassData(items);
