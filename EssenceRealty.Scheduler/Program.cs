@@ -53,11 +53,11 @@ namespace EssenceRealty.Scheduler
                     services.AddSingleton<VaultCrmProcessor, VaultCrmProcessor>();
 
                     services.AddSingleton<LogTransactionProcessor, LogTransactionProcessor>();
-                    services.AddSingleton<IProcessEssence, SuburbsProcessor>();
-                    services.AddSingleton<IProcessEssence, PropertyTypeProcessor>();
-                    services.AddSingleton<IProcessEssence, PropertyClassProcessor>();
-                    services.AddSingleton<IProcessEssence, ContactsProcessor>();
-                    services.AddSingleton<IProcessEssence, PropertyProcessor>();
+                    services.AddTransient<IProcessEssence, SuburbsProcessor>();
+                    services.AddTransient<IProcessEssence, PropertyTypeProcessor>();
+                    services.AddTransient<IProcessEssence, PropertyClassProcessor>();
+                    services.AddTransient<IProcessEssence, ContactsProcessor>();
+                    services.AddTransient<IProcessEssence, PropertyProcessor>();
                     services.AddHostedService<Worker>();
                 });
     }
