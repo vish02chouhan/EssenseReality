@@ -16,10 +16,13 @@ namespace EssenceRealty.Repository
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                 .UseSqlServer(configuration.GetConnectionString("EssenceConnex")));
 
+
+
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(ICrmEssenceLogRepository), typeof(CrmEssenceLogRepository));
             services.AddScoped(typeof(ISubhurbRepository), typeof(SubhurbRepository));
             services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
+            services.AddScoped(typeof(IFeedbackRepository), typeof(FeedbackRepository));
             services.AddScoped(typeof(ICrmEssenceTransactionRepository), typeof(CrmEssenceTransactionRepository));
             services.AddScoped(typeof(IPropertyClassRepository), typeof(PropertyClassRepository));
             services.AddScoped(typeof(IPropertyTypeRepository), typeof(PropertyTypeRepository));

@@ -12,7 +12,7 @@ namespace EssenceRealty.Repository.Repositories
 {
     class CrmEssenceLogRepository : BaseRepository<CrmEssenceLog>, ICrmEssenceLogRepository
     {
-        public CrmEssenceLogRepository(EssenceRealtyContext dbContext) : base(dbContext)
+        public CrmEssenceLogRepository(string abc, EssenceRealtyContext dbContext) : base(dbContext)
         {
         }
 
