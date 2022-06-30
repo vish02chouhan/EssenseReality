@@ -33,6 +33,7 @@ namespace EssenceRealty.Web.API
             services.Configure<EssenceApiConfig>(Configuration.GetSection("ERConfiguration"));
 
             services.AddControllers();
+       
 
             services.AddPersistenceServices(Configuration);
             services.AddHttpClient("vault", options =>

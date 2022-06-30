@@ -7,7 +7,6 @@ namespace EssenceRealty.Domain.Models
 {
     public class State : WhoFields
     {
-
         public int Id { get; set; }
         public string Abbreviation { get; set; }
         public string Name { get; set; }

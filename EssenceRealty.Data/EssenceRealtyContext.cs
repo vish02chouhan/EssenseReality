@@ -27,6 +27,8 @@ namespace EssenceRealty.Data
         public DbSet<ContactStaff> ContactStaffs { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<FloorPlan> FloorPlans { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<FloorPlanFile> FloorPlanFiles { get; set; }
         public DbSet<Enquiry> Enquiries { get; set; }
         public DbSet<CrmEssenceLog> CrmEssenceLogs { get; set; }

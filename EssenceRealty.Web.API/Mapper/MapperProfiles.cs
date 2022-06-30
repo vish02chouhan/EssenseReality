@@ -12,6 +12,8 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<Property, PropertyViewModel>();
             CreateMap<Suburb, SuburbViewModel>();
             CreateMap<State, StateViewModel>();
+            CreateMap<Feedback, FeedbackViewModel>();
+            CreateMap<Subscription, SubscriptionViewModel>();
             CreateMap<Country, CountryViewModel>();
             CreateMap<PropertyType, PropertyTypeViewModel>();
             CreateMap<PropertyClass, PropertyClassViewModel>();
@@ -31,6 +33,8 @@ namespace EssenceRealty.Web.API.Mapper
             CreateMap<PropertyViewModel, Property>();
             CreateMap<SuburbViewModel, Suburb>();
             CreateMap<StateViewModel, State>();
+            CreateMap<FeedbackViewModel, Feedback>();
+            CreateMap<SubscriptionViewModel, Subscription>();
             CreateMap<CountryViewModel, Country>();
             CreateMap<PropertyTypeViewModel, PropertyType>();
             CreateMap<PropertyClassViewModel, PropertyClass>();

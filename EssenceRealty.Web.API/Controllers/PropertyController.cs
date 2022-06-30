@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using EssenceRealty.Domain.Exceptions;
 using EssenceRealty.Web.API.Model;
 using Microsoft.AspNetCore.Authorization;
+using EssenceRealty.Repository.Repositories;
 
 namespace EssenceRealty.Web.API.Controllers
 {
@@ -31,6 +32,7 @@ namespace EssenceRealty.Web.API.Controllers
             this.propertyRepository = propertyRepository;
             this.photoRepository = photoRepository;
             this.mapper = mapper;
+
         }
 
         [HttpGet]
