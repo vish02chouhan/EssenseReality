@@ -24,7 +24,7 @@ namespace EssenceRealty.Repository
             services.AddScoped(typeof(ISubhurbRepository), typeof(SubhurbRepository));
             services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
             services.AddScoped(typeof(IFeedbackRepository), typeof(FeedbackRepository));
-            services.AddScoped(typeof(ISubscriptionRepository), typeof(SubhurbRepository));
+            services.AddScoped(typeof(ISubscriptionRepository), typeof(SubscriptionRepository));
             services.AddScoped(typeof(ICrmEssenceTransactionRepository), typeof(CrmEssenceTransactionRepository));
             services.AddScoped(typeof(IPropertyClassRepository), typeof(PropertyClassRepository));
             services.AddScoped(typeof(IPropertyTypeRepository), typeof(PropertyTypeRepository));
